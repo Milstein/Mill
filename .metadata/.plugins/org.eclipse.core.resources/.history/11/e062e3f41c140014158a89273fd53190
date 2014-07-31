@@ -1,0 +1,58 @@
+package nineMensMorris;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.*;
+
+import javax.swing.*;
+
+public class NineMensMorris extends JPanel {
+
+	private static final long serialVersionUID = 1L;
+	
+	protected static JFrame frame;
+	
+	private static void initGUI() {
+        //Create and set up the window.
+        frame = new JFrame("Nine Men's Morris");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        //Menu Bar
+        JMenuBar menuBar = new JMenuBar();
+        menuBar.setOpaque(true);
+        menuBar.setBackground(new Color(100,100,100));
+        menuBar.setPreferredSize(new Dimension(400,20));
+        
+        //Content pane
+        NineMensMorris contentPane = new NineMensMorris();
+        contentPane.setBackground(new Color(255,255,255));
+        contentPane.setPreferredSize(new Dimension(600,600));
+        
+        //Add components
+        frame.setJMenuBar(menuBar);
+        frame.setContentPane(contentPane);
+
+        //Display the window.
+        frame.pack();
+        frame.setVisible(true);
+    }
+	
+	public NineMensMorris() {
+		NineGame game = new NineGame();
+		frame.setGlassPane(game);
+		
+	}
+	
+    public static void main(String[] args) {
+        //Schedule a job for the event-dispatching thread:
+        //creating and showing this application's GUI.
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                initGUI();
+            }
+        });
+    }
+
+}

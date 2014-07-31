@@ -1,0 +1,11 @@
+package nineMensMorris;
+
+
+public class Game extends JPanel {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+}

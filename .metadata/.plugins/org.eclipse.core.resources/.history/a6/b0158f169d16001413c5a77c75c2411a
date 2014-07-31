@@ -1,0 +1,17 @@
+TODO:
+-Make button icons
+-Implement buttons
+
+--------------------------------------------------------------------------------------------------
+
+Gameplay:
+-Nine Men's Morris on wikipedia
+
+Features:
+-Save game
+-Two player and ai
+-Three, six, nine, twelve men's morris? Seven, eleven?
+-Online???
+
+Main methods:
+-Repaint, every time a movement occurs: smooth animations? Highlighting on mouseover of possible moves?

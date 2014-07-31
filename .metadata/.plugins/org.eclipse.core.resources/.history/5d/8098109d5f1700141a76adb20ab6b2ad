@@ -1,0 +1,12 @@
+package nineMensMorris;
+
+public class NineGame extends Game {
+	
+	public NineGame() {
+		setDisplay(new NineGameDisplay());
+	}
+	
+	protected boolean clickPosition(int square, int location) {
+		return true;
+	}
+}

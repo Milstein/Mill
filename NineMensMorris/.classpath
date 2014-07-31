@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="images"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jre8/lib/rt.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

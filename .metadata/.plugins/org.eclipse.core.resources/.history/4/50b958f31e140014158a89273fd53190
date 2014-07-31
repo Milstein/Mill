@@ -1,0 +1,7 @@
+package nineMensMorris;
+
+import JPanel;
+
+public class Game extends JPanel {
+
+}

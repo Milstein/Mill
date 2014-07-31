@@ -1,0 +1,8 @@
+package nineMensMorris;
+
+public class NineGame extends Game {
+	
+	public NineGame() {
+		setDisplay(new NineGameDisplay(this));
+	}
+}

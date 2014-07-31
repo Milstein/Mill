@@ -1,0 +1,14 @@
+package nineMensMorris;
+
+public class Game {
+	private GameDisplay display;
+	
+	protected GameDisplay getDisplay() {
+		return display;
+	}
+	
+	protected Game setDisplay(GameDisplay nextDisplay) {
+		display = nextDisplay;
+		return this;
+	}
+}
