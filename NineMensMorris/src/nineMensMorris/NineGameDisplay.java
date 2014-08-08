@@ -13,7 +13,7 @@ public class NineGameDisplay extends GameDisplay implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	//Order: btl, btc, btr, bsl, bsr, bbl, bbc, bbr, mtl, mtc, mtr, msl, msr, mbl, mbc, mbr, stl, stc, str, ssl, ssr, sbl, sbc, sbr
-	protected IconButton[][] positionButtons;
+	protected SlotButton[][] positionButtons;
 	private Rectangle bigSquare, medSquare, lilSquare;
 	private NineGame game;
 	
@@ -31,10 +31,10 @@ public class NineGameDisplay extends GameDisplay implements ActionListener {
 		ImageIcon buttonSelected = new ImageIcon("images/ButtonSelected.png");
 		ImageIcon buttonFocused = new ImageIcon("images/ButtonFocused.png");
 		
-		positionButtons = new IconButton[3][8];
+		positionButtons = new SlotButton[3][8];
 		for (int i=0; i!=3; i++) {
 			for (int j=0; j!=8; j++) {
-				positionButtons[i][j] = new IconButton(buttonUnselected, buttonFocused, buttonSelected);
+				positionButtons[i][j] = new SlotButton(buttonUnselected, buttonFocused, buttonSelected);
 				add(positionButtons[i][j]);
 				positionButtons[i][j].setActionCommand(i+";"+j);
 				positionButtons[i][j].addActionListener(this);
@@ -84,13 +84,15 @@ public class NineGameDisplay extends GameDisplay implements ActionListener {
 		g2.draw(line);
 		line.setLine(lilSquare.getMaxX(), lilSquare.getCenterY(), bigSquare.getMaxX(), bigSquare.getCenterY());
 		g2.draw(line);
-		g.setColor(new Color(255, 246, 143));
-		g.fillOval(45,45,40,40);
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		int square = Integer.parseInt(e.getActionCommand().substring(0, e.getActionCommand().indexOf(";")));
 		int location = Integer.parseInt(e.getActionCommand().substring(e.getActionCommand().indexOf(";")+1, e.getActionCommand().length()));
 		game.clickPosition(square, location);
+	}
+
+	public void fillSlot(int square, int location, int player) {
+		positionButtons[square][location].setFilled(player);
 	}
 }
