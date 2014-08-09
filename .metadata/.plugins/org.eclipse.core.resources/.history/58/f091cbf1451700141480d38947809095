@@ -1,7 +1,0 @@
-package nineMensMorris;
-
-import JButton;
-
-public class IconButton extends JButton {
-
-}
