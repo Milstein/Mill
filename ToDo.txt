@@ -1,0 +1,18 @@
+1. Figure out basic structure of the program:
+
+A good reference: http://www.smartlittlegames.com/ninemensmorris
+
+	GUI
+	Backend Game system
+
+2. Details
+	GUI: status panel (indicate the status of the game)
+		gameboard panel (black and white 9 men piles, the gameboard)
+		action panel ( New game, make a move, take back )
+		
+    Backend game system:
+        The game board can be designed as a set of 24 points, each with a (x,y) cooridnate.
+        Determine a legal move (place a men on the board in the free space// move a men to its adjacent point// move to any free space when "flying" condition is met.) 
+		check the status of the game at each move (whether it is white/black's turn, or if white/black wins).
+		 
+3. Draw the game board first.
