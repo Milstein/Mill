@@ -1,6 +1,6 @@
 package game;
 
-public class GUI {
+public class NMM {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
