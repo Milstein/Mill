@@ -1,18 +1,25 @@
-1. Figure out basic structure of the program:
+9 Men's morris
 
-A good reference: http://www.smartlittlegames.com/ninemensmorris
+Test classes - Package 1
+Main classes - Package 2
 
-	GUI
-	Backend Game system
+Requirements: Java, Standalone program.
 
-2. Details
-	GUI: status panel (indicate the status of the game)
-		gameboard panel (black and white 9 men piles, the gameboard)
-		action panel ( New game, make a move, take back )
-		
-    Backend game system:
-        The game board can be designed as a set of 24 points, each with a (x,y) cooridnate.
-        Determine a legal move (place a men on the board in the free space// move a men to its adjacent point// move to any free space when "flying" condition is met.) 
-		check the status of the game at each move (whether it is white/black's turn, or if white/black wins).
-		 
-3. Draw the game board first.
+Functional requirements: 
+
+1. Option for choosing a gameType. - Chosen in the popup Dialog
+2. User info - collected in the popup dialog, displayed right above the pile
+3. (Buttons) Start a new game, Undo, Make a move. 
+4. Show the state of the game.
+4. Place a men from the non-empty pile.
+5. Move a men (allowed when one's pile is empty, and flying allowed when condition is met)
+6. Remove a men (triggered when a "MILL" is formed, and specify which man to remove)
+
+100. A.I.
+
+User Stories -> Task:
+	1. GUI Design
+	2. Project Structure.
+
+Phase 1: Nov 22
+Phase 2: Dec 12
