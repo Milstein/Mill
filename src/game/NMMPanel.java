@@ -3,11 +3,14 @@ package game;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -27,8 +30,9 @@ public class NMMPanel extends JPanel{
 	private JLabel chessBoardLabel, stateLabel; 
 	private JLabel user1nameLabel, user2nameLabel; // name label
 	private JLabel user1pileLabel, user2pileLabel; // pile label
-	private JButton newGameButton, undoButton, makeAMoveButton;
+	private JButton newGameButton, undoButton, makeAMoveButton, quitButton;
 	private JTextField name1TextField, name2TextField;
+	private JDialog newGameDialog;
 	
 	/**
 	 * Constructor: components and variables setup.
@@ -42,15 +46,18 @@ public class NMMPanel extends JPanel{
 		newGameButton = new JButton("New");
 		undoButton = new JButton("Undo");
 		makeAMoveButton = new JButton("Move");
+		quitButton = new JButton("Quit");
 		buttonPanel.add(newGameButton);
 		buttonPanel.add(undoButton);
 		buttonPanel.add(makeAMoveButton);
+		buttonPanel.add(quitButton);
 		
 			// Add listeners to buttons.
 			ButtonListener listenToButton = new ButtonListener();
 			newGameButton.addActionListener(listenToButton);
 			undoButton.addActionListener(listenToButton);
 			makeAMoveButton.addActionListener(listenToButton);
+			quitButton.addActionListener(listenToButton);
 		
 		// A panel for the state
 		statePanel = new JPanel();
@@ -80,22 +87,16 @@ public class NMMPanel extends JPanel{
 		chessBoardPanel = new JPanel();
 		chessBoardLabel = new JLabel (new ImageIcon("chessboard.png")); //TODO make image resizable
 		chessBoardPanel.add(chessBoardLabel);
-		
-
-		
+				
 		add(buttonPanel);
 		add(statePanel);
 		add(pilePanel);
-		add(chessBoardPanel);
-		//add(buttonPanel);
+		add(chessBoardPanel);		
 		
 	}
 	
 	/**
 	 * The TextListener class that react against the textField event.
-	 * 
-	 * @author Jimmy Wang
-	 * @version September 17, 2014
 	 */
 	private class TextListener implements ActionListener {
 
@@ -109,19 +110,36 @@ public class NMMPanel extends JPanel{
 	
 	/**
 	 * The Button class that react against the JButton events.
-	 * 
-	 * @author Zhenyu Wang
-	 * @version April 13, 2012
-	 *
 	 */
 	private class ButtonListener implements ActionListener {
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			
+		public void actionPerformed(ActionEvent event) {
+			if (event.getSource() == newGameButton)
+				startNewGame();
+			if (event.getSource() == undoButton)
+				undo();
+			if (event.getSource() == makeAMoveButton)
+				makeAMove();
+			if (event.getSource() == quitButton)
+				System.exit(0); 
 		}
 		
 	}
 	
+	private void makeAMove() {
+		// TODO Auto-generated method stub			
+	}
+
+	private void undo() {
+		// TODO Auto-generated method stub
+	}
+
+	private void startNewGame() {
+		JPanel newGameDialogPanel = new JPanel(); // for starting a new game
+		JRadioButton radiobutton1 = new JRadioButton("1P");
+		JRadioButton radiobutton2 = new JRadioButton("2P");
+		newGameDialogPanel.add(radiobutton1);
+		newGameDialogPanel.add(radiobutton2);
+		JOptionPane.showInputDialog(newGameDialogPanel);
+	}
 }
