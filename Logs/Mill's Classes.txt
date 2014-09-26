@@ -1,0 +1,4 @@
+Players(name, 
+Points(currentlocation, Adjacent locations, boolean isOccupied, player) 
+Board(ArrayList<Points> occupiedPoints, boolean makeAMove(Point1, Point2), boolean hasMills(), void removeAMill(), boolean enableFlying())
+
