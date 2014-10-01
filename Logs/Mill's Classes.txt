@@ -1,4 +1,79 @@
-Players(name, 
-Points(currentlocation, Adjacent locations, boolean isOccupied, player) 
-Board(ArrayList<Points> occupiedPoints, boolean makeAMove(Point1, Point2), boolean hasMills(), void removeAMill(), boolean enableFlying())
+Player(
+	data field: 
+		String name, int color(0="white"&&1="black"), arrayList<Point> marblesOnTheBoard, int marblesHoldInHand, 
+	methods:
+		boolean makeAMove() {
+			if (menHoldInHand>0)
+			    placeAMan();
+			else
+			    moveAMan();
+		}
+		Point placeAMan();
+		Point moveAMan();
+		private boolean allowToFly();
+		private boolean lose();
+		private boolean hasLessThanThree();
+		private boolean hasLegalMoves();
+	)
+
+Points(
+	data fields: 
+		int x, int y, boolean occupied;
+	methods:
+		Point(x,y,false)
+		boolean isOccupied();
+		Set<Point> findAdjacentPoints();
+) 
+
+Marble(int x, int y, boolean white);
+
+Board(
+	data field: 
+		Player[] players = {player1, player2};
+		Set<Points> nodes = {	pt1,pt2,...,pt24 }
+	methods: 
+	    	boolean makeAMove(Point point1, Point point2, int player) {
+			// validation check: point2 has to be a valid point in the board.
+			if(!nodes.contain(point2)		
+				return false;
+			// add a new man: makeAnAction(null,point2,player)
+			// move a man: makeAnAction(point1,point2,player)
+			if(point1==null) {
+				if(players[player].menHoldInHand=0)
+					return false;
+				if(point2.isOccupied())
+					return false;
+				return placeAMan(point2,player);
+			} else {
+				// validation check: point1 has to be a valid point in the board.
+				if(!nodes.contain(point1)		
+					return false;
+				if(point2.isOccupied())
+					return false;
+				return moveAMan(point1,point2,player);
+			}
+				
+		}
+		
+		boolean placeAMan(Point pt, int player) {
+			// check if pt is occupied.
+			put a new man on the board.
+			update the board, update player
+			// check if player has mills, if has, remove one opponent's mill.
+		}
+		boolean moveAMan(Point pt1, Point pt2, int player) {
+			if(enableFlying(player))
+				if pt2 is occupied, return false;
+				if pt2 is not occupied, update player&board, return true;
+			else
+			// check adjacent points of pt1 and see if any of them matches pt2.
+			// also check if pt2 is occupied.
+			put a new man on the board.
+			update the board, update player
+			// check if player has mills, if has, remove one opponent's mill.
+		}
+
+	        boolean hasMills();
+		void removeAMill(int player);
+		boolean enableFlying(int player);
 
