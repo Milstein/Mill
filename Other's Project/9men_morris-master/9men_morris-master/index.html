@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Nine Men Morris</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" href="muehle.css">
+    <script type="application/javascript">
+        var classes = ['empty', 'white', 'black'];
+	
+        function drawBoard(pos) {
+            for(var i = 0; i < pos.board.length; i++) {
+                document.getElementById('s' + (i + 1)).className = classes[(pos.board[i] + 3) % 3];
+            }
+            document.getElementById('whiteDeck').innerHTML = pos.whiteDeck;
+            document.getElementById('blackDeck').innerHTML = pos.blackDeck;
+            document.getElementById('comment').innerHTML = pos.whitesTurn() ? 'Whites turn' : 'Blacks turn';
+        }
+    </script>
+	<script type="application/javascript" src="engine.js"></script>
+</head>
+<body>
+
+<div id="board">
+	<img src="Muehle.png">
+	<!-- outer square, starting at the upper leftmost spot and counting clockwise -->
+	<div id="s1" class="empty" style="top: -15px; left: -10px">&nbsp;</div>
+	<div id="s2" class="empty" style="top: -15px; left: 290px">&nbsp;</div>
+	<div id="s3" class="empty" style="top: -15px; left: 590px">&nbsp;</div>
+	<div id="s4" class="empty" style="top: 285px; left: 590px">&nbsp;</div>
+	<div id="s5" class="empty" style="top: 585px; left: 590px">&nbsp;</div>
+	<div id="s6" class="empty" style="top: 585px; left: 290px">&nbsp;</div>
+	<div id="s7" class="empty" style="top: 585px; left: -10px">&nbsp;</div>
+	<div id="s8" class="empty" style="top: 285px; left: -10px">&nbsp;</div>
+	<!-- middle square -->
+	<div id="s9"  class="empty" style="top: 85px; left: 90px">&nbsp;</div>
+	<div id="s10" class="empty" style="top: 85px; left: 290px">&nbsp;</div>
+	<div id="s11" class="empty" style="top: 85px; left: 490px">&nbsp;</div>
+	<div id="s12" class="empty" style="top: 285px; left: 490px">&nbsp;</div>
+	<div id="s13" class="empty" style="top: 485px; left: 490px">&nbsp;</div>
+	<div id="s14" class="empty" style="top: 485px; left: 290px">&nbsp;</div>
+	<div id="s15" class="empty" style="top: 485px; left: 90px">&nbsp;</div>
+	<div id="s16" class="empty" style="top: 285px; left: 90px">&nbsp;</div>
+	<!-- inner square -->
+	<div id="s17" class="empty" style="top: 185px; left: 190px">&nbsp;</div>
+	<div id="s18" class="empty" style="top: 185px; left: 290px">&nbsp;</div>
+	<div id="s19" class="empty" style="top: 185px; left: 390px">&nbsp;</div>
+	<div id="s20" class="empty" style="top: 285px; left: 390px">&nbsp;</div>
+	<div id="s21" class="empty" style="top: 385px; left: 390px">&nbsp;</div>
+	<div id="s22" class="empty" style="top: 385px; left: 290px">&nbsp;</div>
+	<div id="s23" class="empty" style="top: 385px; left: 190px">&nbsp;</div>
+	<div id="s24" class="empty" style="top: 285px; left: 190px">&nbsp;</div>
+	
+	<div class="pos" style="top: 685px; left: 23px">a</div>
+	<div class="pos" style="top: 685px; left: 123px">b</div>
+	<div class="pos" style="top: 685px; left: 223px">c</div>
+	<div class="pos" style="top: 685px; left: 323px">d</div>
+	<div class="pos" style="top: 685px; left: 423px">e</div>
+	<div class="pos" style="top: 685px; left: 523px">f</div>
+	<div class="pos" style="top: 685px; left: 623px">g</div>
+
+	<div class="pos" style="top: 620px; left: -45px">1</div>
+	<div class="pos" style="top: 520px; left: -45px">2</div>
+	<div class="pos" style="top: 420px; left: -45px">3</div>
+	<div class="pos" style="top: 320px; left: -45px">4</div>
+	<div class="pos" style="top: 220px; left: -45px">5</div>
+	<div class="pos" style="top: 120px; left: -45px">6</div>
+	<div class="pos" style="top: 20px; left: -45px">7</div>
+</div>
+
+<div id="whiteDeck" class="white">9</div>
+<div id="blackDeck" class="black">9</div>
+<div id="comment">Whites turn</div>
+
+<div id="keyboard">
+<div class="key" id="key_up"    style="top: 0px; left: 54px">^</div>
+<div class="key" id="key_left"  style="top: 54px; left: 0px">&lt;</div>
+<div class="key" id="key_enter" style="top: 54px; left: 54px">OK</div>
+<div class="key" id="key_right" style="top: 54px; left: 108px">&gt;</div>
+<div class="key" id="key_down"  style="top: 108px; left: 54px">v</div>
+</div>
+
+</body>
+</html>
