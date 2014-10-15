@@ -86,9 +86,9 @@ public class Board {
 	// Check if the point is occupied.
 	// check player1 and player2 if they have this point under menOnTheBoard.
 	private boolean isOccupied(Point pt) {
-		if (players[0].hasPoint(pt.toString()))
+		if (players[0].hasPoint(pt))
 			return true;
-		if (players[1].hasPoint(pt.toString()))
+		if (players[1].hasPoint(pt))
 			return true;
 		return false;
 	}
@@ -181,10 +181,10 @@ public class Board {
 		return false;
 	}
 	void removeAMan(int player) {
-		removeAMan(player, "00");
+		//
 	}
-	private void removeAMan(int player, String str) {
-		players[player].removeAMan(str);
+	private void removeAMan(int player, Point pt) {
+		players[player].removeAMan(pt);
 	}
 	
 	boolean enableFlying(int player) {
@@ -205,9 +205,9 @@ public class Board {
 		Board game = new Board("Player1", "Player2");
 		//System.out.println(validPoints.contains(new Point(0,0,false).toString()));
 		System.out.println(game.makeAnAction(null, new Point(0,0), 0));
-		System.out.println(game.makeAnAction(null, new Point(0,3), 1));
-		System.out.println(game.makeAnAction(null, new Point(3,0), 0));
-		System.out.println(game.makeAnAction(null, new Point(0,3), 1));
+		System.out.println(game.makeAnAction(null, new Point(0,3), 0));
+		System.out.println(game.makeAnAction(null, new Point(0,6), 0));
+		System.out.println(game.hasMills(0));
 	}
 	
 }

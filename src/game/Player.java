@@ -64,12 +64,12 @@ public class Player {
 		return menHoldInHand;
 	}
 
-	public boolean hasPoint(String str) {
-		return menOnTheBoard.contains(str);
+	public boolean hasPoint(Point pt) {
+		return menOnTheBoard.contains(pt);
 	}
 
-	public void removeAMan(String str) {
-		menOnTheBoard.remove(str);
+	public void removeAMan(Point pt) {
+		menOnTheBoard.remove(pt);
 	}
 
 }
