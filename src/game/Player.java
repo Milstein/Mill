@@ -1,27 +1,25 @@
 package game;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class Player {
 
 	String name;
 	int color; // (0="white"&&1="black"),
-	Set<Point> menOnTheBoard;
+	Set<String> menOnTheBoard;
 	int menHoldInHand;
 
 	public Player(String name, int color) {
 		this.name = name;
 		this.color = color;
+		menHoldInHand = 9;
+		menOnTheBoard = new HashSet<String>();
 	}
 
-	String placeAMan(Point pt) {
-		if (menHoldInHand > 0) {
-			menOnTheBoard.add(pt);
-			menHoldInHand--;
-		} else {
-			return "Not Allowed to move";
-		}
-		return pt.getX() + ", " + pt.getY();
+	void placeAMan(Point pt) {
+		menOnTheBoard.add(pt.toString());
+		menHoldInHand--;
 	}
 
 	// TODO
@@ -35,7 +33,7 @@ public class Player {
 	}
 
 	// TODO
-	private boolean lose() {
+	public boolean lose() {
 		return false;
 	}
 
@@ -58,12 +56,20 @@ public class Player {
 		return color;
 	}
 
-	public Set<Point> getMenOnTheBoard() {
+	public Set<String> getMenOnTheBoard() {
 		return menOnTheBoard;
 	}
 
 	public int getMenHoldInHand() {
 		return menHoldInHand;
+	}
+
+	public boolean hasPoint(String str) {
+		return menOnTheBoard.contains(str);
+	}
+
+	public void removeAMan(String str) {
+		menOnTheBoard.remove(str);
 	}
 
 }

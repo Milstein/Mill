@@ -1,0 +1,16 @@
+            var delta = clock.getDelta();
+            THREE.AnimationHandler.update( delta );
+            if(controls) controls.update( delta );
+
+                    var piece = whitePieces.pop();
+                    controls = new THREE.MyPathControls( piece );
+                    controls.waypoints = [ [piece.position.x, piece.position.y, piece.position.z], [ -450, 0, 0 ] ];
+                    controls.duration = 1.5;
+                    //controls.useConstantSpeed = true;
+                    controls.init();
+                    scene.remove( piece );
+                    piece.position = new THREE.Vector3( 0, 0, 0 );
+                    scene.add( controls.animationParent );
+                    controls.animation.play( true, 0 );
+
+

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<title>3D Mühle</title>
+	
+    <script type="text/javascript" src="Three.js"></script>
+    <script type="text/javascript" src="Tween.js"></script>
+    <script type="text/javascript">
+    var pieceXZ = [
+        [0,6], [3,6], [6,6], [6,3], [6,0], [3,0], [0,0], [0,3], 
+        [1,5], [3,5], [5,5], [5,3], [5,1], [3,1], [1,1], [1,3], 
+        [2,4], [3,4], [4,4], [4,3], [4,2], [3,2], [2,2], [2,3]];
+
+    var whitePieces = [],  blackPieces = [], boardPieces = [], takenWhitePieces = [],  takenBlackPieces = [];
+    boardPieces.length = 24;
+
+    var camera, scene, renderer, clock, controls, board;
+    var pieceGeometry, whiteMaterial, blackMaterial;
+
+    window.addEventListener('load', function() {
+        	
+		init();
+		animate();
+        
+		function init() {
+            
+            clock = new THREE.Clock();
+			scene = new THREE.Scene();
+    
+            // Board
+			board = new THREE.Mesh(
+                new THREE.PlaneGeometry( 1000, 1000),
+				new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'Muehle.png' ) })
+			);
+		    board.position.set( 0, -15, 0 );
+		    board.overdraw = true;
+			scene.add( board );
+	
+            // Piece
+            pieceGeometry = new THREE.CylinderGeometry( 50, 50, 15, 32);
+            whiteMaterial = new THREE.MeshLambertMaterial( { color: 0xFFFFEE } );
+            blackMaterial = new THREE.MeshLambertMaterial( { color: 0x110000 } ); // wireframe: true
+
+            for(var i = 0; i < 9; i++) {
+                var x = 600 + Math.floor(Math.random() * 20) - 10;
+                var y = 15 * i;
+                var z = 450 + Math.floor(Math.random() * 20) - 10;
+                var mesh = new THREE.Mesh( pieceGeometry, whiteMaterial );
+                mesh.position.set( x, y, z );
+                scene.add( mesh );
+                whitePieces.push(mesh);
+
+                x = 600 + Math.floor(Math.random() * 20) - 10;
+                z = -450 + Math.floor(Math.random() * 20) - 10;
+                mesh = new THREE.Mesh( pieceGeometry, blackMaterial );
+                mesh.position.set( x, y, z );
+                scene.add( mesh );
+                blackPieces.push(mesh);
+            }
+
+            // Lights
+			var light = new THREE.PointLight( 0xFFFFDD );
+			light.position.set( 300, 1000, 500 );
+			scene.add( light );
+            scene.add( new THREE.AmbientLight( 0x880000 ) );
+	
+            // Camera
+			camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 20000 );
+            setCameraPosition( window.innerWidth / 2, window.innerHeight / 2 );
+			camera.lookAt( scene.position );
+			scene.add( camera );
+			
+            // Setup canvas
+			renderer = new THREE.WebGLRenderer();
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			document.body.appendChild( renderer.domElement );
+	
+		}
+        
+		function animate() {
+	
+			// note: three.js includes requestAnimationFrame shim
+			requestAnimationFrame( animate );
+			render();
+	
+		}
+	
+		function render() {
+	
+			//mesh.rotation.x += 0.01;
+			//mesh.rotation.y += 0.02;
+            
+            TWEEN.update();
+			renderer.render( scene, camera );
+	
+		}
+		
+        // Camera movement
+        
+		document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+		
+		function onDocumentMouseMove(event) {
+            setCameraPosition( event.clientX, event.clientY );
+        }
+        
+		function setCameraPosition(mx, my) {
+			var mouseX = ( mx - window.innerWidth / 2 );
+			var mouseY = ( my - window.innerHeight / 2 );
+			//camera.position.set( -mouseX, 600 + mouseY, 800 - mouseY );
+            camera.position.set( mouseX, 600, my );
+			camera.lookAt( board.position );
+		}
+                
+    }, false);
+    
+    function piecePosition(i) {
+        return {
+            x: -450 + 150*pieceXZ[i][0],
+            y: 0,
+            z: +450 - 150*pieceXZ[i][1]
+        }
+    }
+    
+    function drawPiece(pos, isWhite) {
+        var mesh = new THREE.Mesh( pieceGeometry, isWhite ? whiteMaterial : blackMaterial );
+        mesh.position.set(piecePosition(pos));
+        scene.add( mesh );
+        return mesh;
+    }
+
+    function drawBoard(pos) {
+        if(pos.lastTurn) {
+            var t = pos.lastTurn;
+            var piece, tween;
+            if(t.action === 'put') {
+                piece = pos.whitesTurn() ? blackPieces.pop() : whitePieces.pop();
+                tween = new TWEEN.Tween( piece.position )
+                    .to( piecePosition(t.to), 1000 )
+                    .easing( TWEEN.Easing.Quadratic.EaseInOut );
+                boardPieces[t.to] = piece;
+            } else if(t.action === 'move') {
+                piece = boardPieces[t.from];
+                boardPieces[t.from] = undefined;
+                tween = new TWEEN.Tween( piece.position )
+                    .to( piecePosition(t.to), 1000 )
+                    .easing( TWEEN.Easing.Quadratic.EaseInOut );
+                boardPieces[t.to] = piece;
+            }
+            if(t.remove) {
+                piece = boardPieces[t.remove];
+                boardPieces[t.remove] = undefined;
+                var taken = pos.whitesTurn() ? takenWhitePieces : takenBlackPieces;
+                var x = 600 + Math.floor(Math.random() * 20) - 10;
+                var y = 15 * taken.length;
+                var z = Math.floor(Math.random() * 20) - 10;
+                z += pos.whitesTurn() ? -340 : 340;
+                tween.chain(new TWEEN.Tween( piece.position )
+                    .to( {x: x, y: y, z: z}, 1000 )
+                    .easing( TWEEN.Easing.Quadratic.EaseInOut ));
+                taken.push(piece);
+            }
+            tween.start();
+        }
+    }
+    </script>
+    <script type="application/javascript" src="engine.js"></script>
+</head>
+<body>
+</body>
+</html>

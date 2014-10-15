@@ -1,0 +1,209 @@
+{
+   backtrace()
+   Memcheck:Leak
+   fun:malloc
+   fun:_dl_map_object_deps
+   fun:dl_open_worker
+   fun:_dl_catch_error
+   fun:_dl_open
+   fun:do_dlopen
+   fun:_dl_catch_error
+   fun:dlerror_run
+   fun:__libc_dlopen_mode
+   fun:init
+   fun:pthread_once
+   fun:backtrace
+}
+{
+   Shared library log_lock
+   Memcheck:Leak
+   fun:_Znwm
+   fun:_Z41__static_initialization_and_destruction_0ii
+   fun:_GLOBAL__I_log.cc
+   obj:/home/cristi/nine-men-morris/src/base/libstacktrace_test_helper.so
+   obj:/home/cristi/nine-men-morris/src/base/libstacktrace_test_helper.so
+   obj:*
+   obj:*
+   obj:*
+   obj:*
+   obj:*
+   obj:*
+   obj:*
+}
+{
+   Board::IsValidLocation() uses uninitialized values
+   Memcheck:Cond
+   fun:_ZNK4game5Board15IsValidLocationERKNS_13BoardLocationE
+   fun:_ZNK4game12PlayerAction12CanExecuteOnERKNS_5BoardE
+   fun:_ZNK4game4Game22CanExecutePlayerActionERKNS_12PlayerActionE
+   fun:_ZN4game14GameSerializer15DeserializeFromEPSib
+   fun:_ZN4game12_GLOBAL__N_143GameSerializerTest_InvalidBinaryStream_Test8TestBodyEv
+   fun:_ZN7testing8internal38HandleSehExceptionsInMethodIfSupportedINS_4TestEvEET0_PT_MS4_FS3_vEPKc
+   fun:_ZN7testing8internal35HandleExceptionsInMethodIfSupportedINS_4TestEvEET0_PT_MS4_FS3_vEPKc
+   fun:_ZN7testing4Test3RunEv
+   fun:_ZN7testing8TestInfo3RunEv
+   fun:_ZN7testing8TestCase3RunEv
+   fun:_ZN7testing8internal12UnitTestImpl11RunAllTestsEv
+   fun:_ZN7testing8internal38HandleSehExceptionsInMethodIfSupportedINS0_12UnitTestImplEbEET0_PT_MS4_FS3_vEPKc
+}
+{
+   Valgrind < 3.8.1 and optimized memrchr() (see: http://stackoverflow.com/questions/12708501/valgrind-breaks-with-dirname) 
+   Memcheck:Addr8
+   fun:memrchr
+   fun:dirname
+   fun:_ZNK4base8FilePath7DirNameEv
+   fun:_ZN4base12_GLOBAL__N_121FilePath_DirName_Test8TestBodyEv
+   fun:_ZN7testing8internal38HandleSehExceptionsInMethodIfSupportedINS_4TestEvEET0_PT_MS4_FS3_vEPKc
+   fun:_ZN7testing8internal35HandleExceptionsInMethodIfSupportedINS_4TestEvEET0_PT_MS4_FS3_vEPKc
+   fun:_ZN7testing4Test3RunEv
+   fun:_ZN7testing8TestInfo3RunEv
+   fun:_ZN7testing8TestCase3RunEv
+   fun:_ZN7testing8internal12UnitTestImpl11RunAllTestsEv
+   fun:_ZN7testing8internal38HandleSehExceptionsInMethodIfSupportedINS0_12UnitTestImplEbEET0_PT_MS4_FS3_vEPKc
+   fun:_ZN7testing8internal35HandleExceptionsInMethodIfSupportedINS0_12UnitTestImplEbEET0_PT_MS4_FS3_vEPKc
+}
+
+# Memory leaks from libX11.
+{
+   XrmGetStringDatabase intentionally leaks (see 'man XrmGetStringDatabase')
+   Memcheck:Leak
+   ...   
+   fun:XrmGetStringDatabase
+   ...
+}
+{
+   XGetDefault leak
+   Memcheck:Leak
+   ...
+   fun:XGetDefault
+}
+{
+   _XlcCreateLocaleDataBase leak
+   Memcheck:Leak
+   ...
+   fun:_XlcCreateLocaleDataBase
+}
+{
+   XAllocNamedColor leak
+   Memcheck:Leak
+   ...
+   fun:XAllocNamedColor
+}
+{
+   XextCreateExtension leak (also found in Chromium's suppression list)
+   Memcheck:Leak
+   fun:malloc
+   fun:XextCreateExtension
+}
+
+# Boost false memory leaks
+{
+   Boost thread local variables are freed after valgrind memory checks, so they appear as leaks 
+   Memcheck:Leak
+   fun:malloc
+   fun:_ZN5boost6detail25get_once_per_thread_epochEv
+   fun:_ZN5boost9call_onceIPFvvEEEvRNS_9once_flagET_
+   fun:_ZN5boost6detail23get_current_thread_dataEv
+   fun:_ZN5boost6detail13find_tss_dataEPKv
+   fun:_ZN5boost6detail12get_tss_dataEPKv
+   obj:/usr/lib64/libOgreMain.so.1.8.1
+   fun:_ZN4Ogre15MaterialManagerC1Ev
+   fun:_ZN4Ogre4RootC1ERKSsS2_S2_
+   fun:_ZN8graphics7OgreApp4InitEv
+   fun:main
+}
+{
+   Boost thread local variables are freed after valgrind memory checks, so they appear as leaks
+   Memcheck:Leak
+   fun:_Znwm
+   obj:/usr/lib64/libboost_thread.so.1.49.0
+   fun:_ZN5boost6detail16add_new_tss_nodeEPKvNS_10shared_ptrINS0_20tss_cleanup_functionEEEPv
+   fun:_ZN5boost6detail12set_tss_dataEPKvNS_10shared_ptrINS0_20tss_cleanup_functionEEEPvb
+   obj:/usr/lib64/libOgreMain.so.1.8.1
+   fun:_ZN4Ogre15MaterialManagerC1Ev
+   fun:_ZN4Ogre4RootC1ERKSsS2_S2_
+   fun:_ZN8graphics7OgreApp4InitEv
+   fun:main
+}
+
+# Memory leaks in libc.
+{
+   dlopen leak on error. See http://sourceware.org/bugzilla/show_bug.cgi?id=12878.
+   Memcheck:Leak
+   ...
+   fun:_dlerror_run
+   fun:dlopen@@GLIBC_2.2.5
+}
+{
+   dlopen leak on error
+   Memcheck:Leak
+   ...
+   fun:_dl_catch_error
+}
+{
+   Leak in getdelim()
+   Memcheck:Leak
+   fun:malloc
+   fun:getdelim
+   ...
+   fun:call_init
+   fun:_dl_init
+}
+
+# Memory leaks in libXau.
+{
+   XauFileName leak
+   Memcheck:Leak
+   fun:malloc
+   fun:XauFileName
+}
+
+# Libc issues
+{
+   Uninitialized variable in libc.
+   Memcheck:Value8
+   fun:_itoa_word
+   fun:vfprintf
+   fun:vsnprintf
+   fun:snprintf
+   fun:_ZN7testing12_GLOBAL__N_126PrintByteSegmentInObjectToEPKhmmPSo
+   fun:_ZN7testing12_GLOBAL__N_124PrintBytesInObjectToImplEPKhmPSo
+   fun:_ZN7testing9internal220PrintBytesInObjectToEPKhmPSo
+   fun:_ZN7testing9internal220TypeWithoutFormatterIN4game11GameOptionsELNS0_8TypeKindE2EE10PrintValueERKS3_PSo
+   fun:_ZN7testing9internal2lsIcSt11char_traitsIcEN4game11GameOptionsEEERSt13basic_ostreamIT_T0_ESA_RKT1_
+   fun:_ZN16testing_internal26DefaultPrintNonContainerToIN4game11GameOptionsEEEvRKT_PSo
+   fun:_ZN7testing8internal14DefaultPrintToIN4game11GameOptionsEEEvcNS0_13bool_constantILb0EEERKT_PSo
+   fun:_ZN7testing8internal7PrintToIN4game11GameOptionsEEEvRKT_PSo
+}
+{
+   Conditional jump based on uninitialized variable in libc (see above).
+   Memcheck:Cond
+   fun:_itoa_word
+   fun:vfprintf
+   fun:vsnprintf
+   fun:snprintf
+   fun:_ZN7testing12_GLOBAL__N_126PrintByteSegmentInObjectToEPKhmmPSo
+   fun:_ZN7testing12_GLOBAL__N_124PrintBytesInObjectToImplEPKhmPSo
+   fun:_ZN7testing9internal220PrintBytesInObjectToEPKhmPSo
+   fun:_ZN7testing9internal220TypeWithoutFormatterIN4game11GameOptionsELNS0_8TypeKindE2EE10PrintValueERKS3_PSo
+   fun:_ZN7testing9internal2lsIcSt11char_traitsIcEN4game11GameOptionsEEERSt13basic_ostreamIT_T0_ESA_RKT1_
+   fun:_ZN16testing_internal26DefaultPrintNonContainerToIN4game11GameOptionsEEEvRKT_PSo
+   fun:_ZN7testing8internal14DefaultPrintToIN4game11GameOptionsEEEvcNS0_13bool_constantILb0EEERKT_PSo
+   fun:_ZN7testing8internal7PrintToIN4game11GameOptionsEEEvRKT_PSo
+}
+{
+   Same issue as above
+   Memcheck:Cond
+   fun:vfprintf
+   fun:vsnprintf
+   fun:snprintf
+   fun:_ZN7testing12_GLOBAL__N_126PrintByteSegmentInObjectToEPKhmmPSo
+   fun:_ZN7testing12_GLOBAL__N_124PrintBytesInObjectToImplEPKhmPSo
+   fun:_ZN7testing9internal220PrintBytesInObjectToEPKhmPSo
+   fun:_ZN7testing9internal220TypeWithoutFormatterIN4game11GameOptionsELNS0_8TypeKindE2EE10PrintValueERKS3_PSo
+   fun:_ZN7testing9internal2lsIcSt11char_traitsIcEN4game11GameOptionsEEERSt13basic_ostreamIT_T0_ESA_RKT1_
+   fun:_ZN16testing_internal26DefaultPrintNonContainerToIN4game11GameOptionsEEEvRKT_PSo
+   fun:_ZN7testing8internal14DefaultPrintToIN4game11GameOptionsEEEvcNS0_13bool_constantILb0EEERKT_PSo
+   fun:_ZN7testing8internal7PrintToIN4game11GameOptionsEEEvRKT_PSo
+   fun:_ZN7testing8internal16UniversalPrinterIN4game11GameOptionsEE5PrintERKS3_PSo
+}

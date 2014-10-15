@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<title>3D Mühle</title>
+	
+<script id="vShader" type="x-shader/x-vertex">
+attribute vec4 vPosition;
+void main() { 
+	gl_Position = vPosition;
+}
+</script>
+
+<script id="fShader" type="x-shader/x-fragment">
+precision mediump float; 
+void main() { 
+	gl_FragColor = vec4(1.0, 0.5, 0.5, 1.0);
+}
+</script>
+	
+<script type="text/javascript">
+"use strict";
+(function(){
+		
+	function getShader(gl, id) {
+		var shaderScript = document.getElementById(id);
+		if (!shaderScript)
+			return null;
+		var str = "";
+		var k = shaderScript.firstChild;
+		while (k) {
+			if (k.nodeType == 3)
+				str += k.textContent;
+			k = k.nextSibling;
+		}
+	 
+		var shader;
+		if (shaderScript.type == "x-shader/x-fragment") {
+			shader = gl.createShader(gl.FRAGMENT_SHADER);
+		} else if (shaderScript.type == "x-shader/x-vertex") {
+			shader = gl.createShader(gl.VERTEX_SHADER);
+		} else {
+			return null;
+		}
+		 
+		gl.shaderSource(shader, str);
+		gl.compileShader(shader);
+		if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+			alert(gl.getShaderInfoLog(shader));
+			return null;
+		}
+	 
+		return shader;
+	}
+		
+		
+	window.addEventListener('load', function() {
+		console.log('initializing');
+		
+		var
+            canvas, 			// canvas ist die "Leinwand" auf die gezeichnet werden kann
+            gl, 				// DAS WebGL-Objekt (wird vom Browser abgefragt, falls dieser WebGL unterstützt
+            glProgram, 			// "GPU-Programm", das zur Berechnung der Grafik verwendet wird
+            vShader,          	// Vertex Shader
+            fShader,          	// Fragment Shader
+            vertexAttribLoc,  	// Verknüpfung zwischen JavaScript und Vertex-Shader
+            vertices,        	// Array der Dreieckskoordinaten
+            buffer; 			// Der WebGL-Buffer, der die Dreieckskoordinaten aufnimmt
+
+        canvas = window.document.getElementById("canvas3d");
+        gl = canvas.getContext("experimental-webgl");
+        glProgram = gl.createProgram();
+
+        // Der Vertex-Shader-wird angelegt
+        vShader = getShader(gl, 'vShader');
+        gl.attachShader(glProgram, vShader);
+        // Der Fragment-Shader-wird angelegt
+        fShader = getShader(gl, 'fShader');
+        gl.attachShader(glProgram, fShader);
+        gl.linkProgram(glProgram);
+        gl.useProgram(glProgram);
+        gl.clearColor(0.0, 0.0, 0.5, 1.0);	// RGB-Alpha Farbe zum loeschen des Hintergrundes:
+        gl.clear(gl.COLOR_BUFFER_BIT);		// Hintergrund loeschen
+
+        // Koordinaten des Dreiecks
+        vertices = new Float32Array([0.0, 0.1, 0.0,   -0.1, -0.1, 0.0,   0.1, -0.1, 0.0 ]);                                         
+        buffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+        gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+        // Die Verknuepfung zwischen JavaScript und dem Shader-Attribut
+        vertexAttribLoc = gl.getAttribLocation(glProgram, "vPosition");
+        gl.vertexAttribPointer(vertexAttribLoc, 3, gl.FLOAT, false, 0, 0);
+        gl.enableVertexAttribArray(vertexAttribLoc);
+        gl.drawArrays(gl.TRIANGLES, 0, 3); // gl.TRIANGLES, gl.POINTS oder gl.LINE_STRIP
+		
+		console.log('init done');
+	});
+})();
+</script>
+    
+</head>
+<body>
+ <canvas id="canvas3d" width="500" height="500"></canvas>
+ <pre>
+
+ </pre>
+</body>
+</html>
