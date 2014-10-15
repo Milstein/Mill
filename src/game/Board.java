@@ -11,6 +11,11 @@ public class Board {
 	
 	// Constructor
 	public Board(String name1, String name2) {
+		this.init(name1, name2);
+	}
+	//methods:
+	public void init(String name1, String name2) {
+		// Initialize the board.
 		players = new Player[2];
 		players[0] = new Player(name1, 0);
 		players[1] = new Player(name2, 1);
@@ -40,15 +45,17 @@ public class Board {
 		validPoints.add(new Point(3,6,false));
 		validPoints.add(new Point(6,6,false));
 	}
-	//methods:
-	public void init() {
-		// Initialize the board.
-		//TODO
-	}
-	//TODO
-	public boolean makeAMove(Point point1, Point point2, int player) {
+
+	/**
+	 * Generic action: place a man or move a man.
+	 * @param point1
+	 * @param point2
+	 * @param player
+	 * @return true if success. false if invalid action.
+	 */
+	public boolean makeAnAction(Point point1, Point point2, int player) {
 		// validation check: point2 has to be a valid point in the board.
-		if(!validpoints.contains(point2))	
+		if(!validPoints.contains(point2))	
 			return false;
 		// add a new man: makeAnAction(null,point2,player)
 		// move a man: makeAnAction(point1,point2,player)
@@ -60,30 +67,38 @@ public class Board {
 			return placeAMan(point2,player);
 		} else {
 			// validation check: point1 has to be a valid point in the board.
-			if(!validpoints.contains(point1))		
+			if(!validPoints.contains(point1))		
 				return false;
+			// check if pt1 is the player's man
+			if (!players[player].getMenOnTheBoard().contains(point1))
+				return false;
+			// point2 cannot be occupied.
 			if(point2.isOccupied())
 				return false;
 			return moveAMan(point1,point2,player);
 		}
 				
 	}
-		
-	//TODO
+
 	private boolean placeAMan(Point pt, int player) {
-		// check if pt is occupied.
+		// check if the player has a man on hand:
 		// if not, put a new man at pt on the board.
-		// update the board, update player
-		// check if player has mills, if has, remove one opponent's mill.
-		return false;
+		if (players[player].getMenHoldInHand()==0)
+			return false;
+		players[player].placeAMan(pt);
+		// update the board, update player.
+		// check if player has mills, if has, remove one opponent's man.
+		if (hasMills(player)) {
+			removeAMan(player==0 ? 1 : 0);
+		}
+		return true;
 	}
 	
-	// TODO
+	// precondition: pt1 and pt2 are valid.
 	private boolean moveAMan(Point pt1, Point pt2, int player) {
-		if(pt2.isOccupied())
-			return false;
+		// check if player enables flying.
 		if(enableFlying(player)) {
-			// if pt2 is not occupied, update player&board, 
+			players[player].moveAMan(pt1, pt2);
 			return true;
 		} else {
 			// check adjacent points of pt1 and see if any of them matches pt2.
@@ -100,7 +115,7 @@ public class Board {
 		//TODO
 		return false;
 	}
-	void removeAMill(int player) {
+	void removeAMan(int player) {
 		// TODO
 	}
 	boolean enableFlying(int player) {
@@ -108,5 +123,11 @@ public class Board {
 			return true;
 		else
 			return false;
+	}
+	
+	// Testing
+	public static void main(String[] args) {
+		Board game = new Board("Player1", "Player2");
+		System.out.println(validPoints.contains(new Point(0,0,false)));
 	}
 }

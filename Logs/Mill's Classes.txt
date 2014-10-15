@@ -30,7 +30,7 @@ Board(
 		Player[] players = {player1, player2};
 		Set<Points> nodes = {	pt1,pt2,...,pt24 }
 	methods: 
-	    	boolean makeAMove(Point point1, Point point2, int player) {
+	    	boolean makeAnAction(Point point1, Point point2, int player) {
 			// validation check: point2 has to be a valid point in the board.
 			if(!nodes.contain(point2)		
 				return false;
