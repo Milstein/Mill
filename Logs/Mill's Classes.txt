@@ -1,6 +1,6 @@
 Player(
 	data field: 
-		String name, int color(0="white"&&1="black"), arrayList<Point> marblesOnTheBoard, int marblesHoldInHand, 
+		String name, int color(0="white"&&1="black"), Set<Point> marblesOnTheBoard, int marblesHoldInHand, 
 	methods:
 		boolean makeAMove() {
 			if (menHoldInHand>0)
@@ -22,10 +22,8 @@ Points(
 	methods:
 		Point(x,y,false)
 		boolean isOccupied();
-		Set<Point> findAdjacentPoints();
-) 
-
-Marble(int x, int y, boolean white);
+		Set<Point> getAdjacentPoints();
+)
 
 Board(
 	data field: 
