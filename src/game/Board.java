@@ -6,7 +6,7 @@ public class Board {
 	
 	//data field: 
 	private Player[] players;
-	private Set<Point> validpoints; // = {	pt1,pt2,...,pt24 }
+	static Set<Point> validpoints; // = {	pt1,pt2,...,pt24 }
 	
 	//methods:
 	public void init() {
@@ -64,7 +64,7 @@ public class Board {
 		}
 	}
 
-	boolean hasMills() {
+	boolean hasMills(int player) {
 		//TODO
 		return false;
 	}

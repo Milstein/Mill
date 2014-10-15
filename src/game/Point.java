@@ -27,7 +27,10 @@ public class Point {
 		}
 		
 		public Set<Point> getAdjacentPoints() {
+			// TODO
 			//Set<Point> adjacent = new HashSet<Point>();
+			if (Board.validpoints.contains(null))
+				return null;
 			return null;
 		}
 }
