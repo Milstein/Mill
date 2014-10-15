@@ -12,7 +12,7 @@ public class Point {
 		static final int MAXX = 0;
 		static final int MAXY = 0;
 	
-		Point(int x, int y, boolean occupied) {
+		Point(int x, int y) {
 			this.x = x;
 			this.y = y;
 		}

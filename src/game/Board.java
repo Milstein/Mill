@@ -6,8 +6,8 @@ import java.util.Set;
 public class Board {
 	
 	//data field: 
-	private Player[] players;
-	static Set<String> validPoints = new HashSet<String>(); // = {	pt1,pt2,...,pt24 }
+	private static Player[] players;
+	static Set<String> validPoints = new HashSet<String>();
 	
 	// Constructor
 	public Board(String name1, String name2) {
@@ -46,6 +46,9 @@ public class Board {
 		validPoints.add("66");
 	}
 
+	public boolean makeAnAction(int player) {
+		return false;
+	}
 	/**
 	 * Generic action: place a man or move a man.
 	 * @param point1
@@ -55,7 +58,7 @@ public class Board {
 	 */
 	public boolean makeAnAction(Point point1, Point point2, int player) {
 		// validation check: point2 has to be a valid point in the board.
-		if(!validPoints.contains(point2))	
+		if(!validPoints.contains(point2.toString()))	
 			return false;
 		// add a new man: makeAnAction(null,point2,player)
 		// move a man: makeAnAction(point1,point2,player)
@@ -67,10 +70,10 @@ public class Board {
 			return placeAMan(point2,player);
 		} else {
 			// validation check: point1 has to be a valid point in the board.
-			if(!validPoints.contains(point1))		
+			if(!validPoints.contains(point1.toString()))		
 				return false;
 			// check if pt1 is the player's man
-			if (!players[player].getMenOnTheBoard().contains(point1))
+			if (!players[player].getMenOnTheBoard().contains(point1.toString()))
 				return false;
 			// point2 cannot be occupied.
 			if(isOccupied(point2))
@@ -92,7 +95,7 @@ public class Board {
 	private boolean placeAMan(Point pt, int player) {
 		// check if the player has a man on hand:
 		// if not, put a new man at pt on the board.
-		if (players[player].getMenHoldInHand()==0)
+		if (players[player].getMenHoldInHand()<=0)
 			return false;
 		players[player].placeAMan(pt);
 		// update the board, update player.
@@ -108,11 +111,17 @@ public class Board {
 		// check if player enables flying.
 		if(enableFlying(player)) {
 			players[player].moveAMan(pt1, pt2);
+			if (hasMills(player)) {
+				removeAMan(player==0 ? 1 : 0);
+			}
 			return true;
 		} else {
 			// check adjacent points of pt1 and see if any of them matches pt2.
 			if (pt1.getAdjacentPoints().contains(pt2.toString())) {
 				players[player].moveAMan(pt1,pt2);
+				if (hasMills(player)) {
+					removeAMan(player==0 ? 1 : 0);
+				}
 				return true;
 			} else {
 				return false;
@@ -125,8 +134,12 @@ public class Board {
 		return false;
 	}
 	void removeAMan(int player) {
-		// TODO
+		removeAMan(player, "00");
 	}
+	private void removeAMan(int player, String str) {
+		players[player].removeAMan(str);
+	}
+	
 	boolean enableFlying(int player) {
 		if (players[player].getMenHoldInHand()==0 && players[player].getMenOnTheBoard().size()==3) 
 			return true;
@@ -134,9 +147,20 @@ public class Board {
 			return false;
 	}
 	
+	static boolean endOfGame() {
+		if (players[0].lose() || players[1].lose())
+			return true;
+		return false;
+	}
+	
 	// Testing
 	public static void main(String[] args) {
 		Board game = new Board("Player1", "Player2");
-		System.out.println(validPoints.contains(new Point(0,0,false).toString()));		
+		//System.out.println(validPoints.contains(new Point(0,0,false).toString()));
+		System.out.println(game.makeAnAction(null, new Point(0,0), 0));
+		System.out.println(game.makeAnAction(null, new Point(0,3), 1));
+		System.out.println(game.makeAnAction(null, new Point(3,0), 0));
+		System.out.println(game.makeAnAction(null, new Point(0,3), 1));
 	}
+	
 }
