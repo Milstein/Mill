@@ -11,16 +11,10 @@ public class Point {
 		static final int MINY = 0;
 		static final int MAXX = 0;
 		static final int MAXY = 0;
-		private boolean occupied;
 	
 		Point(int x, int y, boolean occupied) {
 			this.x = x;
 			this.y = y;
-			this.occupied = occupied;
-		}
-		
-		public boolean isOccupied() {
-			return occupied;
 		}
 		
 		public int getX() {
@@ -31,12 +25,16 @@ public class Point {
 			return y;
 		}
 		
+		public String toString() {
+			return x + "" + y;
+		}
+		
 		/**
 		 * Search for adjacent points
 		 * @return a set contains adjacent points.
 		 */
-		public Set<Point> getAdjacentPoints() {
-			Set<Point> adjacent = new HashSet<Point>();
+		public Set<String> getAdjacentPoints() {
+			Set<String> adjacent = new HashSet<String>();
 			// Search in 4 directions: We are done each branch if 
 			// we run out of boundary or have found a valid point.
 			//----------------------------------------
@@ -45,8 +43,8 @@ public class Point {
 			// x+ direction:
 			while(x<MAXX) {
 				x++;
-				if(Board.validPoints.contains(new Point(x,y,false))) {
-					adjacent.add(new Point(x,y,false));
+				if(Board.validPoints.contains(toString())) {
+					adjacent.add(toString());
 					break;
 				}
 			}
@@ -54,8 +52,8 @@ public class Point {
 			// x- direction:
 			while(x>MINX) {
 				x--;
-				if(Board.validPoints.contains(new Point(x,y,false))) {
-					adjacent.add(new Point(x,y,false));
+				if(Board.validPoints.contains(toString())) {
+					adjacent.add(toString());
 					break;
 				}
 			}
@@ -63,8 +61,8 @@ public class Point {
 			// y+ direction:
 			while(y<MAXY) {
 				y++;
-				if(Board.validPoints.contains(new Point(x,y,false))) {
-					adjacent.add(new Point(x,y,false));
+				if(Board.validPoints.contains(toString())) {
+					adjacent.add(toString());
 					break;
 				}
 			}
@@ -72,8 +70,8 @@ public class Point {
 			// y- direction:
 			while(y>MINY) {
 				y--;
-				if(Board.validPoints.contains(new Point(x,y,false))) {
-					adjacent.add(new Point(x,y,false));
+				if(Board.validPoints.contains(toString())) {
+					adjacent.add(toString());
 					break;
 				}
 			}

@@ -7,7 +7,7 @@ public class Board {
 	
 	//data field: 
 	private Player[] players;
-	static Set<Point> validPoints = new HashSet<Point>(); // = {	pt1,pt2,...,pt24 }
+	static Set<String> validPoints = new HashSet<String>(); // = {	pt1,pt2,...,pt24 }
 	
 	// Constructor
 	public Board(String name1, String name2) {
@@ -19,31 +19,33 @@ public class Board {
 		players = new Player[2];
 		players[0] = new Player(name1, 0);
 		players[1] = new Player(name2, 1);
-		validPoints = new HashSet<Point>();
-		validPoints.add(new Point(0,0,false));
-		validPoints.add(new Point(3,0,false));
-		validPoints.add(new Point(6,0,false));
-		validPoints.add(new Point(1,1,false));
-		validPoints.add(new Point(3,1,false));
-		validPoints.add(new Point(5,1,false));
-		validPoints.add(new Point(2,2,false));
-		validPoints.add(new Point(3,2,false));
-		validPoints.add(new Point(4,2,false));
-		validPoints.add(new Point(0,3,false));
-		validPoints.add(new Point(1,3,false));
-		validPoints.add(new Point(2,3,false));
-		validPoints.add(new Point(4,3,false));
-		validPoints.add(new Point(5,3,false));
-		validPoints.add(new Point(6,3,false));
-		validPoints.add(new Point(2,4,false));
-		validPoints.add(new Point(3,4,false));
-		validPoints.add(new Point(4,4,false));
-		validPoints.add(new Point(1,5,false));
-		validPoints.add(new Point(3,5,false));
-		validPoints.add(new Point(5,5,false));
-		validPoints.add(new Point(0,6,false));
-		validPoints.add(new Point(3,6,false));
-		validPoints.add(new Point(6,6,false));
+		validPoints = new HashSet<String>();
+		validPoints.add("00");
+		validPoints.add("30");
+		validPoints.add("60");
+		validPoints.add("11");
+		validPoints.add("31");
+		validPoints.add("51");
+		validPoints.add("22");
+		validPoints.add("32");
+		validPoints.add("42");
+		validPoints.add("03");
+		validPoints.add("13");
+		validPoints.add("23");
+		validPoints.add("43");
+		validPoints.add("53");
+		validPoints.add("63");
+		validPoints.add("24");
+		validPoints.add("34");
+		validPoints.add("44");
+		validPoints.add("15");
+		validPoints.add("35");
+		validPoints.add("55");
+		validPoints.add("06");
+		validPoints.add("36");
+		validPoints.add("66");
+		System.out.println(validPoints.contains("00"));
+		System.out.println(validPoints.contains("01"));
 	}
 
 	/**
@@ -62,7 +64,7 @@ public class Board {
 		if(point1==null) {
 			if(players[player].getMenHoldInHand()==0)
 				return false;
-			if(point2.isOccupied())
+			if(isOccupied(point2))
 				return false;
 			return placeAMan(point2,player);
 		} else {
@@ -73,13 +75,22 @@ public class Board {
 			if (!players[player].getMenOnTheBoard().contains(point1))
 				return false;
 			// point2 cannot be occupied.
-			if(point2.isOccupied())
+			if(isOccupied(point2))
 				return false;
 			return moveAMan(point1,point2,player);
 		}
 				
 	}
 
+	// Check if the point is occupied.
+	// check player1 and player2 if they have this point under menOnTheBoard.
+	private boolean isOccupied(Point pt) {
+		if (players[0].hasPoint(pt))
+			return true;
+		if (players[1].hasPoint(pt))
+			return true;
+		return false;
+	}
 	private boolean placeAMan(Point pt, int player) {
 		// check if the player has a man on hand:
 		// if not, put a new man at pt on the board.
@@ -128,6 +139,6 @@ public class Board {
 	// Testing
 	public static void main(String[] args) {
 		Board game = new Board("Player1", "Player2");
-		System.out.println(validPoints.contains(new Point(0,0,false)));
+		System.out.println(validPoints.contains(new Point(0,0,false)));		
 	}
 }

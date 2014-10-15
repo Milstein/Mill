@@ -66,4 +66,12 @@ public class Player {
 		return menHoldInHand;
 	}
 
+	public boolean hasPoint(Point pt) {
+		for (Point p : menOnTheBoard) {
+			if (p.toString()==pt.toString())
+				return true;
+		}
+		return false;
+	}
+
 }
