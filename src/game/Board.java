@@ -44,8 +44,6 @@ public class Board {
 		validPoints.add("06");
 		validPoints.add("36");
 		validPoints.add("66");
-		System.out.println(validPoints.contains("00"));
-		System.out.println(validPoints.contains("01"));
 	}
 
 	/**
@@ -85,9 +83,9 @@ public class Board {
 	// Check if the point is occupied.
 	// check player1 and player2 if they have this point under menOnTheBoard.
 	private boolean isOccupied(Point pt) {
-		if (players[0].hasPoint(pt))
+		if (players[0].hasPoint(pt.toString()))
 			return true;
-		if (players[1].hasPoint(pt))
+		if (players[1].hasPoint(pt.toString()))
 			return true;
 		return false;
 	}
@@ -113,7 +111,7 @@ public class Board {
 			return true;
 		} else {
 			// check adjacent points of pt1 and see if any of them matches pt2.
-			if (pt1.getAdjacentPoints().contains(pt2)) {
+			if (pt1.getAdjacentPoints().contains(pt2.toString())) {
 				players[player].moveAMan(pt1,pt2);
 				return true;
 			} else {
@@ -139,6 +137,6 @@ public class Board {
 	// Testing
 	public static void main(String[] args) {
 		Board game = new Board("Player1", "Player2");
-		System.out.println(validPoints.contains(new Point(0,0,false)));		
+		System.out.println(validPoints.contains(new Point(0,0,false).toString()));		
 	}
 }

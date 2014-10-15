@@ -6,7 +6,7 @@ public class Player {
 
 	String name;
 	int color; // (0="white"&&1="black"),
-	Set<Point> menOnTheBoard;
+	Set<String> menOnTheBoard;
 	int menHoldInHand;
 
 	public Player(String name, int color) {
@@ -16,7 +16,7 @@ public class Player {
 
 	String placeAMan(Point pt) {
 		if (menHoldInHand > 0) {
-			menOnTheBoard.add(pt);
+			menOnTheBoard.add(pt.toString());
 			menHoldInHand--;
 		} else {
 			return "Not Allowed to move";
@@ -58,7 +58,7 @@ public class Player {
 		return color;
 	}
 
-	public Set<Point> getMenOnTheBoard() {
+	public Set<String> getMenOnTheBoard() {
 		return menOnTheBoard;
 	}
 
@@ -66,12 +66,8 @@ public class Player {
 		return menHoldInHand;
 	}
 
-	public boolean hasPoint(Point pt) {
-		for (Point p : menOnTheBoard) {
-			if (p.toString()==pt.toString())
-				return true;
-		}
-		return false;
+	public boolean hasPoint(String str) {
+		return menOnTheBoard.contains(str);
 	}
 
 }
