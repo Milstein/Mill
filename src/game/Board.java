@@ -1,13 +1,45 @@
 package game;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class Board {
 	
 	//data field: 
 	private Player[] players;
-	static Set<Point> validpoints; // = {	pt1,pt2,...,pt24 }
+	static Set<Point> validPoints = new HashSet<Point>(); // = {	pt1,pt2,...,pt24 }
 	
+	// Constructor
+	public Board(String name1, String name2) {
+		players = new Player[2];
+		players[0] = new Player(name1, 0);
+		players[1] = new Player(name2, 1);
+		validPoints = new HashSet<Point>();
+		validPoints.add(new Point(0,0,false));
+		validPoints.add(new Point(3,0,false));
+		validPoints.add(new Point(6,0,false));
+		validPoints.add(new Point(1,1,false));
+		validPoints.add(new Point(3,1,false));
+		validPoints.add(new Point(5,1,false));
+		validPoints.add(new Point(2,2,false));
+		validPoints.add(new Point(3,2,false));
+		validPoints.add(new Point(4,2,false));
+		validPoints.add(new Point(0,3,false));
+		validPoints.add(new Point(1,3,false));
+		validPoints.add(new Point(2,3,false));
+		validPoints.add(new Point(4,3,false));
+		validPoints.add(new Point(5,3,false));
+		validPoints.add(new Point(6,3,false));
+		validPoints.add(new Point(2,4,false));
+		validPoints.add(new Point(3,4,false));
+		validPoints.add(new Point(4,4,false));
+		validPoints.add(new Point(1,5,false));
+		validPoints.add(new Point(3,5,false));
+		validPoints.add(new Point(5,5,false));
+		validPoints.add(new Point(0,6,false));
+		validPoints.add(new Point(3,6,false));
+		validPoints.add(new Point(6,6,false));
+	}
 	//methods:
 	public void init() {
 		// Initialize the board.

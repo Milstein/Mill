@@ -45,7 +45,7 @@ public class Point {
 			// x+ direction:
 			while(x<MAXX) {
 				x++;
-				if(Board.validpoints.contains(new Point(x,y,false))) {
+				if(Board.validPoints.contains(new Point(x,y,false))) {
 					adjacent.add(new Point(x,y,false));
 					break;
 				}
@@ -54,7 +54,7 @@ public class Point {
 			// x- direction:
 			while(x>MINX) {
 				x--;
-				if(Board.validpoints.contains(new Point(x,y,false))) {
+				if(Board.validPoints.contains(new Point(x,y,false))) {
 					adjacent.add(new Point(x,y,false));
 					break;
 				}
@@ -63,7 +63,7 @@ public class Point {
 			// y+ direction:
 			while(y<MAXY) {
 				y++;
-				if(Board.validpoints.contains(new Point(x,y,false))) {
+				if(Board.validPoints.contains(new Point(x,y,false))) {
 					adjacent.add(new Point(x,y,false));
 					break;
 				}
@@ -72,7 +72,7 @@ public class Point {
 			// y- direction:
 			while(y>MINY) {
 				y--;
-				if(Board.validpoints.contains(new Point(x,y,false))) {
+				if(Board.validPoints.contains(new Point(x,y,false))) {
 					adjacent.add(new Point(x,y,false));
 					break;
 				}
