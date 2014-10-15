@@ -130,7 +130,54 @@ public class Board {
 	}
 
 	boolean hasMills(int player) {
-		//TODO
+		Set<Point> points = players[player].getMenOnTheBoard();
+		//TODO loop and check top down
+		for( Point pt : points) {
+			int x = pt.getX();
+			int y = pt.getY();
+			// horizontally
+			boolean xplus = false;
+			boolean xminus = false;
+			while(x<Point.MAXX) {
+				x++;
+				if(points.contains(new Point(x,y))) {
+					xplus=true;
+					break;
+				}
+			}
+			x = pt.getX();
+			while(x>Point.MINY) {
+				x--;
+				if(points.contains(new Point(x,y))) {
+					xminus=true;
+					break;
+				}
+			}
+			x = pt.getX();
+			if(xplus && xminus)
+				return true;
+			// vertically
+			boolean yplus = false;
+			boolean yminus = false;
+			while(y<Point.MAXY){
+				y++;
+				if(points.contains(new Point(x,y))) {
+					yplus=true;
+					break;
+				}
+			}
+			y = pt.getY();
+			while(y<Point.MINY){
+				y--;
+				if(points.contains(new Point(x,y))) {
+					yminus=true;
+					break;
+				}
+			}
+			y = pt.getY();
+			if(yplus && yminus)
+				return true;
+		}
 		return false;
 	}
 	void removeAMan(int player) {

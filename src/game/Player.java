@@ -7,18 +7,18 @@ public class Player {
 
 	String name;
 	int color; // (0="white"&&1="black"),
-	Set<String> menOnTheBoard;
+	Set<Point> menOnTheBoard;
 	int menHoldInHand;
 
 	public Player(String name, int color) {
 		this.name = name;
 		this.color = color;
 		menHoldInHand = 9;
-		menOnTheBoard = new HashSet<String>();
+		menOnTheBoard = new HashSet<Point>();
 	}
 
 	void placeAMan(Point pt) {
-		menOnTheBoard.add(pt.toString());
+		menOnTheBoard.add(pt);
 		menHoldInHand--;
 	}
 
@@ -56,7 +56,7 @@ public class Player {
 		return color;
 	}
 
-	public Set<String> getMenOnTheBoard() {
+	public Set<Point> getMenOnTheBoard() {
 		return menOnTheBoard;
 	}
 
