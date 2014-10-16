@@ -104,9 +104,10 @@ public class Board {
 		players[player].placeAMan(pt);
 		// update the board, update player.
 		// check if player has mills, if has, remove one opponent's man.
-//		if (hasMills(player)) {
-//			removeAMan(player == 0 ? 1 : 0);
-//		}
+		if (hasMills(player)) {
+			//removeAMan(player == 0 ? 1 : 0);
+			System.out.println("Player " + player + "has a MILL!");
+		}
 		return true;
 	}
 
@@ -115,17 +116,19 @@ public class Board {
 		// check if player enables flying.
 		if (enableFlying(player)) {
 			players[player].moveAMan(pt1, pt2);
-//			if (hasMills(player)) {
-//				removeAMan(player == 0 ? 1 : 0);
-//			}
+			if (hasMills(player)) {
+				//removeAMan(player == 0 ? 1 : 0);
+				System.out.println("Player " + player + "has a MILL!");
+			}
 			return true;
 		} else {
 			// check adjacent points of pt1 and see if any of them matches pt2.
 			if (pt1.getAdjacentPoints().contains(pt2)) {
 				players[player].moveAMan(pt1, pt2);
-//				if (hasMills(player)) {
-//					removeAMan(player == 0 ? 1 : 0);
-//				}
+				if (hasMills(player)) {
+					//removeAMan(player == 0 ? 1 : 0);
+					System.out.println("Player " + player + "has a MILL!");
+				}
 				return true;
 			} else {
 				return false;
@@ -135,7 +138,7 @@ public class Board {
 
 	boolean hasMills(int player) {
 		Set<Point> points = players[player].getMenOnTheBoard();
-		// TODO loop and check top down
+		// loop and check left/right or top/down
 		for (Point pt : points) {
 			int x = pt.getX();
 			int y = pt.getY();
@@ -158,6 +161,8 @@ public class Board {
 				}
 			}
 			x = pt.getX();
+			//System.out.println("Searching around point: " + pt);
+			//System.out.println("x+: " + xplus + " x-: " + xminus);
 			if (xplus && xminus)
 				return true;
 			// vertically
@@ -179,6 +184,8 @@ public class Board {
 				}
 			}
 			y = pt.getY();
+//			System.out.println("Searching around point: " + pt);
+//			System.out.println("y+: " + yplus + " y-: " + yminus);
 			if (yplus && yminus)
 				return true;
 		}
@@ -210,12 +217,11 @@ public class Board {
 	// Testing
 	public static void main(String[] args) {
 		Board game = new Board("Player1", "Player2");
-		// System.out.println(validPoints.contains(new
-		// Point(0,0,false).toString()));
 		System.out.println(game.makeAnAction(null, new Point(0, 0), 0));
 		System.out.println(game.makeAnAction(null, new Point(3, 0), 0));
 		System.out.println(game.makeAnAction(null, new Point(6, 0), 0));
-		System.out.println(game.hasMills(0));
+		//System.out.println(game.hasMills(0));
+		//System.out.println(game.makeAnAction(null, new Point(0, 3), 1));
 	}
 
 }

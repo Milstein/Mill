@@ -20,6 +20,7 @@ public class Player {
 	void placeAMan(Point pt) {
 		menOnTheBoard.add(pt);
 		menHoldInHand--;
+		System.out.println("Player" + color + " place a man on " + pt);
 	}
 
 	// TODO
@@ -65,6 +66,11 @@ public class Player {
 	}
 
 	public boolean hasPoint(Point pt) {
+		System.out.println("pt=" + pt);
+		System.out.print("Player" + color + " has: ");
+		for (Point p : menOnTheBoard)
+			System.out.print(p+" ");
+		System.out.println();
 		return menOnTheBoard.contains(pt);
 	}
 

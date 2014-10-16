@@ -9,8 +9,8 @@ public class Point {
 	private int y;
 	static final int MINX = 0;
 	static final int MINY = 0;
-	static final int MAXX = 0;
-	static final int MAXY = 0;
+	static final int MAXX = 6;
+	static final int MAXY = 6;
 
 	Point(int x, int y) {
 		this.x = x;
@@ -23,6 +23,10 @@ public class Point {
 
 	public int getY() {
 		return y;
+	}
+	
+	public String toString() {
+		return "(" + x + "," + y + ")";
 	}
 
 	/**
