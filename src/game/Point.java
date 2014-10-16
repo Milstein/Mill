@@ -25,27 +25,27 @@ public class Point {
 		return y;
 	}
 
-	public String toString() {
-		return x + "" + y;
-	}
-
 	/**
 	 * Search for adjacent points
 	 * 
 	 * @return a set contains adjacent points.
 	 */
-	public Set<String> getAdjacentPoints() {
-		Set<String> adjacent = new HashSet<String>();
+	public Set<Point> getAdjacentPoints() {
+		Set<Point> adjacent = new HashSet<Point>();
 		// Search in 4 directions: We are done each branch if
 		// we run out of boundary or have found a valid point.
 		// ----------------------------------------
+
+		Point currentPoint = new Point(getX(), getY());
+
 		int originalX = x;
 		int originalY = y;
+
 		// x+ direction:
 		while (x < MAXX) {
 			x++;
-			if (Board.validPoints.contains(toString())) {
-				adjacent.add(toString());
+			if (Board.validPoints.contains(currentPoint)) {
+				adjacent.add(currentPoint);
 				break;
 			}
 		}
@@ -53,8 +53,8 @@ public class Point {
 		// x- direction:
 		while (x > MINX) {
 			x--;
-			if (Board.validPoints.contains(toString())) {
-				adjacent.add(toString());
+			if (Board.validPoints.contains(currentPoint)) {
+				adjacent.add(currentPoint);
 				break;
 			}
 		}
@@ -62,8 +62,8 @@ public class Point {
 		// y+ direction:
 		while (y < MAXY) {
 			y++;
-			if (Board.validPoints.contains(toString())) {
-				adjacent.add(toString());
+			if (Board.validPoints.contains(currentPoint)) {
+				adjacent.add(currentPoint);
 				break;
 			}
 		}
@@ -71,8 +71,8 @@ public class Point {
 		// y- direction:
 		while (y > MINY) {
 			y--;
-			if (Board.validPoints.contains(toString())) {
-				adjacent.add(toString());
+			if (Board.validPoints.contains(currentPoint)) {
+				adjacent.add(currentPoint);
 				break;
 			}
 		}

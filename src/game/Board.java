@@ -61,7 +61,7 @@ public class Board {
 	 */
 	public boolean makeAnAction(Point point1, Point point2, int player) {
 		// validation check: point2 has to be a valid point in the board.
-		if (!validPoints.contains(point2.toString()))
+		if (!validPoints.contains(point2))
 			return false;
 		// add a new man: makeAnAction(null,point2,player)
 		// move a man: makeAnAction(point1,point2,player)
@@ -104,9 +104,9 @@ public class Board {
 		players[player].placeAMan(pt);
 		// update the board, update player.
 		// check if player has mills, if has, remove one opponent's man.
-		if (hasMills(player)) {
-			removeAMan(player == 0 ? 1 : 0);
-		}
+//		if (hasMills(player)) {
+//			removeAMan(player == 0 ? 1 : 0);
+//		}
 		return true;
 	}
 
@@ -115,17 +115,17 @@ public class Board {
 		// check if player enables flying.
 		if (enableFlying(player)) {
 			players[player].moveAMan(pt1, pt2);
-			if (hasMills(player)) {
-				removeAMan(player == 0 ? 1 : 0);
-			}
+//			if (hasMills(player)) {
+//				removeAMan(player == 0 ? 1 : 0);
+//			}
 			return true;
 		} else {
 			// check adjacent points of pt1 and see if any of them matches pt2.
-			if (pt1.getAdjacentPoints().contains(pt2.toString())) {
+			if (pt1.getAdjacentPoints().contains(pt2)) {
 				players[player].moveAMan(pt1, pt2);
-				if (hasMills(player)) {
-					removeAMan(player == 0 ? 1 : 0);
-				}
+//				if (hasMills(player)) {
+//					removeAMan(player == 0 ? 1 : 0);
+//				}
 				return true;
 			} else {
 				return false;
@@ -150,7 +150,7 @@ public class Board {
 				}
 			}
 			x = pt.getX();
-			while (x > Point.MINY) {
+			while (x > Point.MINX) {
 				x--;
 				if (points.contains(new Point(x, y))) {
 					xminus = true;
@@ -171,7 +171,7 @@ public class Board {
 				}
 			}
 			y = pt.getY();
-			while (y < Point.MINY) {
+			while (y > Point.MINY) {
 				y--;
 				if (points.contains(new Point(x, y))) {
 					yminus = true;
@@ -213,8 +213,8 @@ public class Board {
 		// System.out.println(validPoints.contains(new
 		// Point(0,0,false).toString()));
 		System.out.println(game.makeAnAction(null, new Point(0, 0), 0));
-		System.out.println(game.makeAnAction(null, new Point(0, 3), 0));
-		System.out.println(game.makeAnAction(null, new Point(0, 6), 0));
+		System.out.println(game.makeAnAction(null, new Point(3, 0), 0));
+		System.out.println(game.makeAnAction(null, new Point(6, 0), 0));
 		System.out.println(game.hasMills(0));
 	}
 
