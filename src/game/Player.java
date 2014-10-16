@@ -23,9 +23,10 @@ public class Player {
 		System.out.println("Player" + color + " place a man on " + pt);
 	}
 
-	// TODO
-	Point moveAMan(Point pt1, Point pt2) {
-		return null;
+	void moveAMan(Point pt1, Point pt2) {
+		menOnTheBoard.remove(pt1);
+		menOnTheBoard.remove(pt2);
+		System.out.println("Player" + color + " move a man from " + pt1 + " to " + pt2);
 	}
 
 	// TODO
