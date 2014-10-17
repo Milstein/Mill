@@ -30,7 +30,9 @@ public class Point {
 	}
 
 	// Get neighbors in specific direction...
-	public Point getRightNeighbor(int x0, int y0) {
+	public Point getRightNeighbor() {
+		int x0 = x;
+		int y0 = y;
 		while (x0 < MAXX) {
 			// check if x=2 and y=3, we cannot go to the right.
 			if(x0==2 && y0==3)
@@ -42,7 +44,9 @@ public class Point {
 		}
 		return null;
 	}
-	public Point getLeftNeighbor(int x0, int y0) {
+	public Point getLeftNeighbor() {
+		int x0 = x;
+		int y0 = y;
 		while (x0 > MINX) {
 			// check if x=4 and y=3, we cannot go to the left.
 			if(x0==4 && y0==3)
@@ -54,7 +58,9 @@ public class Point {
 		}
 		return null;
 	}
-	public Point getDownNeighbor(int x0, int y0) {
+	public Point getDownNeighbor() {
+		int x0 = x;
+		int y0 = y;
 		while (y0 < MAXY) {
 			// check if x=3 and y=2, we cannot go down.
 			if (x0==3 && y0==2) {
@@ -67,7 +73,9 @@ public class Point {
 		}
 		return null;
 	}
-	public Point getUpNeighbor(int x0, int y0) {
+	public Point getUpNeighbor() {
+		int x0 = x;
+		int y0 = y;
 		while (y0 > MINY) {
 			// check if x=3 and y=4, we cannot go down.
 			if (x0==3 && y0==4)
@@ -91,19 +99,19 @@ public class Point {
 		// we run out of boundary or have found a valid point.
 		// ----------------------------------------
 		// x+ direction:
-		Point rightNeighbor = getRightNeighbor(x,y);
+		Point rightNeighbor = getRightNeighbor();
 		if(rightNeighbor!=null)
 			adjacent.add(rightNeighbor);
 		// x- direction:
-		Point leftNeighbor = getLeftNeighbor(x,y);
+		Point leftNeighbor = getLeftNeighbor();
 		if(leftNeighbor!=null)
 			adjacent.add(leftNeighbor);
 		// y+ direction: down
-		Point downNeighbor = getDownNeighbor(x,y);
+		Point downNeighbor = getDownNeighbor();
 		if(downNeighbor!=null)
 			adjacent.add(downNeighbor);
 		// y- direction: up
-		Point upNeighbor = getUpNeighbor(x,y);
+		Point upNeighbor = getUpNeighbor();
 		if(upNeighbor!=null)
 			adjacent.add(upNeighbor);
 		
