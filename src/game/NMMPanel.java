@@ -85,26 +85,24 @@ public class NMMPanel {
 		topLeftPanel = new JPanel();
 		topLeftPanel.setForeground(new Color(0, 0, 0));
 		topLeftPanel.setBackground(new Color(255, 255, 204));
-		topLeftPanel.setBounds(6, 35, 350, 100);
+		topLeftPanel.setBounds(6, 35, 350, 100);			
+
+		JLabel lblPlayer1 = new JLabel("PLAYER 1");
+		lblPlayer1.setBounds(150, 80, 61, 16);
 		topLeftPanel.setLayout(null);
+		topLeftPanel.add(lblPlayer1);
 		frame.getContentPane().add(topLeftPanel);
 
-		// JLabel lblPlayer = new JLabel("PLAYER 1");
-		// lblPlayer.setBounds(20, 454, 61, 16);
-		// topLeftPanel.add(lblPlayer);
-
 		topRightPanel = new JPanel();
-		// topRightPanel.setForeground(new Color(0, 0, 0));
-		// topRightPanel.setBackground(new Color(180, 180, 204));
 		topRightPanel.setBackground(Color.DARK_GRAY);
-		topRightPanel.setBounds(360, 35, 350, 100);
-		topRightPanel.setLayout(null);
-		frame.getContentPane().add(topRightPanel);
+		topRightPanel.setBounds(360, 35, 350, 100);				
 
-		// JLabel lblPlayer_1 = new JLabel("PLAYER 2");
-		// lblPlayer_1.setForeground(new Color(255, 255, 255));
-		// lblPlayer_1.setBounds(20, 454, 61, 16);
-		// topRightPanel.add(lblPlayer_1);
+		JLabel lblPlayer2 = new JLabel("PLAYER 2");
+		lblPlayer2.setForeground(new Color(255, 255, 255));
+		lblPlayer2.setBounds(150, 80, 61, 16);
+		topRightPanel.setLayout(null);
+		topRightPanel.add(lblPlayer2);
+		frame.getContentPane().add(topRightPanel);
 
 		ImageIcon texture = createImageIcon("/resources/Wood.jpg");
 
@@ -143,7 +141,7 @@ public class NMMPanel {
 
 	private void initializeGameField() {
 		ImageIcon iconWhite = createImageIcon("/resources/White_Stone.png");
-		int space = 0;
+		int space = 10;
 		blacks = new JLabel[9];
 		whites = new JLabel[9];
 
@@ -174,7 +172,7 @@ public class NMMPanel {
 		}
 
 		ImageIcon iconBlack = createImageIcon("/resources/Black_Stone.png");
-		space = 0;
+		space = 10;
 		for (int i = 0; i < 9; i++) {
 			JLabel lblBlack = new JLabel(iconBlack);
 			lblBlack.addMouseListener(new MouseAdapter() {
