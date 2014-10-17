@@ -1,6 +1,7 @@
 package game;
 
 import java.util.HashSet;
+import java.util.Scanner;
 import java.util.Set;
 
 public class Board {
@@ -70,7 +71,7 @@ public class Board {
 		// validation check: point2 has to be a valid point in the board.
 		if (!validPoints.contains(point2)) {
 			System.err.println("Point " + point2 + " is not a valid point!");
-			System.out.println("Player" + player + "'s turn.");
+			System.out.println("Player " + (player+1) + "'s turn.");
 			return false;
 		}
 		// add a new man: makeAnAction(null,point2,player)
@@ -78,12 +79,12 @@ public class Board {
 		if (point1 == null) {
 			if (players[player].getMenHoldInHand() == 0) {
 				System.err.println("Player has no more men in hand!");
-				System.out.println("Player " + player + "'s turn.");
+				System.out.println("Player " + (player+1) + "'s turn.");
 				return false;
 			}
 			if (isOccupied(point2)) {
 				System.err.println("Point " + point2 + " is occupied!");
-				System.out.println("Player " + player + "'s turn.");
+				System.out.println("Player " + (player+1) + "'s turn.");
 				return false;
 			}
 			return placeAMan(point2, player);
@@ -91,19 +92,19 @@ public class Board {
 			// validation check: point1 has to be a valid point in the board.
 			if (!validPoints.contains(point1)) {
 				System.err.println("Point " + point1 + " is not a valid point!");
-				System.out.println("Player" + player + "'s turn.");
+				System.out.println("Player" + (player+1) + "'s turn.");
 				return false;
 			}
 			// check if pt1 is the player's man
 			if (!players[player].getMenOnTheBoard().contains(point1)) {
-				System.err.println("Point " + point1 + " does not has Player" + player + "'s man!");
-				System.out.println("Player" + player + "'s turn.");
+				System.err.println("Point " + point1 + " does not has Player" + (player+1) + "'s man!");
+				System.out.println("Player" + (player+1) + "'s turn.");
 				return false;
 			}
 			// point2 cannot be occupied.
 			if (isOccupied(point2)) {
 				System.err.println("Point " + point2 + " is occupied!");
-				System.out.println("Player " + player + "'s turn.");
+				System.out.println("Player " + (player+1) + "'s turn.");
 				return false;
 			}
 			return moveAMan(point1, point2, player);
@@ -117,7 +118,7 @@ public class Board {
 	 * @param pt
 	 * @return
 	 */
-	private boolean isOccupied(Point pt) {
+	public static boolean isOccupied(Point pt) {
 		if (players[0].hasPoint(pt))
 			return true;
 		if (players[1].hasPoint(pt))
@@ -135,11 +136,7 @@ public class Board {
 		players[player].placeAMan(pt);
 		// update the board, update player.
 		// check if player has mills, if has, remove one opponent's man.
-		if (hasMills(player)) {
-			System.out.println("Player " + player + "has a MILL!");
-			System.out.println("Ask Player" + player + " to remove a man of Player " + (player == 0 ? 1 : 0));
-			//removeAMan(player == 0 ? 1 : 0);
-		}
+ 
 		return true;
 	}
 
@@ -155,27 +152,27 @@ public class Board {
 	private boolean moveAMan(Point pt1, Point pt2, int player) {
 		// check if player enables flying.
 		if (enableFlying(player)) {
-			System.out.println("Player" + player + " flying enabled!");
+			System.out.println("Player" + (player+1) + " flying enabled!");
 			players[player].moveAMan(pt1, pt2);
-			if (hasMills(player)) {
-				System.out.println("Player " + player + "has a MILL!");
-				System.out.println("Ask Player" + player + " to remove a man of Player " + (player == 0 ? 1 : 0));
-				//removeAMan(player == 0 ? 1 : 0);
-			}
+//			if (hasMills(player)) {
+//				System.out.println("Player " + (player+1) + " has a MILL!");
+//				System.out.println("Ask Player" + (player+1) + ": to remove a man of Player " + ((player == 0 ? 1 : 0)+1));
+//				//removeAMan(player == 0 ? 1 : 0);
+//			}
 			return true;
 		} else {
 			// check adjacent points of pt1 and see if any of them matches pt2.
 			if (pt1.getAdjacentPoints().contains(pt2)) {
 				players[player].moveAMan(pt1, pt2);
-				if (hasMills(player)) {
-					System.out.println("Player " + player + "has a MILL!");
-					System.out.println("Ask Player" + player + " to remove a man of Player " + (player == 0 ? 1 : 0));
-					//removeAMan(player == 0 ? 1 : 0);
-				}
+//				if (hasMills(player)) {
+//					System.out.println("Player " + (player+1) + " has a MILL!");
+//					System.out.println("Ask Player" + (player+1) + ": to remove a man of Player " + ((player == 0 ? 1 : 0)+1));					
+//					//removeAMan(player == 0 ? 1 : 0);
+//				}
 				return true;
 			} else {
-				System.err.println("Player" + player + ": Invalid move from point " + pt1 + " to " + pt2);
-				System.out.println("Player " + player + "'s turn.");
+				System.err.println("Player" + (player+1) + ": Invalid move from point " + pt1 + " to " + pt2);
+				System.out.println("Player " + (player+1) + "'s turn.");
 				return false;
 			}
 		}
@@ -187,79 +184,76 @@ public class Board {
 	 * @param player
 	 * @return
 	 */
-	private boolean hasMills(int player) {
+	public static boolean hasMills(int player, Point newpt) {
 		Set<Point> points = players[player].getMenOnTheBoard();
-		// loop and check left/right or top/down
-		for (Point pt : points) {
-			int x = pt.getX();
-			int y = pt.getY();
-			// horizontally
-			boolean xplus = false;
-			boolean xminus = false;
-			while (x < Point.MAXX) {
-				x++;
-				if (points.contains(new Point(x, y))) {
-					xplus = true;
-					break;
-				}
-			}
-			x = pt.getX();
-			while (x > Point.MINX) {
-				x--;
-				if (points.contains(new Point(x, y))) {
-					xminus = true;
-					break;
-				}
-			}
-			x = pt.getX();
-			//System.out.println("Searching around point: " + pt);
-			//System.out.println("x+: " + xplus + " x-: " + xminus);
-			if (xplus && xminus)
-				return true;
-			// vertically
-			boolean yplus = false;
-			boolean yminus = false;
-			while (y < Point.MAXY) {
-				y++;
-				if (points.contains(new Point(x, y))) {
-					yplus = true;
-					break;
-				}
-			}
-			y = pt.getY();
-			while (y > Point.MINY) {
-				y--;
-				if (points.contains(new Point(x, y))) {
-					yminus = true;
-					break;
-				}
-			}
-			y = pt.getY();
-//			System.out.println("Searching around point: " + pt);
-//			System.out.println("y+: " + yplus + " y-: " + yminus);
-			if (yplus && yminus)
-				return true;
-		}
+		// check the newpt, left(x+-), right(x+-) or top(y+-), down(y+-).
+		
+//		for (Point pt : points) {
+//			int x = pt.getX();
+//			int y = pt.getY();
+//			// horizontally
+//			boolean xplus = false;
+//			boolean xminus = false;
+//			while (x < Point.MAXX) {
+//				x++;
+//				if (points.contains(new Point(x, y))) {
+//					xplus = true;
+//					break;
+//				}
+//			}
+//			x = pt.getX();
+//			while (x > Point.MINX) {
+//				x--;
+//				if (points.contains(new Point(x, y))) {
+//					xminus = true;
+//					break;
+//				}
+//			}
+//			x = pt.getX();
+//			//System.out.println("Searching around point: " + pt);
+//			//System.out.println("x+: " + xplus + " x-: " + xminus);
+//			if (xplus && xminus) {
+//				System.out.println(pt + "x+-");
+//				return true;
+//			}
+//			// vertically
+//			boolean yplus = false;
+//			boolean yminus = false;
+//			while (y < Point.MAXY) {
+//				y++;
+//				if (points.contains(new Point(x, y))) {
+//					yplus = true;
+//					break;
+//				}
+//			}
+//			y = pt.getY();
+//			while (y > Point.MINY) {
+//				y--;
+//				if (points.contains(new Point(x, y))) {
+//					yminus = true;
+//					break;
+//				}
+//			}
+//			y = pt.getY();
+////			System.out.println("Searching around point: " + pt);
+////			System.out.println("y+: " + yplus + " y-: " + yminus);
+//			if (yplus && yminus) {
+//				System.out.println(pt + "y+-");
+//				return true;
+//			}
+//		}
 		return false;
-	}
-
-	void removeAMan(int player) {
-		//
 	}
 
 	private void removeAMan(int player, Point pt) {
 		players[player].removeAMan(pt);
 	}
 
-	boolean enableFlying(int player) {
-		if (players[player].getMenHoldInHand() == 0
-				&& players[player].getMenOnTheBoard().size() == 3)
-			return true;
-		else
-			return false;
+	private boolean enableFlying(int player) {
+		return players[player].allowToFly();
 	}
 
-	static boolean endOfGame() {
+	private static boolean endOfGame() {
 		if (players[0].lose() || players[1].lose())
 			return true;
 		return false;
@@ -268,11 +262,171 @@ public class Board {
 	// Testing
 	public static void main(String[] args) {
 		Board game = new Board("Player1", "Player2");
-		System.out.println(game.makeAnAction(null, new Point(0, 0), 0));
-		System.out.println(game.makeAnAction(null, new Point(3, 0), 0));
-		System.out.println(game.makeAnAction(null, new Point(6, 0), 0));
-		//System.out.println(game.hasMills(0));
-		//System.out.println(game.makeAnAction(null, new Point(0, 3), 1));
+//		System.out.println(game.makeAnAction(null, new Point(0, 0), 0));
+//		System.out.println(game.makeAnAction(null, new Point(3, 0), 0));
+//		System.out.println(game.makeAnAction(null, new Point(6, 0), 0));
+
+		// Scanner for scanning 
+		Scanner in = new Scanner(System.in);
+		// delimeter?
+		boolean validMove = false;
+		boolean validRemove = false;
+		while(!endOfGame()) {
+			// Test line......................................
+			for(Point pt : players[0].getMenOnTheBoard()) {
+				System.out.print(pt);
+			}
+			System.out.println("");
+			for(Point pt : players[1].getMenOnTheBoard()) {
+				System.out.print(pt);
+			}
+			System.out.println("");
+			//--------------------------------------------------
+			System.out.println("Player1's turn.");
+			// Player1;
+			while (!validMove) {
+				if(players[0].getMenHoldInHand()>0) {
+					System.out.println("Player1 to place a man at point: ");
+					int x_coor = in.nextInt();
+					int y_coor = in.nextInt();
+					Point newpt = new Point(x_coor, y_coor);
+					validMove = game.makeAnAction(null, newpt, 0);
+					// if the new point makes a mill.
+					if (validMove && hasMills(0, newpt)) {
+						System.out.println("Player1" + " has a MILL!");
+						System.out.println("Ask Player1" + ": to remove a man of Player2");
+						while (!validRemove) {
+							System.out.println("\nYou can remove one from: ");
+							for(Point pt : players[1].getMenOnTheBoard()) {
+								System.out.print(pt);
+							}
+							System.out.println("\nSelect the man you want to remove: ");
+							int x_remove = in.nextInt();
+							int y_remove = in.nextInt();
+							Point pt = new Point(x_remove, y_remove);
+							if (players[1].getMenOnTheBoard().contains(pt)) {
+								game.removeAMan(1, pt);
+								validRemove = true;
+							} else {
+								System.err.println("Invalid point to remove!");
+							}
+						}
+					}
+				} else {
+					if(players[0].getMenHoldInHand()==0) {
+						System.out.println("Player1 to move a man: ");
+						System.out.println("Available points:");
+						for(Point pt : players[0].getMenOnTheBoard()) {
+							System.out.print(pt);
+						}
+						System.out.println("From:");
+						int x_1 = in.nextInt();
+						int y_1 = in.nextInt();
+						System.out.println("To:");
+						int x_2 = in.nextInt();
+						int y_2 = in.nextInt();
+						Point newpt = new Point(x_2, y_2);
+						validMove = game.makeAnAction(new Point(x_1,y_1), newpt, 0);
+						if (validMove && hasMills(0, newpt)) {
+							System.out.println("Player1" + " has a MILL!");
+							System.out.println("Ask Player1" + ": to remove a man of Player2");
+							while (!validRemove) {
+								System.out.println("You can remove one from: ");
+								for(Point pt : players[1].getMenOnTheBoard()) {
+									System.out.print(pt);
+								}
+								System.out.println("\nSelect the man you want to remove: ");
+								int x_remove = in.nextInt();
+								int y_remove = in.nextInt();
+								Point pt = new Point(x_remove, y_remove);
+								if (players[1].getMenOnTheBoard().contains(pt)) {
+									game.removeAMan(1, pt);
+									validRemove = true;
+								} else {
+									System.err.println("Invalid point to remove!");
+								}
+							}
+						}
+					}
+				}
+			}
+			// reset.
+			validMove=false;
+			validRemove=false;
+			
+			System.out.println("Player2's turn.");
+			// Player2;
+			while (!validMove) {
+				if(players[1].getMenHoldInHand()>0) {
+					System.out.println("Player2 to place a man at point: ");
+					int x_coor = in.nextInt();
+					int y_coor = in.nextInt();
+					Point newpt = new Point(x_coor, y_coor);
+					validMove = game.makeAnAction(null, newpt, 1);
+					if (validMove && hasMills(1, newpt)) {
+						System.out.println("Player2" + " has a MILL!");
+						System.out.println("Ask Player2" + ": to remove a man of Player1");
+						while (!validRemove) {
+							System.out.println("You can remove one from: ");
+							for(Point pt : players[0].getMenOnTheBoard()) {
+								System.out.print(pt);
+							}
+							System.out.println("\nSelect the man you want to remove: ");
+							int x_remove = in.nextInt();
+							int y_remove = in.nextInt();
+							Point pt = new Point(x_remove, y_remove);
+							if (players[0].getMenOnTheBoard().contains(pt)) {
+								game.removeAMan(0, pt);
+								validRemove = true;
+							} else {
+								System.err.println("Invalid point to remove!");
+							}
+						}
+					}
+				} else {
+					if(players[1].getMenHoldInHand()==0) {
+						System.out.println("Player2 to move a man: ");
+						// list available points.
+						System.out.println("Available points:");
+						for(Point pt : players[1].getMenOnTheBoard()) {
+							System.out.print(pt);
+						}
+						System.out.println("From:");
+						int x_1 = in.nextInt();
+						int y_1 = in.nextInt();
+						System.out.println("To:");
+						int x_2 = in.nextInt();
+						int y_2 = in.nextInt();
+						Point newpt = new Point(x_2, y_2);
+						validMove = game.makeAnAction(new Point(x_1,y_1), newpt, 1);
+						if (validMove && hasMills(1, newpt)) {
+							System.out.println("Player2" + " has a MILL!");
+							System.out.println("Ask Player2" + ": to remove a man of Player1");
+							while (!validRemove) {
+								System.out.println("You can remove one from: ");
+								for(Point pt : players[0].getMenOnTheBoard()) {
+									System.out.print(pt);
+								}
+								System.out.println("\nSelect the man you want to remove: ");
+								int x_remove = in.nextInt();
+								int y_remove = in.nextInt();
+								Point pt = new Point(x_remove, y_remove);
+								if (players[0].getMenOnTheBoard().contains(pt)) {
+									game.removeAMan(0, pt);
+									validRemove = true;
+								} else {
+									System.err.println("Invalid point to remove!");
+								}
+							}
+						}
+					}
+				}
+			}
+			// reset.
+			validMove=false;
+			validRemove = false;
+		}
+		in.close();
 	}
 
 }

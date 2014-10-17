@@ -17,35 +17,45 @@ public class Player {
 		menOnTheBoard = new HashSet<Point>();
 	}
 
-	void placeAMan(Point pt) {
+	public void placeAMan(Point pt) {
 		menOnTheBoard.add(pt);
 		menHoldInHand--;
-		System.out.println("Player" + color + " place a man on " + pt);
+		System.out.println("Player" + (color+1) + " place a man on " + pt);
 	}
 
-	void moveAMan(Point pt1, Point pt2) {
+	public void moveAMan(Point pt1, Point pt2) {
 		menOnTheBoard.remove(pt1);
 		menOnTheBoard.remove(pt2);
-		System.out.println("Player" + color + " move a man from " + pt1 + " to " + pt2);
+		System.out.println("Player" + (color+1) + " move a man from " + pt1 + " to " + pt2);
 	}
 
-	// TODO
-	private boolean allowToFly() {
+	public boolean allowToFly() {
+		if (menHoldInHand==0 && menOnTheBoard.size()==3)
+			return true;
 		return false;
 	}
 
-	// TODO
+	/**
+	 * Judge if the player loses.
+	 * @return
+	 */
 	public boolean lose() {
-		return false;
-	}
-
-	// TODO
-	private boolean hasLessThanThree() {
+		if (menOnTheBoard.size()==2 && menHoldInHand==0)
+			return true;
+		if (menHoldInHand==0 && !hasLegalMoves()) 
+			return true;
 		return false;
 	}
 
 	// TODO
 	private boolean hasLegalMoves() {
+		for (Point pt : menOnTheBoard) {
+			Set<Point> adj = pt.getAdjacentPoints();
+			for(Point p : adj) {
+				if(!Board.isOccupied(p))
+					return true;
+			}
+		}
 		return false;
 	}
 
@@ -67,11 +77,11 @@ public class Player {
 	}
 
 	public boolean hasPoint(Point pt) {
-		System.out.println("pt=" + pt);
-		System.out.print("Player" + color + " has: ");
-		for (Point p : menOnTheBoard)
-			System.out.print(p+" ");
-		System.out.println();
+//		System.out.println("pt=" + pt);
+//		System.out.print("Player" + (color+1) + " has: ");
+//		for (Point p : menOnTheBoard)
+//			System.out.print(p+" ");
+//		System.out.println();
 		return menOnTheBoard.contains(pt);
 	}
 
