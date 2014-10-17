@@ -299,6 +299,8 @@ public class Board {
 			
 			System.out.println("Player2's turn.");
 			// Player2;
+			if (endOfGame())
+				break;
 			while (!validMove) {
 				if(players[1].getMenHoldInHand()>0) {
 					System.out.println("Player2 to place a man at point: ");
