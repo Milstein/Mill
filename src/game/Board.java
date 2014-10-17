@@ -185,8 +185,11 @@ public class Board {
 	 * @return
 	 */
 	public static boolean hasMills(int player, Point newpt) {
-		Set<Point> points = players[player].getMenOnTheBoard();
-		// check the newpt, left(x+-), right(x+-) or top(y+-), down(y+-).
+		Set<Point> pointsIHave = players[player].getMenOnTheBoard();
+		Set<Point> neighbors = newpt.getAdjacentPoints();
+		// check the newpt, leftright(x+-), updown(y+-) to the left(x--), right(x++) or top(y--), down(y--).
+		// check leftright(x+-):
+		
 		
 //		for (Point pt : points) {
 //			int x = pt.getX();

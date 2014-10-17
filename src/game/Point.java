@@ -29,7 +29,57 @@ public class Point {
 		return "(" + x + "," + y + ")";
 	}
 
-	// TODO: consider x=3 or y=3.
+	// Get neighbors in specific direction...
+	public Point getRightNeighbor(int x0, int y0) {
+		while (x0 < MAXX) {
+			// check if x=2 and y=3, we cannot go to the right.
+			if(x0==2 && y0==3)
+				break;
+			x0++;
+			if (Board.validPoints.contains(new Point(x0,y0))) {
+				return new Point(x0,y0);
+			}
+		}
+		return null;
+	}
+	public Point getLeftNeighbor(int x0, int y0) {
+		while (x0 > MINX) {
+			// check if x=4 and y=3, we cannot go to the left.
+			if(x0==4 && y0==3)
+				break;
+			x0--;
+			if (Board.validPoints.contains(new Point(x0,y0))) {
+				return new Point(x0,y0);
+			}
+		}
+		return null;
+	}
+	public Point getDownNeighbor(int x0, int y0) {
+		while (y0 < MAXY) {
+			// check if x=3 and y=2, we cannot go down.
+			if (x0==3 && y0==2) {
+				break;
+			}
+			y0++;
+			if (Board.validPoints.contains(new Point(x0,y0))) {
+				return new Point(x0,y0);
+			}
+		}
+		return null;
+	}
+	public Point getUpNeighbor(int x0, int y0) {
+		while (y0 > MINY) {
+			// check if x=3 and y=4, we cannot go down.
+			if (x0==3 && y0==4)
+				break;
+			y0--;
+			if (Board.validPoints.contains(new Point(x0,y0))) {
+				return new Point(x0,y0);
+			}
+		}
+		return null;
+	}
+	
 	/**
 	 * Search for adjacent points
 	 * 
@@ -40,58 +90,23 @@ public class Point {
 		// Search in 4 directions: We are done each branch if
 		// we run out of boundary or have found a valid point.
 		// ----------------------------------------
-		int originalX = x;
-		int originalY = y;
-
 		// x+ direction:
-		while (x < MAXX) {
-			// check if x=2 and y=3, we cannot go to the right.
-			if(x==2 && y==3)
-				break;
-			x++;
-			if (Board.validPoints.contains(new Point(x,y))) {
-				adjacent.add(new Point(x,y));
-				break;
-			}
-		}
-		x = originalX;
+		Point rightNeighbor = getRightNeighbor(x,y);
+		if(rightNeighbor!=null)
+			adjacent.add(rightNeighbor);
 		// x- direction:
-		while (x > MINX) {
-			// check if x=4 and y=3, we cannot go to the left.
-			if(x==4 && y==3)
-				break;
-			x--;
-			if (Board.validPoints.contains(new Point(x,y))) {
-				adjacent.add(new Point(x,y));
-				break;
-			}
-		}
-		x = originalX;
+		Point leftNeighbor = getLeftNeighbor(x,y);
+		if(leftNeighbor!=null)
+			adjacent.add(leftNeighbor);
 		// y+ direction: down
-		while (y < MAXY) {
-			// check if x=3 and y=2, we cannot go down.
-			if (x==3 && y==2) {
-				break;
-			}
-			y++;
-			if (Board.validPoints.contains(new Point(x,y))) {
-				adjacent.add(new Point(x,y));
-				break;
-			}
-		}
-		y = originalY;
+		Point downNeighbor = getDownNeighbor(x,y);
+		if(downNeighbor!=null)
+			adjacent.add(downNeighbor);
 		// y- direction: up
-		while (y > MINY) {
-			// check if x=3 and y=4, we cannot go down.
-			if (x==3 && y==4)
-				break;
-			y--;
-			if (Board.validPoints.contains(new Point(x,y))) {
-				adjacent.add(new Point(x,y));
-				break;
-			}
-		}
-		y = originalY;
+		Point upNeighbor = getUpNeighbor(x,y);
+		if(upNeighbor!=null)
+			adjacent.add(upNeighbor);
+		
 		return adjacent;
 	}
 
@@ -120,6 +135,7 @@ public class Point {
 	// Test main
 	public static void main(String[] args) {
 		Board game = new Board("Player1", "Player2");
+		game.toString();
 		for(Point p : Board.validPoints) {
 			System.out.print("The adjacent points of " + p + " is: ");
 			for(Point pt : p.getAdjacentPoints())
