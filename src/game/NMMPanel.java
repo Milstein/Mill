@@ -1,100 +1,148 @@
 package game;
 
-import javax.swing.BoxLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.net.URL;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * @author Jimmy Wang
  * @version September 17, 2014
  */
-public class NMMPanel extends JPanel{
+public class NMMPanel {
 
-	/**
-	 * serialVersionUID
-	 */
-	private static final long serialVersionUID = -27918399736831981L;
-	
-	private JPanel buttonPanel, statePanel, pilePanel, chessBoardPanel; // main panels
+	private JFrame frame;
+	private int appWidth = 736;
+	private int appHeigth = 855;
+
+	private JPanel topButtonPanel, topLeftPanel, topRightPanel, pilePanel,
+			chessBoardPanel; // main
+	private JPanel leftPanel; // panels
 	private JPanel user1Panel, user2Panel; // sub panels for user1 and user2
-	private JLabel chessBoardLabel, stateLabel; 
+	private JLabel chessBoardLabel, stateLabel;
 	private JLabel user1nameLabel, user2nameLabel; // name label
 	private JLabel user1pileLabel, user2pileLabel; // pile label
-	private JButton newGameButton, undoButton, makeAMoveButton, quitButton;
+	private JButton btnRestartButton, btnQuitButton;
 	private JTextField name1TextField, name2TextField;
 	private JDialog newGameDialog;
-	
+	private boolean turnOfStarter = true;
+	private JTextArea txtLogArea;
+	private JLayeredPane centerPanel;
+
 	/**
 	 * Constructor: components and variables setup.
 	 */
-	public NMMPanel ()
-	{
-		setLayout (new BoxLayout (this, BoxLayout.Y_AXIS));
-		
+	public NMMPanel() {
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		frame = new JFrame();
+		frame.setBounds((dim.width / 2 - (appWidth / 2)),
+				(dim.height / 2 - (appHeigth / 2)), appWidth, appHeigth);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+
+		frame.setTitle("9MM - Nine Men's Morris");
+
 		// A panel for the buttons.
-		buttonPanel = new JPanel();
-		newGameButton = new JButton("New");
-		undoButton = new JButton("Undo");
-		makeAMoveButton = new JButton("Move");
-		quitButton = new JButton("Quit");
-		buttonPanel.add(newGameButton);
-		buttonPanel.add(undoButton);
-		buttonPanel.add(makeAMoveButton);
-		buttonPanel.add(quitButton);
-		
-			// Add listeners to buttons.
-			ButtonListener listenToButton = new ButtonListener();
-			newGameButton.addActionListener(listenToButton);
-			undoButton.addActionListener(listenToButton);
-			makeAMoveButton.addActionListener(listenToButton);
-			quitButton.addActionListener(listenToButton);
-		
-		// A panel for the state
-		statePanel = new JPanel();
-		stateLabel = new JLabel("State"); //TODO
-		statePanel.add(stateLabel);
-		
-		// A panel for the piles
-		pilePanel = new JPanel();
-		pilePanel.setLayout(new BoxLayout(pilePanel, BoxLayout.X_AXIS));
-		// subpanel for user1 and user2
-		user1Panel = new JPanel();
-		user2Panel = new JPanel();
-		user1nameLabel = new JLabel("==============Player1==============");
-		user2nameLabel = new JLabel("==============Player2==============");
-		user1pileLabel = new JLabel("==============9 to go==============");
-		user2pileLabel = new JLabel("==============9 to go==============");
-		
-		user1Panel.setLayout(new BoxLayout(user1Panel, BoxLayout.Y_AXIS));
-		user2Panel.setLayout(new BoxLayout(user2Panel, BoxLayout.Y_AXIS));
-		user1Panel.add(user1nameLabel);
-		user1Panel.add(user1pileLabel);
-		user2Panel.add(user2nameLabel);
-		user2Panel.add(user2pileLabel);
-		pilePanel.add(user1Panel);
-		pilePanel.add(user2Panel);
-		
-		chessBoardPanel = new JPanel();
-		chessBoardLabel = new JLabel (new ImageIcon("chessboard.png")); //TODO make image resizable
-		chessBoardPanel.add(chessBoardLabel);
-				
-		add(buttonPanel);
-		add(statePanel);
-		add(pilePanel);
-		add(chessBoardPanel);		
-		
+		topButtonPanel = new JPanel();
+		topButtonPanel.setForeground(new Color(0, 0, 0));
+		topButtonPanel.setBackground(new Color(255, 255, 204));
+		topButtonPanel.setBounds(6, 6, 710, 149);
+		btnRestartButton = new JButton("Restart");
+		btnQuitButton = new JButton("Quit");
+		topButtonPanel.add(btnRestartButton);
+		topButtonPanel.add(btnQuitButton);
+		//topButtonPanel.setLayout(null);
+		frame.getContentPane().add(topButtonPanel);
+
+		// Add listeners to buttons.
+		ButtonListener listenToButton = new ButtonListener();
+		btnRestartButton.addActionListener(listenToButton);
+		btnQuitButton.addActionListener(listenToButton);
+
+		topLeftPanel = new JPanel();
+		topLeftPanel.setForeground(new Color(0, 0, 0));
+		topLeftPanel.setBackground(new Color(255, 255, 204));
+		topLeftPanel.setBounds(6, 35, 350, 100);
+		frame.getContentPane().add(topLeftPanel);
+		topLeftPanel.setLayout(null);
+
+		JLabel lblPlayer = new JLabel("PLAYER 1");
+		lblPlayer.setBounds(20, 454, 61, 16);
+		topLeftPanel.add(lblPlayer);
+
+		topRightPanel = new JPanel();
+		topRightPanel.setForeground(new Color(0, 0, 0));
+		topRightPanel.setBackground(new Color(255, 255, 204));
+		topRightPanel.setBounds(360, 35, 350, 100);
+		frame.getContentPane().add(topRightPanel);
+		topRightPanel.setLayout(null);
+
+		JLabel lblPlayer_1 = new JLabel("PLAYER 2");
+		lblPlayer_1.setForeground(new Color(255, 255, 255));
+		lblPlayer_1.setBounds(20, 454, 61, 16);
+		topRightPanel.add(lblPlayer_1);
+
+		ImageIcon texture = createImageIcon("/resources/Wood.jpg");
+
+		centerPanel = new JLayeredPane();
+		centerPanel.setBackground(Color.ORANGE);
+		centerPanel.setBounds(118, 160, 500, 500);
+		frame.getContentPane().add(centerPanel);
+		centerPanel.setLayout(null);
+		ImageIcon field = createImageIcon("/resources/Spielfeld_roundedCorners.png");
+
+		JLabel feld = new JLabel(field);
+		feld.setBounds(0, 0, 500, 500);
+		centerPanel.add(feld, 2);
+
+		JLabel textureCenter = new JLabel(texture);
+		textureCenter.setBounds(0, 0, 500, 500);
+		centerPanel.add(textureCenter, 3);
+
+		// setupEventFields(24);
+
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(6, 662, 710, 149);
+		frame.getContentPane().add(scrollPane);
+
+		txtLogArea = new JTextArea();
+		txtLogArea.setEditable(false);
+		scrollPane.setViewportView(txtLogArea);
+
+		if (turnOfStarter) {
+			txtLogArea.append("Whites turn!\n");
+		} else {
+			txtLogArea.append("Blacks turn!\n");
+		}
+		frame.setVisible(true);
+
 	}
-	
+
+	private ImageIcon createImageIcon(String path) {
+		URL imgURL = getClass().getResource(path);
+		if (imgURL != null) {
+			return new ImageIcon(imgURL);
+		} else {
+			System.err.println("Couldn't find file: " + path);
+			return null;
+		}
+	}
+
 	/**
 	 * The TextListener class that react against the textField event.
 	 */
@@ -103,31 +151,27 @@ public class NMMPanel extends JPanel{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			
+
 		}
-		
+
 	}
-	
+
 	/**
 	 * The Button class that react against the JButton events.
 	 */
 	private class ButtonListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent event) {
-			if (event.getSource() == newGameButton)
+			if (event.getSource() == btnRestartButton)
 				startNewGame();
-			if (event.getSource() == undoButton)
-				undo();
-			if (event.getSource() == makeAMoveButton)
-				makeAMove();
-			if (event.getSource() == quitButton)
-				System.exit(0); 
+			if (event.getSource() == btnQuitButton)
+				System.exit(0);
 		}
-		
+
 	}
-	
+
 	private void makeAMove() {
-		// TODO Auto-generated method stub			
+		// TODO Auto-generated method stub
 	}
 
 	private void undo() {
