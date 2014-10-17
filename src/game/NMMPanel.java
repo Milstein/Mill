@@ -3,6 +3,7 @@ package game;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Panel;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -80,33 +81,23 @@ public class NMMPanel {
 		topButtonPanel.add(btnQuitButton);
 		frame.getContentPane().add(topButtonPanel);
 
-		// Add listeners to buttons.
 		ButtonListener listenToButton = new ButtonListener();
 		btnNewButton.addActionListener(listenToButton);
-		btnQuitButton.addActionListener(listenToButton);		
-		
+		btnQuitButton.addActionListener(listenToButton);
+
 		topLeftPanel = new JPanel();
 		topLeftPanel.setForeground(new Color(0, 0, 0));
 		topLeftPanel.setBackground(new Color(255, 255, 204));
 		topLeftPanel.setBounds(6, 35, 352, 100);
 		frame.getContentPane().add(topLeftPanel);
 		topLeftPanel.setLayout(null);
-		
-		JLabel lblPlayer1 = new JLabel("PLAYER 1");
-		lblPlayer1.setBounds(150, 80, 61, 16);
-		topLeftPanel.add(lblPlayer1);
-		
+
 		topRightPanel = new JPanel();
 		topRightPanel.setBackground(Color.DARK_GRAY);
 		topRightPanel.setBounds(364, 35, 350, 100);
 		frame.getContentPane().add(topRightPanel);
 		topRightPanel.setLayout(null);
-		
-		JLabel lblPlayer2 = new JLabel("PLAYER 2");
-		lblPlayer2.setForeground(new Color(255, 255, 255));
-		lblPlayer2.setBounds(150, 80, 61, 16);
-		topRightPanel.add(lblPlayer2);	
-				
+
 		centerPanel = new JLayeredPane();
 		centerPanel.setBackground(Color.ORANGE);
 		centerPanel.setBounds(118, 140, 500, 500);
@@ -173,6 +164,11 @@ public class NMMPanel {
 	}
 
 	private void initNodes() {
+		// Point p = new Point(0, 0);
+		// for (int i = 0; i < 18; i++) {
+		// placedPieces.add(p);
+		// }
+
 		int x = 10;
 		int y = 10;
 		nodes[0] = new Node("O_0", x, y);
@@ -268,6 +264,13 @@ public class NMMPanel {
 		x = 440;
 		y = 440;
 		nodes[23] = new Node("O_7", x, y);
+
+		// for (int i = 0; i < nodes.length; i++) {
+		// nodes[i].setIsBusy(0);
+		// }
+
+		// setNeighbours();
+
 	}
 
 	protected Node getNode(Point location) {
@@ -282,7 +285,7 @@ public class NMMPanel {
 
 	/** Returns an ImageIcon, or null if the path was invalid. */
 	protected ImageIcon createImageIcon(String path) {
-		URL imgURL = getClass().getResource(path);
+		java.net.URL imgURL = getClass().getResource(path);
 		if (imgURL != null) {
 			return new ImageIcon(imgURL);
 		} else {
@@ -295,29 +298,92 @@ public class NMMPanel {
 		ImageIcon iconWhite = createImageIcon("/resources/White_Stone.png");
 		int space = 10;
 		blacks = new JLabel[9];
-		whites = new JLabel[9];	
+		whites = new JLabel[9];
+
+		JLabel lblPlayer1 = new JLabel("PLAYER 1");
+		lblPlayer1.setBounds(150, 80, 61, 16);
+		topLeftPanel.add(lblPlayer1);
 
 		for (int i = 0; i < 9; i++) {
-			JLabel lblWhite = new JLabel();
-			lblWhite.setIcon(iconWhite);
+			final JLabel lblWhite = new JLabel(iconWhite);
+			lblWhite.addMouseListener(new MouseAdapter() {
+
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					System.out.println("Clicked");
+				}
+
+				@Override
+				public void mouseDragged(MouseEvent e) {
+					System.out.println("Dragged");
+				}
+
+				@Override
+				public void mouseMoved(MouseEvent e) {
+					System.out.println("Moved");
+				}
+
+				@Override
+				public void mousePressed(MouseEvent e) {
+					System.out.println("Pressed");
+				}
+
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					System.out.println("Released");
+
+				}
+			});
+
 			lblWhite.setBounds(space, 25, 50, 50);
 			topLeftPanel.add(lblWhite);
 			space += 35;
 			whites[i] = lblWhite;
 		}
 
+		JLabel lblPlayer2 = new JLabel("PLAYER 2");
+		lblPlayer2.setForeground(new Color(255, 255, 255));
+		lblPlayer2.setBounds(150, 80, 61, 16);
+		topRightPanel.add(lblPlayer2);
+
 		ImageIcon iconBlack = createImageIcon("/resources/Black_Stone.png");
 
 		space = 10;
 		for (int j = 0; j < 9; j++) {
-			JLabel lblBlack = new JLabel();			
-			lblBlack.setIcon(iconBlack);
+			final JLabel lblBlack = new JLabel(iconBlack);
+			lblBlack.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+
+				}
+
+				@Override
+				public void mouseDragged(MouseEvent e) {
+					System.out.println("Dragged");
+				}
+
+				@Override
+				public void mouseMoved(MouseEvent e) {
+					System.out.println("Moved");
+				}
+
+				@Override
+				public void mousePressed(MouseEvent e) {
+					System.out.println("Pressed");
+				}
+
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					System.out.println("Released");
+					super.mouseReleased(e);
+				}
+			});
+
 			lblBlack.setBounds(space, 25, 50, 50);
-			topRightPanel.add(lblBlack);					
+			topRightPanel.add(lblBlack);
 			space += 35;
 			blacks[j] = lblBlack;
-		}	
-		
+		}
 	}
 
 	public void doSomething(Point point) {
@@ -460,4 +526,5 @@ public class NMMPanel {
 			// totalRepaint.height);
 		}
 	}
+
 }
