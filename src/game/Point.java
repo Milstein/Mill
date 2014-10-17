@@ -29,6 +29,7 @@ public class Point {
 		return "(" + x + "," + y + ")";
 	}
 
+	// TODO: consider x=3 or y=3.
 	/**
 	 * Search for adjacent points
 	 * 
