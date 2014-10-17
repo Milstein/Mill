@@ -33,8 +33,8 @@ import javax.swing.event.MouseInputAdapter;
 public class NMMPanel {
 
 	private JFrame frame;
-	private int appWidth = 736;
-	private int appHeigth = 855;
+	private int appWidth = 728;
+	private int appHeigth = 828;
 
 	private JPanel topButtonPanel, topLeftPanel, topRightPanel; // main
 	private JLayeredPane centerPanel;
@@ -48,8 +48,8 @@ public class NMMPanel {
 	private JDialog newGameDialog;
 	private boolean turnOfStarter = true;
 
-	private JLabel[] blacks;
-	private JLabel[] whites;
+	private JLabel[] blacks = null;
+	private JLabel[] whites = null;
 
 	private Node[] nodes = new Node[24];
 
@@ -64,6 +64,7 @@ public class NMMPanel {
 	private void initializeWindow() {
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		frame = new JFrame();
+		frame.setResizable(false);
 		frame.setBounds((dim.width / 2 - (appWidth / 2)),
 				(dim.height / 2 - (appHeigth / 2)), appWidth, appHeigth);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -71,57 +72,48 @@ public class NMMPanel {
 
 		frame.setTitle("9MM - Nine Men's Morris");
 
-		// A panel for the buttons.
 		topButtonPanel = new JPanel();
-		// topButtonPanel.setForeground(new Color(0, 0, 0));
-		// topButtonPanel.setBackground(new Color(255, 255, 204));
 		topButtonPanel.setBounds(6, 0, 710, 36);
 		btnNewButton = new JButton("New");
 		btnQuitButton = new JButton("Quit");
 		topButtonPanel.add(btnNewButton);
 		topButtonPanel.add(btnQuitButton);
-		// topButtonPanel.setLayout(null);
 		frame.getContentPane().add(topButtonPanel);
 
 		// Add listeners to buttons.
 		ButtonListener listenToButton = new ButtonListener();
 		btnNewButton.addActionListener(listenToButton);
-		btnQuitButton.addActionListener(listenToButton);
-
+		btnQuitButton.addActionListener(listenToButton);		
+		
 		topLeftPanel = new JPanel();
 		topLeftPanel.setForeground(new Color(0, 0, 0));
 		topLeftPanel.setBackground(new Color(255, 255, 204));
 		topLeftPanel.setBounds(6, 35, 352, 100);
-
+		frame.getContentPane().add(topLeftPanel);
+		topLeftPanel.setLayout(null);
+		
 		JLabel lblPlayer1 = new JLabel("PLAYER 1");
 		lblPlayer1.setBounds(150, 80, 61, 16);
-		topLeftPanel.setLayout(null);
 		topLeftPanel.add(lblPlayer1);
-		frame.getContentPane().add(topLeftPanel);
-
+		
 		topRightPanel = new JPanel();
 		topRightPanel.setBackground(Color.DARK_GRAY);
 		topRightPanel.setBounds(364, 35, 350, 100);
-
+		frame.getContentPane().add(topRightPanel);
+		topRightPanel.setLayout(null);
+		
 		JLabel lblPlayer2 = new JLabel("PLAYER 2");
 		lblPlayer2.setForeground(new Color(255, 255, 255));
 		lblPlayer2.setBounds(150, 80, 61, 16);
-		topRightPanel.setLayout(null);
-		topRightPanel.add(lblPlayer2);
-		frame.getContentPane().add(topRightPanel);
-
+		topRightPanel.add(lblPlayer2);	
+				
 		centerPanel = new JLayeredPane();
 		centerPanel.setBackground(Color.ORANGE);
 		centerPanel.setBounds(118, 140, 500, 500);
+		frame.getContentPane().add(centerPanel);
 		centerPanel.setLayout(null);
 
-		JLabel lblPoint = new JLabel("center points");
-		lblPoint.setBounds(1, 0, 500, 500);
-		centerPanel.add(lblPoint, 1);
-
-		frame.getContentPane().add(centerPanel);
 		ImageIcon field = createImageIcon("/resources/Spielfeld_roundedCorners.png");
-
 		JLabel feld = new JLabel(field);
 		feld.setBounds(0, 0, 500, 500);
 		centerPanel.add(feld, 2);
@@ -134,7 +126,7 @@ public class NMMPanel {
 		setupEventFields(24);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(6, 662, 710, 149);
+		scrollPane.setBounds(6, 645, 710, 149);
 		frame.getContentPane().add(scrollPane);
 
 		txtLogArea = new JTextArea();
@@ -167,25 +159,20 @@ public class NMMPanel {
 				public void mouseEntered(MouseEvent e) {
 					System.out.println("entered here");
 					System.out.println(interactionFields.getLocation());
-					makeAMove(interactionFields.getLocation());
+				}
+
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					System.out.println("Clicked here");
+
 				}
 
 			});
-			centerPanel.add(interactionFields, 1);
+			centerPanel.add(interactionFields, 0);
 		}
 	}
 
-	protected void makeAMove(Point location) {
-		// TODO Auto-generated method stub
-
-	}
-
 	private void initNodes() {
-		// Point p = new Point(0, 0);
-		// for (int i = 0; i < 18; i++) {
-		// placedPieces.add(p);
-		// }
-
 		int x = 10;
 		int y = 10;
 		nodes[0] = new Node("O_0", x, y);
@@ -210,7 +197,7 @@ public class NMMPanel {
 		y = 74;
 		nodes[5] = new Node("M_2", x, y);
 
-		x = 135;
+		x = 137;
 		y = 135;
 		nodes[6] = new Node("I_0", x, y);
 
@@ -281,73 +268,38 @@ public class NMMPanel {
 		x = 440;
 		y = 440;
 		nodes[23] = new Node("O_7", x, y);
+	}
 
-		// for (int i = 0; i < nodes.length; i++) {
-		// nodes[i].setIsBusy(0);
-		// }
+	protected Node getNode(Point location) {
+		for (int i = 0; i < nodes.length; i++) {
+			if ((nodes[i].location.x == location.x)
+					&& (nodes[i].location.y == location.y)) {
+				return nodes[i];
+			}
+		}
+		return null;
+	}
 
-		// setNeighbours();
-
+	/** Returns an ImageIcon, or null if the path was invalid. */
+	protected ImageIcon createImageIcon(String path) {
+		URL imgURL = getClass().getResource(path);
+		if (imgURL != null) {
+			return new ImageIcon(imgURL);
+		} else {
+			System.err.println("Couldn't find file: " + path);
+			return null;
+		}
 	}
 
 	private void initializeGameField() {
 		ImageIcon iconWhite = createImageIcon("/resources/White_Stone.png");
 		int space = 10;
 		blacks = new JLabel[9];
-		whites = new JLabel[9];
+		whites = new JLabel[9];	
 
 		for (int i = 0; i < 9; i++) {
-			final JLabel lblWhite = new JLabel(iconWhite);
-			lblWhite.addMouseListener(new MouseAdapter() {
-
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					System.out.println("Clicked");
-					doSomething(lblWhite.getLocation());
-					// if (!deleteFlag) {
-					// if (setting.getPlayer1().contains("Computer")) {
-					// if (placedCounter <= 18)
-					// brain.setStone(nodes, 1);
-					// else {
-					// brain.moveStone(nodes, 1);
-					// System.out.println("seems to work");
-					// }
-					// }
-					// }
-				}
-
-				@Override
-				public void mouseDragged(MouseEvent e) {
-					System.out.println("Dragged");
-					super.mouseDragged(e);
-				}
-
-				@Override
-				public void mouseMoved(MouseEvent e) {
-					// TODO Auto-generated method stub
-					System.out.println("Moved");
-					super.mouseMoved(e);
-				}
-
-				@Override
-				public void mousePressed(MouseEvent e) {
-					System.out.println("Pressed");
-					// TODO Auto-generated method stub
-					super.mousePressed(e);
-				}
-
-				@Override
-				public void mouseReleased(MouseEvent e) {
-					// TODO Auto-generated method stub
-					System.out.println("Released");
-					super.mouseReleased(e);
-				}
-			});
-
-			// MyListener myListener = new MyListener();
-			// addMouseListener(myListener);
-			// addMouseMotionListener(myListener);
-
+			JLabel lblWhite = new JLabel();
+			lblWhite.setIcon(iconWhite);
 			lblWhite.setBounds(space, 25, 50, 50);
 			topLeftPanel.add(lblWhite);
 			space += 35;
@@ -355,94 +307,17 @@ public class NMMPanel {
 		}
 
 		ImageIcon iconBlack = createImageIcon("/resources/Black_Stone.png");
+
 		space = 10;
-		for (int i = 0; i < 9; i++) {
-			final JLabel lblBlack = new JLabel(iconBlack);
-			lblBlack.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					// doSomething(lblBlack.getLocation());
-					// if (!deleteFlag) {
-					// if (setting.getPlayer2().contains("Computer")) {
-					// if (placedCounter <= 18)
-					// brain.setStone(nodes, 2);
-					// else {
-					// brain.moveStone(nodes, 2);
-					// System.out.println("seems to work");
-					// }
-					//
-					// }
-					// }
-
-				}
-
-				@Override
-				public void mouseDragged(MouseEvent e) {
-					System.out.println("Dragged");
-					super.mouseDragged(e);
-				}
-
-				@Override
-				public void mouseMoved(MouseEvent e) {
-					// TODO Auto-generated method stub
-					System.out.println("Moved");
-					super.mouseMoved(e);
-				}
-
-				@Override
-				public void mousePressed(MouseEvent e) {
-					System.out.println("Pressed");
-					// TODO Auto-generated method stub
-					super.mousePressed(e);
-				}
-
-				@Override
-				public void mouseReleased(MouseEvent e) {
-					// TODO Auto-generated method stub
-					System.out.println("Released");
-					super.mouseReleased(e);
-				}
-
-			});
-
-			// MyListener myListener = new MyListener();
-			// addMouseListener(myListener);
-			// addMouseMotionListener(myListener);
-
-			// 360, 35, 350, 100
+		for (int j = 0; j < 9; j++) {
+			JLabel lblBlack = new JLabel();			
+			lblBlack.setIcon(iconBlack);
 			lblBlack.setBounds(space, 25, 50, 50);
-			topRightPanel.add(lblBlack);
+			topRightPanel.add(lblBlack);					
 			space += 35;
-			blacks[i] = lblBlack;
-		}
-
-		// setting.printProperties();
-		// String path = "";
-		// if (setting.getPlayer2().contains("Computer")) {
-		// path = "/resources/computer.png";
-		// } else {
-		// path = "/resources/human.png";
-		// }
-		//
-		// turnOfStarter = setting.isStart();
-
-		// space += 64;
-
-		// ImageIcon iconRight = createImageIcon(path);
-		// JLabel lblRight = new JLabel(iconRight);
-		// lblRight.setBounds(20, space, 64, 64);
-		// topRightPanel.add(lblRight);
-
-		// if (setting.getPlayer1().contains("Computer")) {
-		// path = "/resources/computer.png";
-		// } else {
-		// path = "/resources/human.png";
-		// }
-
-		// ImageIcon iconLeft = createImageIcon(path);
-		// JLabel lblLeft = new JLabel(iconLeft);
-		// lblLeft.setBounds(20, space, 64, 64);
-		// topLeftPanel.add(lblLeft);
+			blacks[j] = lblBlack;
+		}	
+		
 	}
 
 	public void doSomething(Point point) {
@@ -524,16 +399,6 @@ public class NMMPanel {
 		// }
 	}
 
-	private ImageIcon createImageIcon(String path) {
-		URL imgURL = getClass().getResource(path);
-		if (imgURL != null) {
-			return new ImageIcon(imgURL);
-		} else {
-			System.err.println("Couldn't find file: " + path);
-			return null;
-		}
-	}
-
 	/**
 	 * The Button class that react against the JButton events.
 	 */
@@ -595,5 +460,4 @@ public class NMMPanel {
 			// totalRepaint.height);
 		}
 	}
-
 }

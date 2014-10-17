@@ -1,8 +1,8 @@
 package game;
 
-import java.awt.Dimension;
+import java.awt.EventQueue;
 
-import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 /**
  * The main class that set up the frame for the gui.
@@ -15,8 +15,14 @@ import javax.swing.JFrame;
 public class NMM {
 
 	public static void main(String[] args) {
-		// Set up the frame and add the panel.	
-		NMMPanel panel = new NMMPanel();
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					NMMPanel panel = new NMMPanel();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
-
 }
