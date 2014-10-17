@@ -185,64 +185,7 @@ public class Board {
 	 * @return
 	 */
 	public static boolean hasMills(int player, Point newpt) {
-		Set<Point> points = players[player].getMenOnTheBoard();
-		// check the newpt, left(x+-), right(x+-) or top(y+-), down(y+-).
-		
-//		for (Point pt : points) {
-//			int x = pt.getX();
-//			int y = pt.getY();
-//			// horizontally
-//			boolean xplus = false;
-//			boolean xminus = false;
-//			while (x < Point.MAXX) {
-//				x++;
-//				if (points.contains(new Point(x, y))) {
-//					xplus = true;
-//					break;
-//				}
-//			}
-//			x = pt.getX();
-//			while (x > Point.MINX) {
-//				x--;
-//				if (points.contains(new Point(x, y))) {
-//					xminus = true;
-//					break;
-//				}
-//			}
-//			x = pt.getX();
-//			//System.out.println("Searching around point: " + pt);
-//			//System.out.println("x+: " + xplus + " x-: " + xminus);
-//			if (xplus && xminus) {
-//				System.out.println(pt + "x+-");
-//				return true;
-//			}
-//			// vertically
-//			boolean yplus = false;
-//			boolean yminus = false;
-//			while (y < Point.MAXY) {
-//				y++;
-//				if (points.contains(new Point(x, y))) {
-//					yplus = true;
-//					break;
-//				}
-//			}
-//			y = pt.getY();
-//			while (y > Point.MINY) {
-//				y--;
-//				if (points.contains(new Point(x, y))) {
-//					yminus = true;
-//					break;
-//				}
-//			}
-//			y = pt.getY();
-////			System.out.println("Searching around point: " + pt);
-////			System.out.println("y+: " + yplus + " y-: " + yminus);
-//			if (yplus && yminus) {
-//				System.out.println(pt + "y+-");
-//				return true;
-//			}
-//		}
-		return false;
+		return players[player].hasMills(newpt);
 	}
 
 	private void removeAMan(int player, Point pt) {

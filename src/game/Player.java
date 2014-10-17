@@ -89,4 +89,57 @@ public class Player {
 		menOnTheBoard.remove(pt);
 	}
 
+	/**
+	 * Check if there is a new mill - related to the newpt.
+	 * 		check 6 possibilities: newpt, leftright(x+-), updown(y+-) to the left(x--), right(x++) or up(y--), down(y++).
+	 * @param newpt
+	 * @return
+	 */
+	public boolean hasMills(Point newpt) {
+		// TODO Auto-generated method stub
+		int x0 = newpt.getX();
+		int y0 = newpt.getY();
+		Point left = newpt.getLeftNeighbor();
+		Point right = newpt.getRightNeighbor();
+		Point up = newpt.getUpNeighbor();
+		Point down = newpt.getDownNeighbor();
+		// check left_right(x+-):
+		if(left!=null && right!=null)
+			if(menOnTheBoard.contains(left) && menOnTheBoard.contains(right))
+				return true;
+		// check up_down(x+-):
+		if(up!=null && down!=null)
+			if(menOnTheBoard.contains(up) && menOnTheBoard.contains(down))
+				return true;
+		// check left(x--):
+		if(left!=null) {
+			Point leftleft = left.getLeftNeighbor();
+			if (leftleft!=null)
+				if (menOnTheBoard.contains(left) && menOnTheBoard.contains(leftleft))
+					return true;
+		}
+		// check right(x++):
+		if(right!=null) {
+			Point rightright = right.getRightNeighbor();
+			if (rightright!=null)
+				if (menOnTheBoard.contains(right) && menOnTheBoard.contains(rightright))
+					return true;
+		}
+		// check up(y--):
+		if(up!=null) {
+			Point upup = up.getUpNeighbor();
+			if (upup!=null)
+				if (menOnTheBoard.contains(up) && menOnTheBoard.contains(upup))
+					return true;
+		}
+		// check down(y++):
+		if(down!=null) {
+			Point downdown = down.getDownNeighbor();
+			if (downdown!=null)
+				if (menOnTheBoard.contains(down) && menOnTheBoard.contains(downdown))
+					return true;
+		}
+		return false;
+	}
+
 }

@@ -29,7 +29,65 @@ public class Point {
 		return "(" + x + "," + y + ")";
 	}
 
-	// TODO: consider x=3 or y=3.
+	// Get neighbors in specific direction...
+	public Point getRightNeighbor() {
+		int x0 = x;
+		int y0 = y;
+		while (x0 < MAXX) {
+			// check if x=2 and y=3, we cannot go to the right.
+			if(x0==2 && y0==3)
+				break;
+			x0++;
+			if (Board.validPoints.contains(new Point(x0,y0))) {
+				return new Point(x0,y0);
+			}
+		}
+		return null;
+	}
+	public Point getLeftNeighbor() {
+		int x0 = x;
+		int y0 = y;
+		while (x0 > MINX) {
+			// check if x=4 and y=3, we cannot go to the left.
+			if(x0==4 && y0==3)
+				break;
+			x0--;
+			if (Board.validPoints.contains(new Point(x0,y0))) {
+				return new Point(x0,y0);
+			}
+		}
+		return null;
+	}
+	public Point getDownNeighbor() {
+		int x0 = x;
+		int y0 = y;
+		while (y0 < MAXY) {
+			// check if x=3 and y=2, we cannot go down.
+			if (x0==3 && y0==2) {
+				break;
+			}
+			y0++;
+			if (Board.validPoints.contains(new Point(x0,y0))) {
+				return new Point(x0,y0);
+			}
+		}
+		return null;
+	}
+	public Point getUpNeighbor() {
+		int x0 = x;
+		int y0 = y;
+		while (y0 > MINY) {
+			// check if x=3 and y=4, we cannot go down.
+			if (x0==3 && y0==4)
+				break;
+			y0--;
+			if (Board.validPoints.contains(new Point(x0,y0))) {
+				return new Point(x0,y0);
+			}
+		}
+		return null;
+	}
+	
 	/**
 	 * Search for adjacent points
 	 * 
@@ -40,48 +98,23 @@ public class Point {
 		// Search in 4 directions: We are done each branch if
 		// we run out of boundary or have found a valid point.
 		// ----------------------------------------
-
-		Point currentPoint = new Point(getX(), getY());
-
-		int originalX = x;
-		int originalY = y;
-
 		// x+ direction:
-		while (x < MAXX) {
-			x++;
-			if (Board.validPoints.contains(currentPoint)) {
-				adjacent.add(currentPoint);
-				break;
-			}
-		}
-		x = originalX;
+		Point rightNeighbor = getRightNeighbor();
+		if(rightNeighbor!=null)
+			adjacent.add(rightNeighbor);
 		// x- direction:
-		while (x > MINX) {
-			x--;
-			if (Board.validPoints.contains(currentPoint)) {
-				adjacent.add(currentPoint);
-				break;
-			}
-		}
-		x = originalX;
-		// y+ direction:
-		while (y < MAXY) {
-			y++;
-			if (Board.validPoints.contains(currentPoint)) {
-				adjacent.add(currentPoint);
-				break;
-			}
-		}
-		y = originalY;
-		// y- direction:
-		while (y > MINY) {
-			y--;
-			if (Board.validPoints.contains(currentPoint)) {
-				adjacent.add(currentPoint);
-				break;
-			}
-		}
-		y = originalY;
+		Point leftNeighbor = getLeftNeighbor();
+		if(leftNeighbor!=null)
+			adjacent.add(leftNeighbor);
+		// y+ direction: down
+		Point downNeighbor = getDownNeighbor();
+		if(downNeighbor!=null)
+			adjacent.add(downNeighbor);
+		// y- direction: up
+		Point upNeighbor = getUpNeighbor();
+		if(upNeighbor!=null)
+			adjacent.add(upNeighbor);
+		
 		return adjacent;
 	}
 
@@ -105,5 +138,17 @@ public class Point {
 		if (this.hashCode() == point.hashCode())
 			return true;
 		return false;
+	}
+	
+	// Test main
+	public static void main(String[] args) {
+		Board game = new Board("Player1", "Player2");
+		game.toString();
+		for(Point p : Board.validPoints) {
+			System.out.print("The adjacent points of " + p + " is: ");
+			for(Point pt : p.getAdjacentPoints())
+				System.out.print(pt);
+			System.out.println();
+		}
 	}
 }
