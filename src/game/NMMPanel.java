@@ -3,20 +3,18 @@ package game;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Panel;
+import java.awt.FlowLayout;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.net.URL;
+import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -25,10 +23,9 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
-import javax.swing.event.MouseInputAdapter;
+import javax.swing.TransferHandler;
 
 /**
  * @author Jimmy Wang
@@ -37,19 +34,13 @@ import javax.swing.event.MouseInputAdapter;
 public class NMMPanel extends JPanel {
 
 	private JFrame frame;
-	private int appWidth = 728;
-	private int appHeigth = 828;
+	private int appWidth = 735;
+	private int appHeigth = 830;
 
 	private JPanel topButtonPanel, topLeftPanel, topRightPanel; // main
 	private JLayeredPane centerPanel;
 	private JTextArea txtLogArea;
 	private JButton btnNewButton, btnQuitButton;
-
-	private JPanel user1Panel, user2Panel; // sub panels for user1 and user2
-	private JLabel chessBoardLabel, stateLabel;
-
-	private JTextField name1TextField, name2TextField;
-	private JDialog newGameDialog;
 	private boolean turnOfStarter = true;
 
 	private JLabel[] blacks = null;
@@ -57,20 +48,16 @@ public class NMMPanel extends JPanel {
 
 	private Node[] nodes = new Node[24];
 
-	private BufferedImage buffImage;
-	private boolean _canDrag = false;
-	private int _labelX = 370;// getting back here for x coord
-	private int _labelY = 50;// getting back here for y coord
-	private int _dragFromX = 0;
-	private int _dragFromY = 0;
-	private int w;
-	private int h;
+	MouseListener listener = new DragMouseAdapter();
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					NMMPanel panel = new NMMPanel();
+					NMMPanel newContentPane = new NMMPanel();
+					newContentPane.setOpaque(true); // content panes must be
+													// opaque
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -96,6 +83,10 @@ public class NMMPanel extends JPanel {
 		frame.getContentPane().setLayout(null);
 
 		frame.setTitle("9MM - Nine Men's Morris");
+
+		// Display the window.
+		// frame.pack();
+		frame.setVisible(true);
 
 		topButtonPanel = new JPanel();
 		topButtonPanel.setBounds(6, 0, 710, 36);
@@ -169,20 +160,9 @@ public class NMMPanel extends JPanel {
 			// TODO : Remove later
 			interactionFields.setForeground(new Color(255, 255, 255));
 
-			interactionFields.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseEntered(MouseEvent e) {
-					System.out.println("entered here");
-					System.out.println(interactionFields.getLocation());
-				}
+			interactionFields.setTransferHandler(new TransferHandler("icon"));
+			interactionFields.addMouseListener(listener);
 
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					System.out.println("Clicked here");
-
-				}
-
-			});
 			centerPanel.add(interactionFields, 0);
 		}
 	}
@@ -318,13 +298,8 @@ public class NMMPanel extends JPanel {
 		}
 	}
 
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		g.drawImage(buffImage, _labelX, _labelY, w, h, null);
-	}
-
 	private void initializeGameField() {
-		ImageIcon iconWhite = createImageIcon("/resources/White_Stone.png");
+
 		int space = 10;
 		blacks = new JLabel[9];
 		whites = new JLabel[9];
@@ -332,53 +307,12 @@ public class NMMPanel extends JPanel {
 		JLabel lblPlayer1 = new JLabel("PLAYER 1");
 		lblPlayer1.setBounds(150, 80, 61, 16);
 		topLeftPanel.add(lblPlayer1);
-		MyMouseAdapter mouseAdapter = new MyMouseAdapter();
+
+		ImageIcon iconWhite = createImageIcon("/resources/White_Stone.png");
 		for (int i = 0; i < 9; i++) {
-			final JLabel lblWhite = new JLabel(iconWhite);
-			lblWhite.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseDragged(MouseEvent e) {
-					// if (_canDrag) { // True only if button was pressed inside
-					// // label.
-					// // --- label pos from mouse and original click
-					// // displacement
-					// _labelX = e.getX() - _dragFromX;
-					// _labelY = e.getY() - _dragFromY;
-					// // --- Don't move the label off the screen sides
-					// _labelX = Math.max(_labelX, 0);
-					// _labelX = Math.min(_labelX, getWidth() - w);
-					// // --- Don't move the label off top or bottom
-					// _labelY = Math.max(_labelY, 0);
-					// _labelY = Math.min(_labelY, getHeight() - h);
-					// NMMPanel.this.repaint();
-					// }
-					System.out.println("Dragged");
-				}
-
-				@Override
-				public void mouseExited(MouseEvent e) {
-					_canDrag = false;
-				}
-
-				@Override
-				public void mousePressed(MouseEvent e) {
-					// int x = e.getX(); // Save the x coord of the click
-					// int y = e.getY(); // Save the y coord of the click
-					// if (x >= _labelX && x <= (_labelX + w) && y >= _labelY
-					// && y <= (_labelY + h)) {
-					// _canDrag = true;
-					// _dragFromX = x - _labelX; // how far from left
-					// _dragFromY = y - _labelY; // how far from top
-					// } else {
-					// _canDrag = false;
-					// }
-					_canDrag = true;
-				}
-
-				@Override
-				public void mouseReleased(MouseEvent e) {
-				}
-			});
+			final JLabel lblWhite = new JLabel(iconWhite, JLabel.CENTER);
+			lblWhite.setTransferHandler(new TransferHandler("icon"));
+			lblWhite.addMouseListener(listener);
 			lblWhite.setBounds(space, 25, 50, 50);
 			topLeftPanel.add(lblWhite);
 			space += 35;
@@ -391,14 +325,11 @@ public class NMMPanel extends JPanel {
 		topRightPanel.add(lblPlayer2);
 
 		ImageIcon iconBlack = createImageIcon("/resources/Black_Stone.png");
-
 		space = 10;
 		for (int j = 0; j < 9; j++) {
 			final JLabel lblBlack = new JLabel(iconBlack);
-
-			lblBlack.addMouseListener(mouseAdapter);
-			lblBlack.addMouseMotionListener(mouseAdapter);
-
+			lblBlack.setTransferHandler(new TransferHandler("icon"));
+			lblBlack.addMouseListener(listener);
 			lblBlack.setBounds(space, 25, 50, 50);
 			topRightPanel.add(lblBlack);
 			space += 35;
@@ -485,6 +416,15 @@ public class NMMPanel extends JPanel {
 		// }
 	}
 
+	class DragMouseAdapter extends MouseAdapter {
+		public void mousePressed(MouseEvent e) {
+			JComponent c = (JComponent) e.getSource();
+			TransferHandler handler = c.getTransferHandler();
+			handler.exportAsDrag(c, e, TransferHandler.COPY);
+			// c.setLayout(new FlowLayout());
+		}
+	}
+
 	/**
 	 * The Button class that react against the JButton events.
 	 */
@@ -506,87 +446,6 @@ public class NMMPanel extends JPanel {
 		newGameDialogPanel.add(radiobutton1);
 		newGameDialogPanel.add(radiobutton2);
 		JOptionPane.showInputDialog(newGameDialogPanel);
-	}
-
-	private class MyMouseAdapter extends MouseAdapter {
-		@Override
-		public void mouseDragged(MouseEvent e) {
-			if (_canDrag) { // True only if button was pressed inside label.
-				// --- label pos from mouse and original click displacement
-				_labelX = e.getX() - _dragFromX;
-				_labelY = e.getY() - _dragFromY;
-				// --- Don't move the label off the screen sides
-				_labelX = Math.max(_labelX, 0);
-				_labelX = Math.min(_labelX, getWidth() - w);
-				// --- Don't move the label off top or bottom
-				_labelY = Math.max(_labelY, 0);
-				_labelY = Math.min(_labelY, getHeight() - h);
-				NMMPanel.this.repaint();
-				System.out.println("Dragged");
-			}
-		}
-
-		@Override
-		public void mouseExited(MouseEvent e) {
-			_canDrag = false;
-		}
-
-		@Override
-		public void mousePressed(MouseEvent e) {
-			int x = e.getX(); // Save the x coord of the click
-			int y = e.getY(); // Save the y coord of the click
-			if (x >= _labelX && x <= (_labelX + w) && y >= _labelY
-					&& y <= (_labelY + h)) {
-				_canDrag = true;
-				_dragFromX = x - _labelX; // how far from left
-				_dragFromY = y - _labelY; // how far from top
-			} else {
-				_canDrag = false;
-			}
-		}
-
-		@Override
-		public void mouseReleased(MouseEvent e) {
-		}
-	}
-
-	private class MyListener extends MouseInputAdapter {
-		public void mousePressed(MouseEvent e) {
-			System.out.println("Mouse Pressed!");
-			// int x = e.getX();
-			// int y = e.getY();
-			// currentRect = new Rectangle(x, y, 0, 0);
-			// updateDrawableRect(getWidth(), getHeight());
-			// repaint();
-		}
-
-		public void mouseDragged(MouseEvent e) {
-			System.out.println("Mouse Draged!");
-			updateSize(e);
-		}
-
-		public void mouseReleased(MouseEvent e) {
-			System.out.println("Mouse Released!");
-			updateSize(e);
-		}
-
-		/*
-		 * Update the size of the current rectangle and call repaint. Because
-		 * currentRect always has the same origin, translate it if the width or
-		 * height is negative.
-		 * 
-		 * For efficiency (though that isn't an issue for this program), specify
-		 * the painting region using arguments to the repaint() call.
-		 */
-		void updateSize(MouseEvent e) {
-			// int x = e.getX();
-			// int y = e.getY();
-			// currentRect.setSize(x - currentRect.x, y - currentRect.y);
-			// updateDrawableRect(getWidth(), getHeight());
-			// Rectangle totalRepaint = rectToDraw.union(previousRectDrawn);
-			// repaint(totalRepaint.x, totalRepaint.y, totalRepaint.width,
-			// totalRepaint.height);
-		}
 	}
 
 }
