@@ -3,6 +3,7 @@ package game;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Panel;
 import java.awt.Point;
 import java.awt.Toolkit;
@@ -10,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.net.URL;
 
 import javax.swing.ImageIcon;
@@ -25,13 +27,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.event.MouseInputAdapter;
 
 /**
  * @author Jimmy Wang
  * @version September 17, 2014
  */
-public class NMMPanel {
+public class NMMPanel extends JPanel {
 
 	private JFrame frame;
 	private int appWidth = 728;
@@ -54,6 +57,27 @@ public class NMMPanel {
 
 	private Node[] nodes = new Node[24];
 
+	private BufferedImage buffImage;
+	private boolean _canDrag = false;
+	private int _labelX = 370;// getting back here for x coord
+	private int _labelY = 50;// getting back here for y coord
+	private int _dragFromX = 0;
+	private int _dragFromY = 0;
+	private int w;
+	private int h;
+
+	public static void main(String[] args) {
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					NMMPanel panel = new NMMPanel();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
 	/**
 	 * Constructor: components and variables setup.
 	 */
@@ -65,7 +89,7 @@ public class NMMPanel {
 	private void initializeWindow() {
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		frame = new JFrame();
-		frame.setResizable(false);
+		// frame.setResizable(false);
 		frame.setBounds((dim.width / 2 - (appWidth / 2)),
 				(dim.height / 2 - (appHeigth / 2)), appWidth, appHeigth);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -294,6 +318,11 @@ public class NMMPanel {
 		}
 	}
 
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g.drawImage(buffImage, _labelX, _labelY, w, h, null);
+	}
+
 	private void initializeGameField() {
 		ImageIcon iconWhite = createImageIcon("/resources/White_Stone.png");
 		int space = 10;
@@ -303,38 +332,53 @@ public class NMMPanel {
 		JLabel lblPlayer1 = new JLabel("PLAYER 1");
 		lblPlayer1.setBounds(150, 80, 61, 16);
 		topLeftPanel.add(lblPlayer1);
-
+		MyMouseAdapter mouseAdapter = new MyMouseAdapter();
 		for (int i = 0; i < 9; i++) {
 			final JLabel lblWhite = new JLabel(iconWhite);
 			lblWhite.addMouseListener(new MouseAdapter() {
-
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					System.out.println("Clicked");
-				}
-
 				@Override
 				public void mouseDragged(MouseEvent e) {
+					// if (_canDrag) { // True only if button was pressed inside
+					// // label.
+					// // --- label pos from mouse and original click
+					// // displacement
+					// _labelX = e.getX() - _dragFromX;
+					// _labelY = e.getY() - _dragFromY;
+					// // --- Don't move the label off the screen sides
+					// _labelX = Math.max(_labelX, 0);
+					// _labelX = Math.min(_labelX, getWidth() - w);
+					// // --- Don't move the label off top or bottom
+					// _labelY = Math.max(_labelY, 0);
+					// _labelY = Math.min(_labelY, getHeight() - h);
+					// NMMPanel.this.repaint();
+					// }
 					System.out.println("Dragged");
 				}
 
 				@Override
-				public void mouseMoved(MouseEvent e) {
-					System.out.println("Moved");
+				public void mouseExited(MouseEvent e) {
+					_canDrag = false;
 				}
 
 				@Override
 				public void mousePressed(MouseEvent e) {
-					System.out.println("Pressed");
+					// int x = e.getX(); // Save the x coord of the click
+					// int y = e.getY(); // Save the y coord of the click
+					// if (x >= _labelX && x <= (_labelX + w) && y >= _labelY
+					// && y <= (_labelY + h)) {
+					// _canDrag = true;
+					// _dragFromX = x - _labelX; // how far from left
+					// _dragFromY = y - _labelY; // how far from top
+					// } else {
+					// _canDrag = false;
+					// }
+					_canDrag = true;
 				}
 
 				@Override
 				public void mouseReleased(MouseEvent e) {
-					System.out.println("Released");
-
 				}
 			});
-
 			lblWhite.setBounds(space, 25, 50, 50);
 			topLeftPanel.add(lblWhite);
 			space += 35;
@@ -351,33 +395,9 @@ public class NMMPanel {
 		space = 10;
 		for (int j = 0; j < 9; j++) {
 			final JLabel lblBlack = new JLabel(iconBlack);
-			lblBlack.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
 
-				}
-
-				@Override
-				public void mouseDragged(MouseEvent e) {
-					System.out.println("Dragged");
-				}
-
-				@Override
-				public void mouseMoved(MouseEvent e) {
-					System.out.println("Moved");
-				}
-
-				@Override
-				public void mousePressed(MouseEvent e) {
-					System.out.println("Pressed");
-				}
-
-				@Override
-				public void mouseReleased(MouseEvent e) {
-					System.out.println("Released");
-					super.mouseReleased(e);
-				}
-			});
+			lblBlack.addMouseListener(mouseAdapter);
+			lblBlack.addMouseMotionListener(mouseAdapter);
 
 			lblBlack.setBounds(space, 25, 50, 50);
 			topRightPanel.add(lblBlack);
@@ -486,6 +506,48 @@ public class NMMPanel {
 		newGameDialogPanel.add(radiobutton1);
 		newGameDialogPanel.add(radiobutton2);
 		JOptionPane.showInputDialog(newGameDialogPanel);
+	}
+
+	private class MyMouseAdapter extends MouseAdapter {
+		@Override
+		public void mouseDragged(MouseEvent e) {
+			if (_canDrag) { // True only if button was pressed inside label.
+				// --- label pos from mouse and original click displacement
+				_labelX = e.getX() - _dragFromX;
+				_labelY = e.getY() - _dragFromY;
+				// --- Don't move the label off the screen sides
+				_labelX = Math.max(_labelX, 0);
+				_labelX = Math.min(_labelX, getWidth() - w);
+				// --- Don't move the label off top or bottom
+				_labelY = Math.max(_labelY, 0);
+				_labelY = Math.min(_labelY, getHeight() - h);
+				NMMPanel.this.repaint();
+				System.out.println("Dragged");
+			}
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			_canDrag = false;
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			int x = e.getX(); // Save the x coord of the click
+			int y = e.getY(); // Save the y coord of the click
+			if (x >= _labelX && x <= (_labelX + w) && y >= _labelY
+					&& y <= (_labelY + h)) {
+				_canDrag = true;
+				_dragFromX = x - _labelX; // how far from left
+				_dragFromY = y - _labelY; // how far from top
+			} else {
+				_canDrag = false;
+			}
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+		}
 	}
 
 	private class MyListener extends MouseInputAdapter {
