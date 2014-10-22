@@ -58,6 +58,9 @@ public class NMMPanel extends JPanel {
 		initializeGameField();
 	}
 
+	/***
+	 * To initialize the main GUI game window
+	 */
 	private void initializeWindow() {
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		frame = new JFrame();
@@ -132,6 +135,12 @@ public class NMMPanel extends JPanel {
 		frame.setVisible(true);
 	}
 
+	/**
+	 * Fix the grid with valid twenty-four intersections or points to move the
+	 * Men
+	 * 
+	 * @param counter
+	 */
 	private void setupEventFields(int counter) {
 		initNodes();
 		for (int i = 0; i < counter; i++) {
@@ -152,6 +161,9 @@ public class NMMPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * Initialize the 24 main nodes with fixed co-ordinates
+	 */
 	private void initNodes() {
 		// Point p = new Point(0, 0);
 		// for (int i = 0; i < 18; i++) {
@@ -262,6 +274,9 @@ public class NMMPanel extends JPanel {
 
 	}
 
+	/*
+	 * get node's current location (x,y)
+	 */
 	protected Node getNode(Point location) {
 		for (int i = 0; i < nodes.length; i++) {
 			if ((nodes[i].location.x == location.x)
@@ -283,6 +298,9 @@ public class NMMPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * Initialize the Game board GUI
+	 */
 	private void initializeGameField() {
 
 		int space = 10;
@@ -322,85 +340,11 @@ public class NMMPanel extends JPanel {
 		}
 	}
 
-	public void doSomething(Point point) {
-
-		System.out.println(point.x + ", " + point.y);
-		// if (whitesTurn) {
-		// JLabel lblWhite = getLabel(point);
-		//
-		// if (deleteFlag && whitesTurn) {
-		// if (getNode(point).getIsBusy() == 1) {
-		// // System.out.println("delete Stein");
-		// deleteFlag = false;
-		// getNode(lblWhite.getBounds().getLocation()).setIsBusy(0);
-		//
-		// lblWhite.setVisible(false);
-		// lblWhite.setLocation(0, 0);
-		// for (Point p : placedPieces) {
-		// if (p.x == lblWhite.getBounds().x
-		// && p.y == lblWhite.getBounds().y) {
-		// placedPieces.remove(p);
-		// break;
-		// }
-		// }
-		// if (setting.getPlayer2().contains("Computer")) {
-		// if (countPieces(false) <= 3 && placedCounter > 17) {
-		// System.out.println(countPieces(false));
-		// brain.jumpStone(nodes, 2);
-		// } else {
-		// if (placedCounter > 17) {
-		// System.out.println(countPieces(false));
-		// brain.moveStone(nodes, 2);
-		// }
-		// }
-		// }
-		// }
-		// } else {
-		// if (placedCounter == 18) {
-		// if (whitesTurn) {
-		// selectedPiece = lblWhite;
-		// }
-		// }
-		// }
-		// } else {
-		// JLabel lblBlack = getLabel(point);
-		// ;
-		// if (deleteFlag && blacksTurn) {
-		// if (getNode(point).getIsBusy() == 2) {
-		// System.out.println("delete Stein");
-		// deleteFlag = false;
-		// getNode(lblBlack.getBounds().getLocation()).setIsBusy(0);
-		//
-		// lblBlack.setVisible(false);
-		// for (Point p : placedPieces) {
-		// if (p.x == lblBlack.getBounds().x
-		// && p.y == lblBlack.getBounds().y) {
-		// placedPieces.remove(p);
-		// break;
-		// }
-		// }
-		// if (setting.getPlayer1().contains("Computer")) {
-		// if (countPieces(false) <= 3 && placedCounter > 17) {
-		// System.out.println(countPieces(false));
-		// brain.jumpStone(nodes, 1);
-		// } else {
-		// System.out.println(countPieces(false));
-		//
-		// brain.moveStone(nodes, 1);
-		// }
-		// }
-		// }
-		//
-		// } else {
-		// if (placedCounter <= 18) {
-		// if (blacksTurn) {
-		// selectedPiece = lblBlack;
-		// }
-		// }
-		// }
-		// }
-	}
-
+	/**
+	 * Do add the drag and drop mouse event listener
+	 * @author milsonmunakami
+	 *
+	 */
 	class DragMouseAdapter extends MouseAdapter {
 		public void mousePressed(MouseEvent e) {
 			JComponent c = (JComponent) e.getSource();
@@ -414,20 +358,21 @@ public class NMMPanel extends JPanel {
 	 * The Button class that react against the JButton events.
 	 */
 	private class ButtonListener implements ActionListener {
-
 		public void actionPerformed(ActionEvent event) {
 			if (event.getSource() == btnNewButton)
 				startNewGame();
 			if (event.getSource() == btnQuitButton)
 				System.exit(0);
 		}
-
 	}
 
+	/**
+	 * To show on popup for new game options
+	 */
 	private void startNewGame() {
 		JPanel newGameDialogPanel = new JPanel(); // for starting a new game
-		JRadioButton radiobutton1 = new JRadioButton("1P");
-		JRadioButton radiobutton2 = new JRadioButton("2P");
+		JRadioButton radiobutton1 = new JRadioButton("2 Players");
+		JRadioButton radiobutton2 = new JRadioButton("With Computer");
 		newGameDialogPanel.add(radiobutton1);
 		newGameDialogPanel.add(radiobutton2);
 		JOptionPane.showInputDialog(newGameDialogPanel);
