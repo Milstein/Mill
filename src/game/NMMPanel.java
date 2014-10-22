@@ -150,7 +150,7 @@ public class NMMPanel extends JPanel {
 	private void setupEventFields(int counter) {
 		initNodes();
 		for (int i = 0; i < counter; i++) {
-			final JLabel interactionFields = new JLabel("FFFF");
+			final JLabel interactionFields = new JLabel();
 			interactionFields.setHorizontalAlignment(SwingConstants.CENTER);
 			interactionFields.setBounds(nodes[i].location.x,
 					nodes[i].location.y, 50, 50);
