@@ -24,26 +24,44 @@ public class Player {
 	}
 
 	/**
-	 * Place a man on the board. Assume menHoldInHand>0, and always place to a valid (empty) point.
+	 * Place a man on the board. Assuming always place to a valid (empty) point.
 	 * @param pt
 	 */
 	public void placeAMan(Point pt) {
-		menOnTheBoard.add(pt);
-		menHoldInHand--;
-		System.out.println("Player" + (color+1) + " place a man on " + pt);
+		if (menHoldInHand>0) {
+			menOnTheBoard.add(pt);
+			menHoldInHand--;
+			System.out.println("Player" + (color + 1) + " place a man on " + pt);
+		}
 	}
 
 	/**
-	 * Move a Man. assume menHoldInHand=0, and always a valid move.
+	 * Move a Man. assuming menHoldInHand=0 and it's always a valid move.
 	 * @param pt1
 	 * @param pt2
 	 */
 	public void moveAMan(Point pt1, Point pt2) {
-		menOnTheBoard.remove(pt1);
-		menOnTheBoard.add(pt2);
-		System.out.println("Player" + (color+1) + " move a man from " + pt1 + " to " + pt2);
+		if (menOnTheBoard.contains(pt1) && !menOnTheBoard.contains(pt2)) {
+			menOnTheBoard.remove(pt1);
+			menOnTheBoard.add(pt2);
+			System.out.println("Player" + (color + 1) + " move a man from "
+					+ pt1 + " to " + pt2);
+		}
 	}
 
+	/**
+	 * Remove a man. message should be sent by the opponents' move.
+	 * @param pt
+	 */
+	public void removeAMan(Point pt) {
+		menOnTheBoard.remove(pt);
+		System.out.println("Player" + (color + 1) + " lose a man on " + pt);
+	}
+	
+	/**
+	 * Determine if a player is allowed to fly.
+	 * @return
+	 */
 	public boolean allowToFly() {
 		if (menHoldInHand==0 && menOnTheBoard.size()==3)
 			return true;
@@ -100,10 +118,6 @@ public class Player {
 		return menOnTheBoard.contains(pt);
 	}
 
-	public void removeAMan(Point pt) {
-		menOnTheBoard.remove(pt);
-	}
-
 	/**
 	 * Check if there is a new mill - related to the newpt.
 	 * 		check 6 possibilities: newpt, leftright(x+-), updown(y+-) to the left(x--), right(x++) or up(y--), down(y++).
@@ -158,8 +172,8 @@ public class Player {
 	}
 	
 	public String toString() {
-		String str = "Name: " + name + " Color: " + (color==0 ? "white\n" : "black\n");
-		str += ("MenHoldInHand: " + menHoldInHand + "\n");
+		String str = "Name: " + name + " Color: " + (color==0 ? "white\n" : "black ");
+		str += ("MenHoldInHand=" + menHoldInHand + " ");
 		str += ("MenOnTheBoard: " + menOnTheBoard);
 		return str;
 	}
