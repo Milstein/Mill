@@ -1,5 +1,6 @@
 package game;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -7,25 +8,39 @@ public class Player {
 
 	String name;
 	int color; // (0="white"&&1="black"),
-	Set<Point> menOnTheBoard;
+	ArrayList<Point> menOnTheBoard;
 	int menHoldInHand;
 
+	/**
+	 * Constructor.
+	 * @param name
+	 * @param color
+	 */
 	public Player(String name, int color) {
 		this.name = name;
 		this.color = color;
 		menHoldInHand = 9;
-		menOnTheBoard = new HashSet<Point>();
+		menOnTheBoard = new ArrayList<Point>();
 	}
 
+	/**
+	 * Place a man on the board. Assume menHoldInHand>0, and always place to a valid (empty) point.
+	 * @param pt
+	 */
 	public void placeAMan(Point pt) {
 		menOnTheBoard.add(pt);
 		menHoldInHand--;
 		System.out.println("Player" + (color+1) + " place a man on " + pt);
 	}
 
+	/**
+	 * Move a Man. assume menHoldInHand=0, and always a valid move.
+	 * @param pt1
+	 * @param pt2
+	 */
 	public void moveAMan(Point pt1, Point pt2) {
 		menOnTheBoard.remove(pt1);
-		menOnTheBoard.remove(pt2);
+		menOnTheBoard.add(pt2);
 		System.out.println("Player" + (color+1) + " move a man from " + pt1 + " to " + pt2);
 	}
 
@@ -68,7 +83,7 @@ public class Player {
 		return color;
 	}
 
-	public Set<Point> getMenOnTheBoard() {
+	public ArrayList<Point> getMenOnTheBoard() {
 		return menOnTheBoard;
 	}
 
@@ -97,8 +112,8 @@ public class Player {
 	 */
 	public boolean hasMills(Point newpt) {
 		// TODO Auto-generated method stub
-		int x0 = newpt.getX();
-		int y0 = newpt.getY();
+//		int x0 = newpt.getX();
+//		int y0 = newpt.getY();
 		Point left = newpt.getLeftNeighbor();
 		Point right = newpt.getRightNeighbor();
 		Point up = newpt.getUpNeighbor();
@@ -140,6 +155,13 @@ public class Player {
 					return true;
 		}
 		return false;
+	}
+	
+	public String toString() {
+		String str = "Name: " + name + " Color: " + (color==0 ? "white\n" : "black\n");
+		str += ("MenHoldInHand: " + menHoldInHand + "\n");
+		str += ("MenOnTheBoard: " + menOnTheBoard);
+		return str;
 	}
 
 }
