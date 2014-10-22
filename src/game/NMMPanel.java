@@ -102,7 +102,7 @@ public class NMMPanel extends JPanel {
 
 		topLeftPanel = new JPanel();
 		topLeftPanel.setForeground(new Color(0, 0, 0));
-		topLeftPanel.setBackground(new Color(255, 255, 204));
+		topLeftPanel.setBackground(new Color(233, 224, 219));
 		topLeftPanel.setBounds(6, 35, 352, 100);
 		frame.getContentPane().add(topLeftPanel);
 		topLeftPanel.setLayout(null);
