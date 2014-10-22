@@ -12,7 +12,7 @@ public class Point {
 	static final int MAXX = 6;
 	static final int MAXY = 6;
 
-	Point(int x, int y) {
+	public Point(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
@@ -30,6 +30,10 @@ public class Point {
 	}
 
 	// Get neighbors in specific direction...
+	/**
+	 * Get right neighbor, if there is.
+	 * @return
+	 */
 	public Point getRightNeighbor() {
 		int x0 = x;
 		int y0 = y;
@@ -44,6 +48,10 @@ public class Point {
 		}
 		return null;
 	}
+	/**
+	 * Get left neighbor.
+	 * @return
+	 */
 	public Point getLeftNeighbor() {
 		int x0 = x;
 		int y0 = y;
@@ -58,6 +66,10 @@ public class Point {
 		}
 		return null;
 	}
+	/**
+	 * Get down neighbor.
+	 * @return
+	 */
 	public Point getDownNeighbor() {
 		int x0 = x;
 		int y0 = y;
@@ -73,6 +85,10 @@ public class Point {
 		}
 		return null;
 	}
+	/**
+	 * Get up neighbor.
+	 * @return
+	 */
 	public Point getUpNeighbor() {
 		int x0 = x;
 		int y0 = y;
@@ -118,6 +134,7 @@ public class Point {
 		return adjacent;
 	}
 
+	// Used for comparison of two points. just x1=x2 and y1=y2.
 	@Override
 	public int hashCode() {
 		StringBuffer buffer = new StringBuffer();
@@ -143,7 +160,7 @@ public class Point {
 	// Test main
 	public static void main(String[] args) {
 		Board game = new Board("Player1", "Player2");
-		game.toString();
+		game.init("White", "Black");
 		for(Point p : Board.validPoints) {
 			System.out.print("The adjacent points of " + p + " is: ");
 			for(Point pt : p.getAdjacentPoints())

@@ -1,5 +1,6 @@
 package game;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
@@ -8,12 +9,11 @@ public class Board {
 
 	// data field:
 	private static Player[] players;
-	static Set<Point> validPoints = new HashSet<Point>();
+	public static ArrayList<Point> validPoints = new ArrayList<Point>();
 
 	// Constructor
 	public Board(String name1, String name2) {
 		this.init(name1, name2);
-		System.out.println("Game started: White (" + name1 + ") first: ");
 	}
 
 	// methods:
@@ -24,10 +24,10 @@ public class Board {
 	 */
 	public void init(String name1, String name2) {
 		// Initialize the board.
+		System.out.print("Game Initializing...");
 		players = new Player[2];
 		players[0] = new Player(name1, 0);
 		players[1] = new Player(name2, 1);
-		validPoints = new HashSet<Point>();
 		validPoints.add(new Point(0, 0));
 		validPoints.add(new Point(3, 0));
 		validPoints.add(new Point(6, 0));
@@ -52,7 +52,11 @@ public class Board {
 		validPoints.add(new Point(0, 6));
 		validPoints.add(new Point(3, 6));
 		validPoints.add(new Point(6, 6));
+		System.out.println("...Done\n");
+		System.out.println("Game started: White (" + name1 + ") first: ");
 	}
+	
+	public void idle() {	}
 
 	// reserved for a.i.
 	public boolean makeAnAction(int player) {
