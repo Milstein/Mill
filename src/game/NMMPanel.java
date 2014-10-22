@@ -28,7 +28,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.TransferHandler;
 
 /**
- * @author Jimmy Wang
+ * @author Milson Munakami
  * @version September 17, 2014
  */
 public class NMMPanel extends JPanel {
@@ -49,21 +49,6 @@ public class NMMPanel extends JPanel {
 	private Node[] nodes = new Node[24];
 
 	MouseListener listener = new DragMouseAdapter();
-
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					NMMPanel newContentPane = new NMMPanel();
-					newContentPane.setOpaque(true); // content panes must be
-													// opaque
-
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Constructor: components and variables setup.
@@ -119,7 +104,7 @@ public class NMMPanel extends JPanel {
 		frame.getContentPane().add(centerPanel);
 		centerPanel.setLayout(null);
 
-		ImageIcon field = createImageIcon("/resources/Spielfeld_roundedCorners.png");
+		ImageIcon field = createImageIcon("/resources/board.png");
 		JLabel feld = new JLabel(field);
 		feld.setBounds(0, 0, 500, 500);
 		centerPanel.add(feld, 2);
