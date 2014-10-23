@@ -62,6 +62,7 @@ public class PointJUnitTests {
 		assertTrue(new Point(2,3).getLeftNeighbor().equals(new Point(1,3)));
 		assertTrue(new Point(1,3).getLeftNeighbor().equals(new Point(0,3)));
 		assertTrue(new Point(0,3).getLeftNeighbor()==null);
+		
 	}
 
 	@Test

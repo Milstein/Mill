@@ -12,19 +12,35 @@ public class Point {
 	static final int MAXX = 6;
 	static final int MAXY = 6;
 
+	/**
+	 * Constructor.
+	 * @param x
+	 * @param y
+	 */
 	public Point(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
 
+	/**
+	 * get X.
+	 * @return
+	 */
 	public int getX() {
 		return x;
 	}
 
+	/**
+	 * get Y.
+	 * @return
+	 */
 	public int getY() {
 		return y;
 	}
 	
+	/**
+	 * return a string of the point.
+	 */
 	public String toString() {
 		return "(" + x + "," + y + ")";
 	}
