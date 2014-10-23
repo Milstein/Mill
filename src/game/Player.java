@@ -80,7 +80,11 @@ public class Player {
 		return false;
 	}
 
-	// TODO
+	// when menHoldInHand>0 we won't call this method.
+	/**
+	 * determine if the player has any legal moves.
+	 * @return
+	 */
 	private boolean hasLegalMoves() {
 		for (Point pt : menOnTheBoard) {
 			Set<Point> adj = pt.getAdjacentPoints();
@@ -93,41 +97,58 @@ public class Player {
 	}
 
 	// getters
+	/**
+	 * Get player's name.
+	 * @return
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Get color.
+	 * @return
+	 */
 	public int getColor() {
 		return color;
 	}
 
+	/**
+	 * Get a list of men on the board.
+	 * @return
+	 */
 	public ArrayList<Point> getMenOnTheBoard() {
 		return menOnTheBoard;
 	}
 
+	/**
+	 * See how many marble hold in hand.
+	 * @return
+	 */
 	public int getMenHoldInHand() {
 		return menHoldInHand;
 	}
 
+	/**
+	 * Check whether a point is hold by this player or not.
+	 * @param pt
+	 * @return
+	 */
 	public boolean hasPoint(Point pt) {
-//		System.out.println("pt=" + pt);
-//		System.out.print("Player" + (color+1) + " has: ");
-//		for (Point p : menOnTheBoard)
-//			System.out.print(p+" ");
-//		System.out.println();
 		return menOnTheBoard.contains(pt);
 	}
 
 	/**
-	 * Check if there is a new mill - related to the newpt.
+	 * Check if there is a NEW mill - related to the newpt.
 	 * 		check 6 possibilities: newpt, leftright(x+-), updown(y+-) to the left(x--), right(x++) or up(y--), down(y++).
 	 * @param newpt
 	 * @return
 	 */
 	public boolean hasMills(Point newpt) {
-		// TODO Auto-generated method stub
 //		int x0 = newpt.getX();
 //		int y0 = newpt.getY();
+		if (!menOnTheBoard.contains(newpt))
+			return false;
 		Point left = newpt.getLeftNeighbor();
 		Point right = newpt.getRightNeighbor();
 		Point up = newpt.getUpNeighbor();
@@ -143,9 +164,11 @@ public class Player {
 		// check left(x--):
 		if(left!=null) {
 			Point leftleft = left.getLeftNeighbor();
-			if (leftleft!=null)
-				if (menOnTheBoard.contains(left) && menOnTheBoard.contains(leftleft))
+			if (leftleft!=null) {
+				if (menOnTheBoard.contains(left) && menOnTheBoard.contains(leftleft)) {
 					return true;
+				}
+			}
 		}
 		// check right(x++):
 		if(right!=null) {
@@ -171,6 +194,9 @@ public class Player {
 		return false;
 	}
 	
+	/**
+	 * return a string of the player.
+	 */
 	public String toString() {
 		String str = "Name: " + name + " Color: " + (color==0 ? "white\n" : "black ");
 		str += ("MenHoldInHand=" + menHoldInHand + " ");

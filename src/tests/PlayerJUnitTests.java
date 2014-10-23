@@ -1,6 +1,7 @@
 package tests;
 
 import static org.junit.Assert.*;
+import game.Board;
 import game.Player;
 import game.Point;
 
@@ -8,6 +9,8 @@ import org.junit.Test;
 
 public class PlayerJUnitTests {
 
+	Board board = new Board("Player1", "Player2");
+	
 	@Test
 	public void testShowPlayer() {
 		System.out.println("---------TestShowPlayer------------------");
@@ -191,8 +194,45 @@ public class PlayerJUnitTests {
 	}
 	
 	@Test
-	public void testHasLegalMove() {
-		//TODO
+	public void testHasMills() {
+		System.out.println("---------TestHasMills------------------");
+		Player p1 = new Player("Arthur", 1);
+		System.out.println(p1);
+		assertTrue(p1.getMenHoldInHand()==9);
+		assertFalse(p1.hasMills(new Point(0,0)));
+		// place-------------
+		p1.placeAMan(new Point(0,0));		
+		assertTrue(p1.getMenHoldInHand()==8);
+		assertFalse(p1.hasMills(new Point(0,0)));	
+		p1.placeAMan(new Point(3,0));
+		assertTrue(p1.getMenHoldInHand()==7);
+		assertFalse(p1.hasMills(new Point(3,0)));
+		p1.placeAMan(new Point(6,0));
+		assertTrue(p1.getMenHoldInHand()==6);
+		System.out.println(p1);
+		// case leftleft (x--)
+		assertTrue(p1.hasMills(new Point(6,0)));
+		// case rightright (x++)
+		assertTrue(p1.hasMills(new Point(0,0)));
+		// case leftright (x+-)
+		assertTrue(p1.hasMills(new Point(3,0)));
+		
+		// case upup(y--)
+		p1.placeAMan(new Point(3,1));
+		assertTrue(p1.getMenHoldInHand()==5);
+		assertFalse(p1.hasMills(new Point(3,1)));
+		p1.placeAMan(new Point(3,2));
+		assertTrue(p1.getMenHoldInHand()==4);
+		System.out.println(p1);
+		assertTrue(p1.hasMills(new Point(3,2)));
+		// case downdown(y++)
+		assertTrue(p1.hasMills(new Point(3,0)));
+		// case updown(y++)
+		assertTrue(p1.hasMills(new Point(3,1)));
+		
+		System.out.println("---------TestHasMills------------------");
 	}
+	
+	// hasLegalMoves() and Lose() are tested in BoardJUnitTests.java
 	
 }
