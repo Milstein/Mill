@@ -464,7 +464,7 @@ Select the man you want to remove:
 4 4
 Player1 lose a man on (4,4)
 Black Wins
-
+(Player 1 has less than 3 men.)
 End----------------------------
 
 
@@ -658,7 +658,7 @@ To:
 3 2
 Player2 move a man from (2,2) to (3,2)
 Black Wins
-
+(Player1 has no legal moves.)
 
 End----------------------------
 
