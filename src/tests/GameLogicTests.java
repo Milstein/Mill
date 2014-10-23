@@ -6,8 +6,6 @@ import game.Board;
 import game.Player;
 import game.Point;
 
-import org.junit.Test;
-
 public class GameLogicTests {
 	
 	// placeMan is basically placeman() in the Player.java. //
