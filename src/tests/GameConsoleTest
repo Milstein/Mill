@@ -1,0 +1,664 @@
+Game Rule Testing records: (console)
+
+Test1:
+Start--------------------------
+Game Initializing......Done
+
+Game started: White (Player1) first: 
+
+
+Player1's turn.
+Player1 to place a man at point: 
+0 0
+Player1 place a man on (0,0)
+Player2's turn.
+Player2 to place a man at point: 
+5 3
+Player2 place a man on (5,3)
+(0,0)
+(5,3)
+Player1's turn.
+Player1 to place a man at point: 
+3 0
+Player1 place a man on (3,0)
+Player2's turn.
+Player2 to place a man at point: 
+6 0
+Player2 place a man on (6,0)
+(0,0)(3,0)
+(5,3)(6,0)
+Player1's turn.
+Player1 to place a man at point: 
+3 1
+Player1 place a man on (3,1)
+Player2's turn.
+Player2 to place a man at point: 
+3 2
+Player2 place a man on (3,2)
+(0,0)(3,0)(3,1)
+(5,3)(6,0)(3,2)
+Player1's turn.
+Player1 to place a man at point: 
+1 1
+Player1 place a man on (1,1)
+Player2's turn.
+Player2 to place a man at point: 
+5 1
+Player2 place a man on (5,1)
+(0,0)(3,0)(3,1)(1,1)
+(5,3)(6,0)(3,2)(5,1)
+Player1's turn.
+Player1 to place a man at point: 
+5 5
+Player1 place a man on (5,5)
+Player2's turn.
+Player2 to place a man at point: 
+6 3
+Player2 place a man on (6,3)
+(0,0)(3,0)(3,1)(1,1)(5,5)
+(5,3)(6,0)(3,2)(5,1)(6,3)
+Player1's turn.
+Player1 to place a man at point: 
+6 6
+Player1 place a man on (6,6)
+Player2's turn.
+Player2 to place a man at point: 
+4 3
+Player2 place a man on (4,3)
+Player2 has a MILL!
+Ask Player2: to remove a man of Player1
+You can remove one from: 
+(0,0)(3,0)(3,1)(1,1)(5,5)(6,6)
+Select the man you want to remove: 
+5 5
+Player1 lose a man on (5,5)
+(0,0)(3,0)(3,1)(1,1)(6,6)
+(5,3)(6,0)(3,2)(5,1)(6,3)(4,3)
+Player1's turn.
+Player1 to place a man at point: 
+0 3
+Player1 place a man on (0,3)
+Player2's turn.
+Player2 to place a man at point: 
+0 6
+Player2 place a man on (0,6)
+(0,0)(3,0)(3,1)(1,1)(6,6)(0,3)
+(5,3)(6,0)(3,2)(5,1)(6,3)(4,3)(0,6)
+Player1's turn.
+Player1 to place a man at point: 
+1 3
+Player1 place a man on (1,3)
+Player2's turn.
+Player2 to place a man at point: 
+5 5
+Player2 place a man on (5,5)
+Player2 has a MILL!
+Ask Player2: to remove a man of Player1
+You can remove one from: 
+(0,0)(3,0)(3,1)(1,1)(6,6)(0,3)(1,3)
+Select the man you want to remove: 
+1 3
+Player1 lose a man on (1,3)
+(0,0)(3,0)(3,1)(1,1)(6,6)(0,3)
+(5,3)(6,0)(3,2)(5,1)(6,3)(4,3)(0,6)(5,5)
+Player1's turn.
+Player1 to place a man at point: 
+1 3
+Player1 place a man on (1,3)
+Player2's turn.
+Player2 to place a man at point: 
+2 3
+Player2 place a man on (2,3)
+(0,0)(3,0)(3,1)(1,1)(6,6)(0,3)(1,3)
+(5,3)(6,0)(3,2)(5,1)(6,3)(4,3)(0,6)(5,5)(2,3)
+Player1's turn.
+Player1 to move a man: 
+Available points:
+(0,0)(3,0)(3,1)(1,1)(6,6)(0,3)(1,3)From:
+1 3
+To:
+1 5
+Player1 move a man from (1,3) to (1,5)
+Player2's turn.
+Player2 to move a man: 
+Available points:
+(5,3)(6,0)(3,2)(5,1)(6,3)(4,3)(0,6)(5,5)(2,3)From:
+2 3
+To:
+1 3
+Player2 move a man from (2,3) to (1,3)
+(0,0)(3,0)(3,1)(1,1)(6,6)(0,3)(1,5)
+(5,3)(6,0)(3,2)(5,1)(6,3)(4,3)(0,6)(5,5)(1,3)
+Player1's turn.
+Player1 to move a man: 
+Available points:
+(0,0)(3,0)(3,1)(1,1)(6,6)(0,3)(1,5)From:
+6 6
+To:
+3 6
+Player1 move a man from (6,6) to (3,6)
+Player2's turn.
+Player2 to move a man: 
+Available points:
+(5,3)(6,0)(3,2)(5,1)(6,3)(4,3)(0,6)(5,5)(1,3)From:
+6 3
+To:
+6 6
+Player2 move a man from (6,3) to (6,6)
+(0,0)(3,0)(3,1)(1,1)(0,3)(1,5)(3,6)
+(5,3)(6,0)(3,2)(5,1)(4,3)(0,6)(5,5)(1,3)(6,6)
+Player1's turn.
+Player1 to move a man: 
+Available points:
+(0,0)(3,0)(3,1)(1,1)(0,3)(1,5)(3,6)From:
+3 6
+To:
+3 5
+Player1 move a man from (3,6) to (3,5)
+Player2's turn.
+Player2 to move a man: 
+Available points:
+(5,3)(6,0)(3,2)(5,1)(4,3)(0,6)(5,5)(1,3)(6,6)From:
+5 3
+To:
+6 3
+Player2 move a man from (5,3) to (6,3)
+Player2 has a MILL!
+Ask Player2: to remove a man of Player1
+You can remove one from: 
+(0,0)(3,0)(3,1)(1,1)(0,3)(1,5)(3,5)
+Select the man you want to remove: 
+3 5
+Player1 lose a man on (3,5)
+(0,0)(3,0)(3,1)(1,1)(0,3)(1,5)
+(6,0)(3,2)(5,1)(4,3)(0,6)(5,5)(1,3)(6,6)(6,3)
+Player1's turn.
+Player1 to move a man: 
+Available points:
+(0,0)(3,0)(3,1)(1,1)(0,3)(1,5)From:
+1 5
+To:
+3 5
+Player1 move a man from (1,5) to (3,5)
+Player2's turn.
+Player2 to move a man: 
+Available points:
+(6,0)(3,2)(5,1)(4,3)(0,6)(5,5)(1,3)(6,6)(6,3)From:
+4 3
+To:
+5 3
+Player2 move a man from (4,3) to (5,3)
+Player2 has a MILL!
+Ask Player2: to remove a man of Player1
+You can remove one from: 
+(0,0)(3,0)(3,1)(1,1)(0,3)(3,5)
+Select the man you want to remove: 
+3 5
+Player1 lose a man on (3,5)
+
+(Comment: Black Wins -- White has no legal moves.)
+End----------------------------
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+Test2: Flying tested.
+Start--------------------------
+Game Initializing......Done
+
+Game started: White (Player1) first: 
+
+
+Player1's turn.
+Player1 to place a man at point: 
+3 0
+Player1 place a man on (3,0)
+(3,0)
+
+Player2's turn.
+Player2 to place a man at point: 
+1 3
+Player2 place a man on (1,3)
+(3,0)
+(1,3)
+Player1's turn.
+Player1 to place a man at point: 
+3 1
+Player1 place a man on (3,1)
+(3,0)(3,1)
+(1,3)
+Player2's turn.
+Player2 to place a man at point: 
+3 2
+Player2 place a man on (3,2)
+(3,0)(3,1)
+(1,3)(3,2)
+Player1's turn.
+Player1 to place a man at point: 
+6 0
+Player1 place a man on (6,0)
+(3,0)(3,1)(6,0)
+(1,3)(3,2)
+Player2's turn.
+Player2 to place a man at point: 
+0 0
+Player2 place a man on (0,0)
+(3,0)(3,1)(6,0)
+(1,3)(3,2)(0,0)
+Player1's turn.
+Player1 to place a man at point: 
+5 1
+Player1 place a man on (5,1)
+(3,0)(3,1)(6,0)(5,1)
+(1,3)(3,2)(0,0)
+Player2's turn.
+Player2 to place a man at point: 
+1 1
+Player2 place a man on (1,1)
+(3,0)(3,1)(6,0)(5,1)
+(1,3)(3,2)(0,0)(1,1)
+Player1's turn.
+Player1 to place a man at point: 
+2 3
+Player1 place a man on (2,3)
+(3,0)(3,1)(6,0)(5,1)(2,3)
+(1,3)(3,2)(0,0)(1,1)
+Player2's turn.
+Player2 to place a man at point: 
+1 5
+Player2 place a man on (1,5)
+Player2 has a MILL!
+Ask Player2: to remove a man of Player1
+You can remove one from: 
+(3,0)(3,1)(6,0)(5,1)(2,3)
+Select the man you want to remove: 
+2 3
+Player1 lose a man on (2,3)
+(3,0)(3,1)(6,0)(5,1)
+(1,3)(3,2)(0,0)(1,1)(1,5)
+Player1's turn.
+Player1 to place a man at point: 
+3 4
+Player1 place a man on (3,4)
+(3,0)(3,1)(6,0)(5,1)(3,4)
+(1,3)(3,2)(0,0)(1,1)(1,5)
+Player2's turn.
+Player2 to place a man at point: 
+0 3
+Player2 place a man on (0,3)
+(3,0)(3,1)(6,0)(5,1)(3,4)
+(1,3)(3,2)(0,0)(1,1)(1,5)(0,3)
+Player1's turn.
+Player1 to place a man at point: 
+4 3
+Player1 place a man on (4,3)
+(3,0)(3,1)(6,0)(5,1)(3,4)(4,3)
+(1,3)(3,2)(0,0)(1,1)(1,5)(0,3)
+Player2's turn.
+Player2 to place a man at point: 
+2 3
+Player2 place a man on (2,3)
+Player2 has a MILL!
+Ask Player2: to remove a man of Player1
+You can remove one from: 
+(3,0)(3,1)(6,0)(5,1)(3,4)(4,3)
+Select the man you want to remove: 
+3 4
+Player1 lose a man on (3,4)
+(3,0)(3,1)(6,0)(5,1)(4,3)
+(1,3)(3,2)(0,0)(1,1)(1,5)(0,3)(2,3)
+Player1's turn.
+Player1 to place a man at point: 
+2 2
+Player1 place a man on (2,2)
+(3,0)(3,1)(6,0)(5,1)(4,3)(2,2)
+(1,3)(3,2)(0,0)(1,1)(1,5)(0,3)(2,3)
+Player2's turn.
+Player2 to place a man at point: 
+3 6
+Player2 place a man on (3,6)
+(3,0)(3,1)(6,0)(5,1)(4,3)(2,2)
+(1,3)(3,2)(0,0)(1,1)(1,5)(0,3)(2,3)(3,6)
+Player1's turn.
+Player1 to place a man at point: 
+4 4
+Player1 place a man on (4,4)
+(3,0)(3,1)(6,0)(5,1)(4,3)(2,2)(4,4)
+(1,3)(3,2)(0,0)(1,1)(1,5)(0,3)(2,3)(3,6)
+Player2's turn.
+Player2 to place a man at point: 
+3 4
+Player2 place a man on (3,4)
+(3,0)(3,1)(6,0)(5,1)(4,3)(2,2)(4,4)
+(1,3)(3,2)(0,0)(1,1)(1,5)(0,3)(2,3)(3,6)(3,4)
+Player1's turn.
+Player1 to move a man: 
+Available points:
+(3,0)(3,1)(6,0)(5,1)(4,3)(2,2)(4,4)From:
+5 1
+To:
+5 3
+Player1 move a man from (5,1) to (5,3)
+(3,0)(3,1)(6,0)(4,3)(2,2)(4,4)(5,3)
+(1,3)(3,2)(0,0)(1,1)(1,5)(0,3)(2,3)(3,6)(3,4)
+Player2's turn.
+Player2 to move a man: 
+Available points:
+(1,3)(3,2)(0,0)(1,1)(1,5)(0,3)(2,3)(3,6)(3,4)From:
+1 5
+To:
+3 5
+Player2 move a man from (1,5) to (3,5)
+Player2 has a MILL!
+Ask Player2: to remove a man of Player1
+You can remove one from: 
+(3,0)(3,1)(6,0)(4,3)(2,2)(4,4)(5,3)
+Select the man you want to remove: 
+5 3
+Player1 lose a man on (5,3)
+(3,0)(3,1)(6,0)(4,3)(2,2)(4,4)
+(1,3)(3,2)(0,0)(1,1)(0,3)(2,3)(3,6)(3,4)(3,5)
+Player1's turn.
+Player1 to move a man: 
+Available points:
+(3,0)(3,1)(6,0)(4,3)(2,2)(4,4)From:
+6 0
+To:
+6 3
+Player1 move a man from (6,0) to (6,3)
+(3,0)(3,1)(4,3)(2,2)(4,4)(6,3)
+(1,3)(3,2)(0,0)(1,1)(0,3)(2,3)(3,6)(3,4)(3,5)
+Player2's turn.
+Player2 to move a man: 
+Available points:
+(1,3)(3,2)(0,0)(1,1)(0,3)(2,3)(3,6)(3,4)(3,5)From:
+3 6
+To:
+0 6
+Player2 move a man from (3,6) to (0,6)
+Player2 has a MILL!
+Ask Player2: to remove a man of Player1
+You can remove one from: 
+(3,0)(3,1)(4,3)(2,2)(4,4)(6,3)
+Select the man you want to remove: 
+6 3
+Player1 lose a man on (6,3)
+(3,0)(3,1)(4,3)(2,2)(4,4)
+(1,3)(3,2)(0,0)(1,1)(0,3)(2,3)(3,4)(3,5)(0,6)
+Player1's turn.
+Player1 to move a man: 
+Available points:
+(3,0)(3,1)(4,3)(2,2)(4,4)From:
+4 3
+To:
+4 2
+Player1 move a man from (4,3) to (4,2)
+(3,0)(3,1)(2,2)(4,4)(4,2)
+(1,3)(3,2)(0,0)(1,1)(0,3)(2,3)(3,4)(3,5)(0,6)
+Player2's turn.
+Player2 to move a man: 
+Available points:
+(1,3)(3,2)(0,0)(1,1)(0,3)(2,3)(3,4)(3,5)(0,6)From:
+0 6
+To:
+3 6
+Player2 move a man from (0,6) to (3,6)
+Player2 has a MILL!
+Ask Player2: to remove a man of Player1
+You can remove one from: 
+(3,0)(3,1)(2,2)(4,4)(4,2)
+Select the man you want to remove: 
+4 2
+Player1 lose a man on (4,2)
+(3,0)(3,1)(2,2)(4,4)
+(1,3)(3,2)(0,0)(1,1)(0,3)(2,3)(3,4)(3,5)(3,6)
+Player1's turn.
+Player1 to move a man: 
+Available points:
+(3,0)(3,1)(2,2)(4,4)From:
+3 0
+To:
+6 0
+Player1 move a man from (3,0) to (6,0)
+(3,1)(2,2)(4,4)(6,0)
+(1,3)(3,2)(0,0)(1,1)(0,3)(2,3)(3,4)(3,5)(3,6)
+Player2's turn.
+Player2 to move a man: 
+Available points:
+(1,3)(3,2)(0,0)(1,1)(0,3)(2,3)(3,4)(3,5)(3,6)From:
+3 5
+To:
+1 5
+Player2 move a man from (3,5) to (1,5)
+Player2 has a MILL!
+Ask Player2: to remove a man of Player1
+You can remove one from: 
+(3,1)(2,2)(4,4)(6,0)
+Select the man you want to remove: 
+3 1
+Player1 lose a man on (3,1)
+(2,2)(4,4)(6,0)
+(1,3)(3,2)(0,0)(1,1)(0,3)(2,3)(3,4)(3,6)(1,5)
+Player1's turn.
+Player1 to move a man: 
+Available points:
+(2,2)(4,4)(6,0)From:
+2 2
+To:
+6 3
+Player1 flying enabled!
+Player1 move a man from (2,2) to (6,3)
+(4,4)(6,0)(6,3)
+(1,3)(3,2)(0,0)(1,1)(0,3)(2,3)(3,4)(3,6)(1,5)
+Player2's turn.
+Player2 to move a man: 
+Available points:
+(1,3)(3,2)(0,0)(1,1)(0,3)(2,3)(3,4)(3,6)(1,5)From:
+1 5
+To:
+3 5
+Player2 move a man from (1,5) to (3,5)
+Player2 has a MILL!
+Ask Player2: to remove a man of Player1
+You can remove one from: 
+(4,4)(6,0)(6,3)
+Select the man you want to remove: 
+4 4
+Player1 lose a man on (4,4)
+Black Wins
+
+End----------------------------
+
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+Test3:
+Start--------------------------
+Game Initializing......Done
+
+Game started: White (Player1) first: 
+
+
+Player1's turn.
+Player1 to place a man at point: 
+3 2
+Player1 place a man on (3,2)
+(3,2)
+
+Player2's turn.
+Player2 to place a man at point: 
+3 5
+Player2 place a man on (3,5)
+(3,2)
+(3,5)
+Player1's turn.
+Player1 to place a man at point: 
+3 0
+Player1 place a man on (3,0)
+(3,2)(3,0)
+(3,5)
+Player2's turn.
+Player2 to place a man at point: 
+3 1
+Player2 place a man on (3,1)
+(3,2)(3,0)
+(3,5)(3,1)
+Player1's turn.
+Player1 to place a man at point: 
+5 3
+Player1 place a man on (5,3)
+(3,2)(3,0)(5,3)
+(3,5)(3,1)
+Player2's turn.
+Player2 to place a man at point: 
+1 3
+Player2 place a man on (1,3)
+(3,2)(3,0)(5,3)
+(3,5)(3,1)(1,3)
+Player1's turn.
+Player1 to place a man at point: 
+4 2
+Player1 place a man on (4,2)
+(3,2)(3,0)(5,3)(4,2)
+(3,5)(3,1)(1,3)
+Player2's turn.
+Player2 to place a man at point: 
+2 2
+Player2 place a man on (2,2)
+(3,2)(3,0)(5,3)(4,2)
+(3,5)(3,1)(1,3)(2,2)
+Player1's turn.
+Player1 to place a man at point: 
+6 3
+Player1 place a man on (6,3)
+(3,2)(3,0)(5,3)(4,2)(6,3)
+(3,5)(3,1)(1,3)(2,2)
+Player2's turn.
+Player2 to place a man at point: 
+4 3
+Player2 place a man on (4,3)
+(3,2)(3,0)(5,3)(4,2)(6,3)
+(3,5)(3,1)(1,3)(2,2)(4,3)
+Player1's turn.
+Player1 to place a man at point: 
+6 0
+Player1 place a man on (6,0)
+(3,2)(3,0)(5,3)(4,2)(6,3)(6,0)
+(3,5)(3,1)(1,3)(2,2)(4,3)
+Player2's turn.
+Player2 to place a man at point: 
+0 0
+Player2 place a man on (0,0)
+(3,2)(3,0)(5,3)(4,2)(6,3)(6,0)
+(3,5)(3,1)(1,3)(2,2)(4,3)(0,0)
+Player1's turn.
+Player1 to place a man at point: 
+6 6
+Player1 place a man on (6,6)
+Player1 has a MILL!
+Ask Player1: to remove a man of Player2
+
+You can remove one from: 
+(3,5)(3,1)(1,3)(2,2)(4,3)(0,0)
+Select the man you want to remove: 
+4 3
+Player2 lose a man on (4,3)
+(3,2)(3,0)(5,3)(4,2)(6,3)(6,0)(6,6)
+(3,5)(3,1)(1,3)(2,2)(0,0)
+Player2's turn.
+Player2 to place a man at point: 
+4 3
+Player2 place a man on (4,3)
+(3,2)(3,0)(5,3)(4,2)(6,3)(6,0)(6,6)
+(3,5)(3,1)(1,3)(2,2)(0,0)(4,3)
+Player1's turn.
+Player1 to place a man at point: 
+4 4
+Player1 place a man on (4,4)
+(3,2)(3,0)(5,3)(4,2)(6,3)(6,0)(6,6)(4,4)
+(3,5)(3,1)(1,3)(2,2)(0,0)(4,3)
+Player2's turn.
+Player2 to place a man at point: 
+3 4
+Player2 place a man on (3,4)
+(3,2)(3,0)(5,3)(4,2)(6,3)(6,0)(6,6)(4,4)
+(3,5)(3,1)(1,3)(2,2)(0,0)(4,3)(3,4)
+Player1's turn.
+Player1 to place a man at point: 
+5 5
+Player1 place a man on (5,5)
+(3,2)(3,0)(5,3)(4,2)(6,3)(6,0)(6,6)(4,4)(5,5)
+(3,5)(3,1)(1,3)(2,2)(0,0)(4,3)(3,4)
+Player2's turn.
+Player2 to place a man at point: 
+3 6
+Player2 place a man on (3,6)
+Player2 has a MILL!
+Ask Player2: to remove a man of Player1
+You can remove one from: 
+(3,2)(3,0)(5,3)(4,2)(6,3)(6,0)(6,6)(4,4)(5,5)
+Select the man you want to remove: 
+4 4
+Player1 lose a man on (4,4)
+(3,2)(3,0)(5,3)(4,2)(6,3)(6,0)(6,6)(5,5)
+(3,5)(3,1)(1,3)(2,2)(0,0)(4,3)(3,4)(3,6)
+Player1's turn.
+Player1 to move a man: 
+Available points:
+(3,2)(3,0)(5,3)(4,2)(6,3)(6,0)(6,6)(5,5)From:
+5 3
+To:
+5 1
+Player1 move a man from (5,3) to (5,1)
+(3,2)(3,0)(4,2)(6,3)(6,0)(6,6)(5,5)(5,1)
+(3,5)(3,1)(1,3)(2,2)(0,0)(4,3)(3,4)(3,6)
+Player2's turn.
+Player2 to move a man: 
+Available points:
+(3,5)(3,1)(1,3)(2,2)(0,0)(4,3)(3,4)(3,6)From:
+4 3
+To:
+5 3
+Player2 move a man from (4,3) to (5,3)
+(3,2)(3,0)(4,2)(6,3)(6,0)(6,6)(5,5)(5,1)
+(3,5)(3,1)(1,3)(2,2)(0,0)(3,4)(3,6)(5,3)
+Player1's turn.
+Player1 to move a man: 
+Available points:
+(3,2)(3,0)(4,2)(6,3)(6,0)(6,6)(5,5)(5,1)From:
+4 2
+To:
+4 3
+Player1 move a man from (4,2) to (4,3)
+(3,2)(3,0)(6,3)(6,0)(6,6)(5,5)(5,1)(4,3)
+(3,5)(3,1)(1,3)(2,2)(0,0)(3,4)(3,6)(5,3)
+Player2's turn.
+Player2 to move a man: 
+Available points:
+(3,5)(3,1)(1,3)(2,2)(0,0)(3,4)(3,6)(5,3)From:
+3 4
+To:
+4 4
+Player2 move a man from (3,4) to (4,4)
+(3,2)(3,0)(6,3)(6,0)(6,6)(5,5)(5,1)(4,3)
+(3,5)(3,1)(1,3)(2,2)(0,0)(3,6)(5,3)(4,4)
+Player1's turn.
+Player1 to move a man: 
+Available points:
+(3,2)(3,0)(6,3)(6,0)(6,6)(5,5)(5,1)(4,3)From:
+3 2
+To:
+4 2
+Player1 move a man from (3,2) to (4,2)
+(3,0)(6,3)(6,0)(6,6)(5,5)(5,1)(4,3)(4,2)
+(3,5)(3,1)(1,3)(2,2)(0,0)(3,6)(5,3)(4,4)
+Player2's turn.
+Player2 to move a man: 
+Available points:
+(3,5)(3,1)(1,3)(2,2)(0,0)(3,6)(5,3)(4,4)From:
+2 2
+To:
+3 2
+Player2 move a man from (2,2) to (3,2)
+Black Wins
+
+
+End----------------------------
+

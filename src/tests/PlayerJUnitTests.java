@@ -233,6 +233,6 @@ public class PlayerJUnitTests {
 		System.out.println("---------TestHasMills------------------");
 	}
 	
-	// hasLegalMoves() and Lose() are tested in BoardJUnitTests.java
+	// hasLegalMoves() and Lose() are tested in GameLogicTests.
 	
 }
