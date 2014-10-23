@@ -1,9 +1,9 @@
 9 Men's morris
 
-Test classes - Package 1
-Main classes - Package 2
+Test classes - Package tests
+Main classes - Package game
 
-Requirements: Java, Standalone program.
+Requirements: Java Swing, Stand-alone program.
 
 Functional requirements: 
 
