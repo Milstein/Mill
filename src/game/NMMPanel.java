@@ -94,14 +94,11 @@ public class NMMPanel extends JPanel {
 	 */
 	public NMMPanel(Settings setting) {
 		this.setting = setting;
+		splash.dispose();
 		initializeWindow();
 		initializeGameField();
 	}
-
-	public NMMPanel() {
-		// TODO Auto-generated constructor stub
-	}
-
+	
 	/***
 	 * To initialize the main GUI game window
 	 */
@@ -281,7 +278,7 @@ public class NMMPanel extends JPanel {
 	}
 
 	public void setStones(Point point) {
-		// System.out.println("+++SETSTONES+++");
+		// System.out.println("+++SET MEN+++");
 		// still there are men's on hand
 		if (placedCounter <= 17) {
 			// check valide point or not
@@ -376,7 +373,7 @@ public class NMMPanel extends JPanel {
 						}
 					}
 				} else {
-					System.out.println("MOVE ACTION to adjecent nodes only");
+					System.out.println("MOVE ACTION");
 					// TODO: Check isNeighbour here
 					boolean isNeighbour = true;
 
