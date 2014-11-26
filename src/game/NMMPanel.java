@@ -25,7 +25,6 @@ import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.TransferHandler;
 
-
 /**
  * @author Milson Munakami
  * @version September 17, 2014
@@ -86,8 +85,8 @@ public class NMMPanel extends JPanel {
 		splash = new Splashscreen();
 		splash.setVisible(true);
 
-		//NMMPanel newContentPane = new NMMPanel(setting);
-		//newContentPane.setOpaque(true); // content panes must be
+		// NMMPanel newContentPane = new NMMPanel(setting);
+		// newContentPane.setOpaque(true); // content panes must be
 	}
 
 	/**
@@ -191,8 +190,8 @@ public class NMMPanel extends JPanel {
 		for (int i = 0; i < counter; i++) {
 			final JLabel interactionFields = new JLabel();
 
-			interactionFields.setText(nodes[i].location.x + ", "
-					+ nodes[i].location.y);
+			// interactionFields.setText(nodes[i].location.x + ", " +
+			// nodes[i].location.y);
 
 			interactionFields.setHorizontalAlignment(SwingConstants.CENTER);
 			interactionFields.setBounds(nodes[i].location.x,
@@ -201,13 +200,11 @@ public class NMMPanel extends JPanel {
 			interactionFields.setCursor(Cursor
 					.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-			// TODO : Remove later
-			interactionFields.setForeground(new Color(255, 255, 255));
-
 			interactionFields.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent arg0) {
-					//System.out.println(interactionFields.getLocation());
+					// System.out.println(interactionFields.getLocation());
+					System.out.println("------Selected TO Point was: ------");
 					System.out.println(getNode(interactionFields.getLocation())
 							.getId());
 					boolean automateAI = true;
@@ -347,6 +344,8 @@ public class NMMPanel extends JPanel {
 				int x = point.x;
 				int y = point.y;
 				Node n = getNode(new Point(x, y));
+				System.out.println("------Selected FROM Point was: ------");
+				System.out.println(resetNode.getId());
 				// boolean isNeighbour = false;
 				// ArrayList<Node> tmp =
 				// getNeighbours(selectedPiece.getBounds().x,selectedPiece.getBounds().y);
