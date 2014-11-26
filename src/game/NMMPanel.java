@@ -145,6 +145,10 @@ public class NMMPanel extends JPanel {
 		initNodes();
 		for (int i = 0; i < counter; i++) {
 			final JLabel interactionFields = new JLabel();
+
+			interactionFields.setText(nodes[i].location.x + ", "
+					+ nodes[i].location.y);
+
 			interactionFields.setHorizontalAlignment(SwingConstants.CENTER);
 			interactionFields.setBounds(nodes[i].location.x,
 					nodes[i].location.y, 50, 50);
@@ -155,7 +159,44 @@ public class NMMPanel extends JPanel {
 			interactionFields.setForeground(new Color(255, 255, 255));
 
 			interactionFields.setTransferHandler(new TransferHandler("icon"));
-			interactionFields.addMouseListener(listener);
+			interactionFields.addMouseListener(new MouseListener() {
+
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void mouseExited(MouseEvent e) {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void mousePressed(MouseEvent e) {
+					System.out.println("Mouse Pressed" + e.getX() + ", "
+							+ e.getY());
+
+				}
+
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					System.out.println("Mouse Released" + e.getX() + ", "
+							+ e.getY());
+					JComponent c = (JComponent) e.getSource();
+					TransferHandler handler = c.getTransferHandler();
+					handler.exportAsDrag(c, e, TransferHandler.COPY);
+
+				}
+
+			});
 
 			centerPanel.add(interactionFields, 0);
 		}
@@ -165,113 +206,107 @@ public class NMMPanel extends JPanel {
 	 * Initialize the 24 main nodes with fixed co-ordinates
 	 */
 	private void initNodes() {
-		// Point p = new Point(0, 0);
-		// for (int i = 0; i < 18; i++) {
-		// placedPieces.add(p);
-		// }
 
+		// 0,0
 		int x = 10;
 		int y = 10;
-		nodes[0] = new Node("O_0", x, y);
+		nodes[0] = new Node("0_0", x, y);
 
+		// 3,0
 		x = 225;
 		y = 10;
-		nodes[1] = new Node("O_1", x, y);
+		nodes[1] = new Node("3_0", x, y);
 
+		// 6,0
 		x = 440;
 		y = 10;
-		nodes[2] = new Node("O_2", x, y);
+		nodes[2] = new Node("6_0", x, y);
 
+		// 1,1
 		x = 74;
 		y = 74;
-		nodes[3] = new Node("M_0", x, y);
+		nodes[3] = new Node("1_1", x, y);
 
+		// 3,1
 		x = 225;
 		y = 72;
-		nodes[4] = new Node("M_1", x, y);
+		nodes[4] = new Node("3_1", x, y);
 
 		x = 376;
 		y = 74;
-		nodes[5] = new Node("M_2", x, y);
+		nodes[5] = new Node("5_1", x, y);
 
 		x = 137;
 		y = 135;
-		nodes[6] = new Node("I_0", x, y);
+		nodes[6] = new Node("2_2", x, y);
 
 		x = 225;
 		y = 135;
-		nodes[7] = new Node("I_1", x, y);
+		nodes[7] = new Node("3_2", x, y);
 
 		x = 314;
 		y = 136;
-		nodes[8] = new Node("I_2", x, y);
+		nodes[8] = new Node("4_2", x, y);
 
 		x = 10;
 		y = 225;
-		nodes[9] = new Node("O_3", x, y);
+		nodes[9] = new Node("0_3", x, y);
 
 		x = 72;
 		y = 225;
-		nodes[10] = new Node("M_3", x, y);
+		nodes[10] = new Node("1_3", x, y);
 
 		x = 135;
 		y = 225;
-		nodes[11] = new Node("I_3", x, y);
+		nodes[11] = new Node("2_3", x, y);
 
 		x = 316;
 		y = 225;
-		nodes[12] = new Node("I_4", x, y);
+		nodes[12] = new Node("4_3", x, y);
 
 		x = 378;
 		y = 225;
-		nodes[13] = new Node("M_4", x, y);
+		nodes[13] = new Node("5_3", x, y);
 
 		x = 440;
 		y = 225;
-		nodes[14] = new Node("O_4", x, y);
+		nodes[14] = new Node("6_3", x, y);
 
 		x = 137;
 		y = 313;
-		nodes[15] = new Node("I_5", x, y);
+		nodes[15] = new Node("2_4", x, y);
 
 		x = 225;
 		y = 316;
-		nodes[16] = new Node("I_6", x, y);
+		nodes[16] = new Node("3_4", x, y);
 
 		x = 314;
 		y = 314;
-		nodes[17] = new Node("I_7", x, y);
+		nodes[17] = new Node("4_4", x, y);
 
 		x = 74;
 		y = 375;
-		nodes[18] = new Node("M_5", x, y);
+		nodes[18] = new Node("1_5", x, y);
 
 		x = 225;
 		y = 377;
-		nodes[19] = new Node("M_6", x, y);
+		nodes[19] = new Node("3_5", x, y);
 
 		x = 376;
 		y = 376;
-		nodes[20] = new Node("M_7", x, y);
+		nodes[20] = new Node("5_5", x, y);
 
 		x = 10;
 		y = 440;
-		nodes[21] = new Node("O_5", x, y);
+		nodes[21] = new Node("0_6", x, y);
 
 		x = 225;
 		y = 440;
-		nodes[22] = new Node("O_6", x, y);
+		nodes[22] = new Node("3_6", x, y);
 
 		x = 440;
 		y = 440;
-		nodes[23] = new Node("O_7", x, y);
-
-		// for (int i = 0; i < nodes.length; i++) {
-		// nodes[i].setIsBusy(0);
-		// }
-
-		// setNeighbours();
-
+		nodes[23] = new Node("6_6", x, y);
 	}
 
 	/*
@@ -312,10 +347,62 @@ public class NMMPanel extends JPanel {
 		topLeftPanel.add(lblPlayer1);
 
 		ImageIcon iconWhite = createImageIcon("/resources/White_Stone.png");
+
+		// for (int x = 0; x < 9; x++) {
+		// final JLabel lblwhites = new JLabel(iconWhite);
+		// lblwhites.addMouseListener(new MouseAdapter() {
+		// @Override
+		// public void mouseClicked(MouseEvent e) {
+		// }
+		// });
+
 		for (int i = 0; i < 9; i++) {
 			final JLabel lblWhite = new JLabel(iconWhite, JLabel.CENTER);
 			lblWhite.setTransferHandler(new TransferHandler("icon"));
-			lblWhite.addMouseListener(listener);
+			lblWhite.addMouseListener(new MouseListener() {
+				// @Override
+				// public void mouseDragged(MouseEvent e) {
+				// if(selected){
+				// this.pieceShape = new Ellipse2D.Float(e.getX()-SIZE/2,
+				// e.getY()-SIZE/2, SIZE, SIZE);
+				// parentBoard.repaint();
+				// }
+				//
+				// }
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					System.out.println("Mouse Released" + e.getX() + ", "
+							+ e.getY());
+					JComponent c = (JComponent) e.getSource();
+					TransferHandler handler = c.getTransferHandler();
+					handler.exportAsDrag(c, e, TransferHandler.COPY);
+
+				}
+
+				@Override
+				public void mousePressed(MouseEvent e) {
+					System.out.println("Mouse Pressed" + e.getX() + ", "
+							+ e.getY());
+				}
+
+				@Override
+				public void mouseExited(MouseEvent e) {
+					// System.out.println("Mouse Exited" + e.getX() + ", " +
+					// e.getY());
+				}
+
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					// System.out.println("Mouse Entered" + e.getX() + ", " +
+					// e.getY());
+				}
+
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					// System.out.println("Mouse Clicked" + e.getX() + ", " +
+					// e.getY());
+				}
+			});
 			lblWhite.setBounds(space, 25, 50, 50);
 			topLeftPanel.add(lblWhite);
 			space += 35;
@@ -332,7 +419,37 @@ public class NMMPanel extends JPanel {
 		for (int j = 0; j < 9; j++) {
 			final JLabel lblBlack = new JLabel(iconBlack);
 			lblBlack.setTransferHandler(new TransferHandler("icon"));
-			lblBlack.addMouseListener(listener);
+			lblBlack.addMouseListener(new MouseListener() {
+
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void mousePressed(MouseEvent e) {
+
+				}
+
+				@Override
+				public void mouseExited(MouseEvent e) {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void mouseClicked(MouseEvent arg0) {
+					// TODO Auto-generated method stub
+
+				}
+			});
 			lblBlack.setBounds(space, 25, 50, 50);
 			topRightPanel.add(lblBlack);
 			space += 35;
@@ -342,6 +459,7 @@ public class NMMPanel extends JPanel {
 
 	/**
 	 * Do add the drag and drop mouse event listener
+	 * 
 	 * @author milsonmunakami
 	 *
 	 */
@@ -353,6 +471,20 @@ public class NMMPanel extends JPanel {
 			// c.setLayout(new FlowLayout());
 		}
 	}
+
+	// private boolean checkPlace(Point location) {
+	// boolean check = false;
+	// for (Point p : placedPieces) {
+	// if ((p.x == location.x)
+	// && (p.y == location.y)) {
+	// check = true;
+	// break;
+	// } else {
+	// check = false;
+	// }
+	// }
+	// return check;
+	// }
 
 	/**
 	 * The Button class that react against the JButton events.
