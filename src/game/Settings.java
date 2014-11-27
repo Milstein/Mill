@@ -1,6 +1,5 @@
 package game;
 
-import java.awt.Component;
 
 public class Settings {
 
