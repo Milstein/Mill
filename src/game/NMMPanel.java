@@ -7,10 +7,13 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -98,7 +101,7 @@ public class NMMPanel extends JPanel {
 		initializeWindow();
 		initializeGameField();
 	}
-	
+
 	/***
 	 * To initialize the main GUI game window
 	 */
@@ -343,6 +346,16 @@ public class NMMPanel extends JPanel {
 				Node n = getNode(new Point(x, y));
 				System.out.println("------Selected FROM Point was: ------");
 				System.out.println(resetNode.getId());
+
+				ImageIcon icon = null;
+				if (whitesTurn) {
+					icon = createImageIcon("/resources/White_Stone.png");
+					selectedPiece.setIcon(icon);
+				} else {
+					icon = createImageIcon("/resources/Black_Stone.png");
+					selectedPiece.setIcon(icon);
+				}
+
 				// boolean isNeighbour = false;
 				// ArrayList<Node> tmp =
 				// getNeighbours(selectedPiece.getBounds().x,selectedPiece.getBounds().y);
@@ -646,7 +659,6 @@ public class NMMPanel extends JPanel {
 	public void doSomething(Point point) {
 		if (whitesTurn) {
 			JLabel lblWhite = getLabel(point);
-
 			if (deleteFlag && whitesTurn) {
 				if (getNode(point).getIsBusy() == 1) {
 					System.out.println("delete Men");
@@ -678,15 +690,16 @@ public class NMMPanel extends JPanel {
 				if (placedCounter == 18) {
 					if (whitesTurn) {
 						selectedPiece = lblWhite;
+						ImageIcon iconWhiteSelected = createImageIcon("/resources/White_Stone_Selected.png");
+						selectedPiece.setIcon(iconWhiteSelected);
 					}
 				}
 			}
 		} else {
 			JLabel lblBlack = getLabel(point);
-			;
 			if (deleteFlag && blacksTurn) {
 				if (getNode(point).getIsBusy() == 2) {
-					System.out.println("delete Stein");
+					System.out.println("delete Men");
 					deleteFlag = false;
 					getNode(lblBlack.getBounds().getLocation()).setIsBusy(0);
 
@@ -713,10 +726,14 @@ public class NMMPanel extends JPanel {
 				if (placedCounter <= 18) {
 					if (blacksTurn) {
 						selectedPiece = lblBlack;
+						ImageIcon iconWhiteSelected = createImageIcon("/resources/Black_Stone_Selected.png");
+						selectedPiece.setIcon(iconWhiteSelected);
 					}
 				}
 			}
 		}
+
+		selectedPiece.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 	}
 
 	private JLabel getLabel(Point point) {
