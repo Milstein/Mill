@@ -320,7 +320,7 @@ public class NMMPanel extends JPanel {
 		// System.out.println("+++SET MEN+++");
 		// still there are men's on hand
 		if (placedCounter <= 17) {
-			// check valide point or not
+			// check valid point or not
 			if (!validMove) {
 				// White player one Turn starts here
 				if (turnOfStarter) {
@@ -337,7 +337,7 @@ public class NMMPanel extends JPanel {
 //					placedCounter++;
 					
 					PointGame newpt = new PointGame(point.x, point.y);
-					//System.out.println("Player1 to place a man at point: ");
+					System.out.println("Player1 to place a man at point: ");
 					validMove = game.makeAnAction(null, newpt, 0);
 
 					// Check Mill condition here
@@ -347,11 +347,13 @@ public class NMMPanel extends JPanel {
 						System.out.println("Ask Player1" + ": to remove a man of Player2");
 						while (!validRemove) {
 							System.out.println("\nYou can remove one from: ");
-							for(PointGame pt : p2.getMenOnTheBoard()) {
+							for (PointGame pt : p2.getMenOnTheBoard()) {
 								System.out.print(pt);
 							}
 							System.out.println("\nSelect the man you want to remove: ");
-
+							
+//							Node removeNode = getNode(new Point(selectedPiece.getBounds().x,
+//									selectedPiece.getBounds().y));
 							// TODO: For mills ask the miller for an opponent's point to remove.
 														
 //							PointGame pt = new PointGame(x_remove, y_remove);
@@ -376,16 +378,45 @@ public class NMMPanel extends JPanel {
 
 					getNode(point).setIsBusy(2);
 
-					blacks[blackPointer].setLocation(point);
-					centerPanel.add(blacks[blackPointer], 0);
-					blackPointer++;
-					Point p = new Point();
-					p.x = point.x;
-					p.y = point.y;
-					placedPieces.add(p);
-					placedCounter++;
+//					blacks[blackPointer].setLocation(point);
+//					centerPanel.add(blacks[blackPointer], 0);
+//					blackPointer++;
+//					Point p = new Point();
+//					p.x = point.x;
+//					p.y = point.y;
+//					placedPieces.add(p);
+//					placedCounter++;
+					
+					PointGame newpt = new PointGame(point.x, point.y);
+					System.out.println("Player2 to place a man at point: ");
+					validMove = game.makeAnAction(null, newpt, 1);
 
 					// check mills condition here
+					// Check if the new point makes a mill.
+					if (validMove && game.hasMills(1, newpt)) {
+						System.out.println("Player2" + " has a MILL!");
+						System.out.println("Ask Player2" + ": to remove a man of Player1");
+						while (!validRemove) {
+							System.out.println("\nYou can remove one from: ");
+							for (PointGame pt : p1.getMenOnTheBoard()) {
+								System.out.print(pt);
+							}
+							System.out.println("\nSelect the man you want to remove: ");
+							
+//							Node removeNode = getNode(new Point(selectedPiece.getBounds().x,
+//									selectedPiece.getBounds().y));
+							// TODO: For mills ask the miller for an opponent's point to remove.
+														
+//							PointGame pt = new PointGame(x_remove, y_remove);
+//							if (p2.getMenOnTheBoard().contains(pt)) {
+//								game.removeAMan(1, pt);
+//								validRemove = true;
+//							} else {
+//								System.err.println("Invalid point to remove!");
+//							}
+						}
+					}
+					
 					// deletePiece(referee.checkRules(nodes,whitesTurn));
 
 					whitesTurn = true;
