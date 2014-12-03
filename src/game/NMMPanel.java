@@ -17,9 +17,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
@@ -204,26 +202,38 @@ public class NMMPanel extends JPanel {
 			interactionFields.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent arg0) {
-					// System.out.println(interactionFields.getLocation());
-					System.out.println("------Selected TO Point was: ------");
-					System.out.println(getNode(interactionFields.getLocation())
-							.getId());
 					boolean automateAI = true;
 					int limitMoves = 0;
 
 					while (automateAI && placedCounter < 18) {
 						if (!deleteFlag) {
 							if (setting.getPlayer1().contains("Computer")) {
-								// brain.setStone(nodes, 1);
+								// TODO: No Need to use this Not Possible to
+								// implement
+								// brain.setPiece(nodes, 1);
 							} else {
-								setStones(interactionFields.getLocation());
+								setPieces(interactionFields.getLocation());
+
+								// System.out.println(interactionFields.getLocation());
+								System.out
+										.println("------Selected TO Point was: ------");
+								System.out.println(getNode(
+										interactionFields.getLocation())
+										.getId());
+
+								// TO get player Type
+								System.out.println("Player is: "
+										+ getNode(
+												interactionFields.getLocation())
+												.getIsBusy());
+
 								automateAI = false;
 							}
 						}
 
 						if (!deleteFlag
 								&& setting.getPlayer2().contains("Computer")) {
-							// brain.setStone(nodes, 2);
+							// brain.setPiece(nodes, 2);
 						}
 					}
 
@@ -234,14 +244,28 @@ public class NMMPanel extends JPanel {
 								if (countPieces(true) <= 3) {
 									System.out.println(countPieces(true));
 
-									// brain.jumpStone(nodes, 1);
+									// brain.jumpPiece(nodes, 1);
 								} else {
 									System.out.println(countPieces(true));
 
-									// brain.moveStone(nodes, 1);
+									// brain.movePiece(nodes, 1);
 								}
 							} else {
-								setStones(interactionFields.getLocation());
+								setPieces(interactionFields.getLocation());
+
+								// System.out.println(interactionFields.getLocation());
+								System.out
+										.println("------Selected TO Point was: ------");
+								System.out.println(getNode(
+										interactionFields.getLocation())
+										.getId());
+
+								// TO get player Type
+								System.out.println("Player is: "
+										+ getNode(
+												interactionFields.getLocation())
+												.getIsBusy());
+
 								automateAI = false;
 							}
 						}
@@ -250,11 +274,11 @@ public class NMMPanel extends JPanel {
 								&& setting.getPlayer2().contains("Computer")) {
 							if (countPieces(false) <= 3) {
 								System.out.println(countPieces(false));
-								// brain.jumpStone(nodes, 2);
+								// brain.jumpPiece(nodes, 2);
 							} else {
 								System.out.println(countPieces(false));
 
-								// brain.moveStone(nodes, 2);
+								// brain.movePiece(nodes, 2);
 							}
 						}
 					}
@@ -281,13 +305,13 @@ public class NMMPanel extends JPanel {
 		return count;
 	}
 
-	public void setStones(Point point) {
+	public void setPieces(Point point) {
 		// System.out.println("+++SET MEN+++");
 		// still there are men's on hand
 		if (placedCounter <= 17) {
 			// check valide point or not
 			if (!validMove) {
-				// WHite player one Turn starts here
+				// White player one Turn starts here
 				if (turnOfStarter) {
 
 					getNode(point).setIsBusy(1);
@@ -366,9 +390,9 @@ public class NMMPanel extends JPanel {
 				// isNeighbour = true;
 				// }
 				// }
-				// Flying conditon check
+				// Flying condition check
 				if (countPieces(whitesTurn) <= 3) {
-					System.out.println("HOPPING ACTION");
+					System.out.println("FLYING ACTION");
 					if (n.getIsBusy() == 0) {
 						selectedPiece.setBounds(x, y, 50, 50);
 						n.setIsBusy(resetNode.getIsBusy());
@@ -432,103 +456,103 @@ public class NMMPanel extends JPanel {
 		// 0,0
 		int x = 10;
 		int y = 10;
-		nodes[0] = new Node("0 0", x, y);
+		nodes[0] = new Node("0,0", x, y);
 
 		// 3,0
 		x = 225;
 		y = 10;
-		nodes[1] = new Node("3 0", x, y);
+		nodes[1] = new Node("3,0", x, y);
 
 		// 6,0
 		x = 440;
 		y = 10;
-		nodes[2] = new Node("6 0", x, y);
+		nodes[2] = new Node("6,0", x, y);
 
 		// 1,1
 		x = 74;
 		y = 74;
-		nodes[3] = new Node("1 1", x, y);
+		nodes[3] = new Node("1,1", x, y);
 
 		// 3,1
 		x = 225;
 		y = 72;
-		nodes[4] = new Node("3 1", x, y);
+		nodes[4] = new Node("3,1", x, y);
 
 		x = 376;
 		y = 74;
-		nodes[5] = new Node("5 1", x, y);
+		nodes[5] = new Node("5,1", x, y);
 
 		x = 137;
 		y = 135;
-		nodes[6] = new Node("2 2", x, y);
+		nodes[6] = new Node("2,2", x, y);
 
 		x = 225;
 		y = 135;
-		nodes[7] = new Node("3 2", x, y);
+		nodes[7] = new Node("3,2", x, y);
 
 		x = 314;
 		y = 136;
-		nodes[8] = new Node("4 2", x, y);
+		nodes[8] = new Node("4,2", x, y);
 
 		x = 10;
 		y = 225;
-		nodes[9] = new Node("0 3", x, y);
+		nodes[9] = new Node("0,3", x, y);
 
 		x = 72;
 		y = 225;
-		nodes[10] = new Node("1 3", x, y);
+		nodes[10] = new Node("1,3", x, y);
 
 		x = 135;
 		y = 225;
-		nodes[11] = new Node("2 3", x, y);
+		nodes[11] = new Node("2,3", x, y);
 
 		x = 316;
 		y = 225;
-		nodes[12] = new Node("4 3", x, y);
+		nodes[12] = new Node("4,3", x, y);
 
 		x = 378;
 		y = 225;
-		nodes[13] = new Node("5 3", x, y);
+		nodes[13] = new Node("5,3", x, y);
 
 		x = 440;
 		y = 225;
-		nodes[14] = new Node("6 3", x, y);
+		nodes[14] = new Node("6,3", x, y);
 
 		x = 137;
 		y = 313;
-		nodes[15] = new Node("2 4", x, y);
+		nodes[15] = new Node("2,4", x, y);
 
 		x = 225;
 		y = 316;
-		nodes[16] = new Node("3 4", x, y);
+		nodes[16] = new Node("3,4", x, y);
 
 		x = 314;
 		y = 314;
-		nodes[17] = new Node("4 4", x, y);
+		nodes[17] = new Node("4,4", x, y);
 
 		x = 74;
 		y = 375;
-		nodes[18] = new Node("1 5", x, y);
+		nodes[18] = new Node("1,5", x, y);
 
 		x = 225;
 		y = 377;
-		nodes[19] = new Node("3 5", x, y);
+		nodes[19] = new Node("3,5", x, y);
 
 		x = 376;
 		y = 376;
-		nodes[20] = new Node("5 5", x, y);
+		nodes[20] = new Node("5,5", x, y);
 
 		x = 10;
 		y = 440;
-		nodes[21] = new Node("0 6", x, y);
+		nodes[21] = new Node("0,6", x, y);
 
 		x = 225;
 		y = 440;
-		nodes[22] = new Node("3 6", x, y);
+		nodes[22] = new Node("3,6", x, y);
 
 		x = 440;
 		y = 440;
-		nodes[23] = new Node("6 6", x, y);
+		nodes[23] = new Node("6,6", x, y);
 	}
 
 	/*
@@ -580,9 +604,9 @@ public class NMMPanel extends JPanel {
 					if (!deleteFlag) {
 						if (setting.getPlayer1().contains("Computer")) {
 							if (placedCounter <= 18) {
-								// brain.setStone(nodes, 1);
+								// brain.setPiece(nodes, 1);
 							} else {
-								// brain.moveStone(nodes, 1);
+								// brain.movePiece(nodes, 1);
 								System.out.println("seems to work");
 							}
 						}
@@ -611,9 +635,9 @@ public class NMMPanel extends JPanel {
 					if (!deleteFlag) {
 						if (setting.getPlayer2().contains("Computer")) {
 							if (placedCounter <= 18) {
-								// brain.setStone(nodes, 2);
+								// brain.setPiece(nodes, 2);
 							} else {
-								// brain.moveStone(nodes, 2);
+								// brain.movePiece(nodes, 2);
 								System.out.println("seems to work");
 							}
 
@@ -678,11 +702,11 @@ public class NMMPanel extends JPanel {
 					if (setting.getPlayer2().contains("Computer")) {
 						if (countPieces(false) <= 3 && placedCounter > 17) {
 							System.out.println(countPieces(false));
-							// brain.jumpStone(nodes, 2);
+							// brain.jumpPiece(nodes, 2);
 						} else {
 							if (placedCounter > 17) {
 								System.out.println(countPieces(false));
-								// brain.moveStone(nodes, 2);
+								// brain.movePiece(nodes, 2);
 							}
 						}
 					}
@@ -715,10 +739,10 @@ public class NMMPanel extends JPanel {
 					if (setting.getPlayer1().contains("Computer")) {
 						if (countPieces(false) <= 3 && placedCounter > 17) {
 							System.out.println(countPieces(false));
-							// brain.jumpStone(nodes, 1);
+							// brain.jumpPiece(nodes, 1);
 						} else {
 							System.out.println(countPieces(false));
-							// brain.moveStone(nodes, 1);
+							// brain.movePiece(nodes, 1);
 						}
 					}
 				}
@@ -799,12 +823,15 @@ public class NMMPanel extends JPanel {
 	 * To show on popup for new game options
 	 */
 	private void startNewGame() {
-		JPanel newGameDialogPanel = new JPanel(); // for starting a new game
-		JRadioButton radiobutton1 = new JRadioButton("2 Players");
-		JRadioButton radiobutton2 = new JRadioButton("With Computer");
-		newGameDialogPanel.add(radiobutton1);
-		newGameDialogPanel.add(radiobutton2);
-		JOptionPane.showInputDialog(newGameDialogPanel);
+		splash = new Splashscreen();
+		splash.setVisible(true);
+
+		// JPanel newGameDialogPanel = new JPanel(); // for starting a new game
+		// JRadioButton radiobutton1 = new JRadioButton("2 Players");
+		// JRadioButton radiobutton2 = new JRadioButton("With Computer");
+		// newGameDialogPanel.add(radiobutton1);
+		// newGameDialogPanel.add(radiobutton2);
+		// JOptionPane.showInputDialog(newGameDialogPanel);
 	}
 
 }

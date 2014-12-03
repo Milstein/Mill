@@ -1,4 +1,5 @@
 package game;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -10,14 +11,12 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
-
 
 public class Splashscreen extends JDialog {
 
@@ -26,23 +25,9 @@ public class Splashscreen extends JDialog {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
-	public	Settings setting;
+	public Settings setting;
 	private int appWidth = 270;
 	private int appHeigth = 223;
-
-	
-//	/**
-//	 * Launch the application.
-//	 */
-//	public static void main(String[] args) {
-//		try {
-//			Splashscreen dialog = new Splashscreen();
-//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-//			dialog.setVisible(true);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
 
 	/**
 	 * Create the dialog.
@@ -52,12 +37,11 @@ public class Splashscreen extends JDialog {
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		
+
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		setBounds((dim.width/2-(appWidth/2)), (dim.height/2-(appHeigth/2)), appWidth, appHeigth);
-		
-		
-		
+		setBounds((dim.width / 2 - (appWidth / 2)),
+				(dim.height / 2 - (appHeigth / 2)), appWidth, appHeigth);
+
 		contentPanel.setLayout(null);
 		{
 			JLabel lblPlayer = new JLabel("Player 1:");
@@ -79,39 +63,36 @@ public class Splashscreen extends JDialog {
 			lblComputer.setBounds(175, 20, 72, 16);
 			contentPanel.add(lblComputer);
 		}
-		
-		final JRadioButton rbtn_player1_human = new JRadioButton("",true);
+
+		final JRadioButton rbtn_player1_human = new JRadioButton("", true);
 		rbtn_player1_human.setName("Player_1_Human");
 		rbtn_player1_human.setBounds(96, 48, 23, 23);
 		contentPanel.add(rbtn_player1_human);
-		
-		final JRadioButton rbtn_player2_human = new JRadioButton("",false);
+
+		final JRadioButton rbtn_player2_human = new JRadioButton("", false);
 		rbtn_player2_human.setName("Player_2_Human");
 		rbtn_player2_human.setBounds(96, 90, 23, 23);
 		contentPanel.add(rbtn_player2_human);
-		
-		final JRadioButton rbtn_player1_computer = new JRadioButton("",false);
-		rbtn_player1_computer.setName("Player_1_Computer");
-		rbtn_player1_computer.setBounds(192, 48, 23, 23);
-		contentPanel.add(rbtn_player1_computer);
-		
-		final JRadioButton rbtn_player2_computer = new JRadioButton("",true);
+
+		// final JRadioButton rbtn_player1_computer = new JRadioButton("",
+		// false);
+		// rbtn_player1_computer.setName("Player_1_Computer");
+		// rbtn_player1_computer.setBounds(192, 48, 23, 23);
+		// contentPanel.add(rbtn_player1_computer);
+
+		final JRadioButton rbtn_player2_computer = new JRadioButton("", true);
 		rbtn_player2_computer.setName("Player_2_Computer");
 		rbtn_player2_computer.setBounds(192, 90, 23, 23);
 		contentPanel.add(rbtn_player2_computer);
-		
+
 		ButtonGroup player1 = new ButtonGroup();
 		player1.add(rbtn_player1_human);
-		player1.add(rbtn_player1_computer);
-		
+		// player1.add(rbtn_player1_computer);
+
 		ButtonGroup player2 = new ButtonGroup();
 		player2.add(rbtn_player2_computer);
 		player2.add(rbtn_player2_human);
-		
-		final JCheckBox chckbxWannaStart = new JCheckBox("Wanna start?");
-		chckbxWannaStart.setSelected(true);
-		chckbxWannaStart.setBounds(96, 125, 128, 23);
-		contentPanel.add(chckbxWannaStart);
+
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -122,34 +103,33 @@ public class Splashscreen extends JDialog {
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						setting.setStart(true);
-						
-						if(rbtn_player1_human.isSelected()){
+
+						if (rbtn_player1_human.isSelected()) {
 							setting.setPlayer1(rbtn_player1_human.getName());
 						}
-						else{
-							setting.setPlayer1(rbtn_player1_computer.getName());
-						}
-						if(rbtn_player2_human.isSelected()){
+						// else {
+						// setting.setPlayer1(rbtn_player1_computer.getName());
+						// }
+						if (rbtn_player2_human.isSelected()) {
 							setting.setPlayer2(rbtn_player2_human.getName());
-						}
-						else{
+						} else {
 							setting.setPlayer2(rbtn_player2_computer.getName());
 						}
-						setting.setStart(chckbxWannaStart.isSelected());
 
 						SwingUtilities.invokeLater(new Runnable() {
 							public void run() {
 								try {
-									//NMMPanel window = new NMMPanel(setting);
-									//window.frame.setVisible(true);
-									NMMPanel newContentPane = new NMMPanel(setting);
+									// NMMPanel window = new NMMPanel(setting);
+									// window.frame.setVisible(true);
+									NMMPanel newContentPane = new NMMPanel(
+											setting);
 									newContentPane.setOpaque(true);
 								} catch (Exception e) {
 									e.printStackTrace();
 								}
 							}
-						});						
-						
+						});
+
 					}
 				});
 				okButton.setActionCommand("OK");
