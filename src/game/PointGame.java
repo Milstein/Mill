@@ -3,7 +3,7 @@ package game;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Point {
+public class PointGame {
 
 	private int x;
 	private int y;
@@ -17,7 +17,7 @@ public class Point {
 	 * @param x
 	 * @param y
 	 */
-	public Point(int x, int y) {
+	public PointGame(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
@@ -50,7 +50,7 @@ public class Point {
 	 * Get right neighbor, if there is.
 	 * @return
 	 */
-	public Point getRightNeighbor() {
+	public PointGame getRightNeighbor() {
 		int x0 = x;
 		int y0 = y;
 		while (x0 < MAXX) {
@@ -58,8 +58,8 @@ public class Point {
 			if(x0==2 && y0==3)
 				break;
 			x0++;
-			if (Board.validPoints.contains(new Point(x0,y0))) {
-				return new Point(x0,y0);
+			if (Board.validPoints.contains(new PointGame(x0,y0))) {
+				return new PointGame(x0,y0);
 			}
 		}
 		return null;
@@ -68,7 +68,7 @@ public class Point {
 	 * Get left neighbor.
 	 * @return
 	 */
-	public Point getLeftNeighbor() {
+	public PointGame getLeftNeighbor() {
 		int x0 = x;
 		int y0 = y;
 		while (x0 > MINX) {
@@ -76,8 +76,8 @@ public class Point {
 			if(x0==4 && y0==3)
 				break;
 			x0--;
-			if (Board.validPoints.contains(new Point(x0,y0))) {
-				return new Point(x0,y0);
+			if (Board.validPoints.contains(new PointGame(x0,y0))) {
+				return new PointGame(x0,y0);
 			}
 		}
 		return null;
@@ -86,7 +86,7 @@ public class Point {
 	 * Get down neighbor.
 	 * @return
 	 */
-	public Point getDownNeighbor() {
+	public PointGame getDownNeighbor() {
 		int x0 = x;
 		int y0 = y;
 		while (y0 < MAXY) {
@@ -95,8 +95,8 @@ public class Point {
 				break;
 			}
 			y0++;
-			if (Board.validPoints.contains(new Point(x0,y0))) {
-				return new Point(x0,y0);
+			if (Board.validPoints.contains(new PointGame(x0,y0))) {
+				return new PointGame(x0,y0);
 			}
 		}
 		return null;
@@ -105,7 +105,7 @@ public class Point {
 	 * Get up neighbor.
 	 * @return
 	 */
-	public Point getUpNeighbor() {
+	public PointGame getUpNeighbor() {
 		int x0 = x;
 		int y0 = y;
 		while (y0 > MINY) {
@@ -113,8 +113,8 @@ public class Point {
 			if (x0==3 && y0==4)
 				break;
 			y0--;
-			if (Board.validPoints.contains(new Point(x0,y0))) {
-				return new Point(x0,y0);
+			if (Board.validPoints.contains(new PointGame(x0,y0))) {
+				return new PointGame(x0,y0);
 			}
 		}
 		return null;
@@ -125,25 +125,25 @@ public class Point {
 	 * 
 	 * @return a set contains adjacent points.
 	 */
-	public Set<Point> getAdjacentPoints() {
-		Set<Point> adjacent = new HashSet<Point>();
+	public Set<PointGame> getAdjacentPoints() {
+		Set<PointGame> adjacent = new HashSet<PointGame>();
 		// Search in 4 directions: We are done each branch if
 		// we run out of boundary or have found a valid point.
 		// ----------------------------------------
 		// x+ direction:
-		Point rightNeighbor = getRightNeighbor();
+		PointGame rightNeighbor = getRightNeighbor();
 		if(rightNeighbor!=null)
 			adjacent.add(rightNeighbor);
 		// x- direction:
-		Point leftNeighbor = getLeftNeighbor();
+		PointGame leftNeighbor = getLeftNeighbor();
 		if(leftNeighbor!=null)
 			adjacent.add(leftNeighbor);
 		// y+ direction: down
-		Point downNeighbor = getDownNeighbor();
+		PointGame downNeighbor = getDownNeighbor();
 		if(downNeighbor!=null)
 			adjacent.add(downNeighbor);
 		// y- direction: up
-		Point upNeighbor = getUpNeighbor();
+		PointGame upNeighbor = getUpNeighbor();
 		if(upNeighbor!=null)
 			adjacent.add(upNeighbor);
 		
@@ -167,7 +167,7 @@ public class Point {
 			return true;
 		if (this.getClass() != object.getClass())
 			return false;
-		Point point = (Point) object;
+		PointGame point = (PointGame) object;
 		if (this.hashCode() == point.hashCode())
 			return true;
 		return false;
@@ -177,9 +177,9 @@ public class Point {
 	public static void main(String[] args) {
 		Board game = new Board("Player1", "Player2");
 		game.init("White", "Black");
-		for(Point p : Board.validPoints) {
+		for(PointGame p : Board.validPoints) {
 			System.out.print("The adjacent points of " + p + " is: ");
-			for(Point pt : p.getAdjacentPoints())
+			for(PointGame pt : p.getAdjacentPoints())
 				System.out.print(pt);
 			System.out.println();
 		}
