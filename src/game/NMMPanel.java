@@ -10,7 +10,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -62,16 +61,19 @@ public class NMMPanel extends JPanel {
 	private int whitePointer = 0;
 	private int blackPointer = 0;
 
-	boolean validMove = false;
-	boolean validRemove = false;
+	private boolean validMove = false;
+	private boolean validRemove = false;
 
 	private boolean blacksTurn = false;
 	private boolean whitesTurn = true;
 	private static Splashscreen splash;
-	
-	private static Board game;
-	private Player p1;
-	private Player p2;
+
+	private ArrayList<Node> whiteMills = new ArrayList<Node>();
+	private ArrayList<Node> blackMills = new ArrayList<Node>();
+
+	private Board game = null;
+	private Player p1 = null;
+	private Player p2 = null;
 
 	/**
 	 * Launch the application.
@@ -100,13 +102,11 @@ public class NMMPanel extends JPanel {
 	 * Constructor: components and variables setup.
 	 */
 	public NMMPanel(Settings setting) {
-		this.setting = setting;
 		game = new Board("Player1", "Player2");
 		p1 = game.getPlayer(0);
 		p2 = game.getPlayer(1);
-		
-//		boolean validMove = false;
-//		boolean validRemove = false;
+
+		this.setting = setting;
 		splash.dispose();
 		initializeWindow();
 		initializeGameField();
@@ -225,19 +225,6 @@ public class NMMPanel extends JPanel {
 							} else {
 								setPieces(interactionFields.getLocation());
 
-								// System.out.println(interactionFields.getLocation());
-								System.out
-										.println("------Selected TO Point was: ------");
-								System.out.println(getNode(
-										interactionFields.getLocation())
-										.getId());
-
-								// TO get player Type
-								System.out.println("Player is: "
-										+ getNode(
-												interactionFields.getLocation())
-												.getIsBusy());
-
 								automateAI = false;
 							}
 						}
@@ -263,19 +250,6 @@ public class NMMPanel extends JPanel {
 								}
 							} else {
 								setPieces(interactionFields.getLocation());
-
-								// System.out.println(interactionFields.getLocation());
-								System.out
-										.println("------Selected TO Point was: ------");
-								System.out.println(getNode(
-										interactionFields.getLocation())
-										.getId());
-
-								// TO get player Type
-								System.out.println("Player is: "
-										+ getNode(
-												interactionFields.getLocation())
-												.getIsBusy());
 
 								automateAI = false;
 							}
@@ -317,193 +291,157 @@ public class NMMPanel extends JPanel {
 	}
 
 	public void setPieces(Point point) {
-		// System.out.println("+++SET MEN+++");
-		// still there are men's on hand
-		if (placedCounter <= 17) {
-			// check valid point or not
-			if (!validMove) {
-				// White player one Turn starts here
-				if (turnOfStarter) {
-
-					getNode(point).setIsBusy(1);
-
-//					whites[whitePointer].setLocation(point);
-//					centerPanel.add(whites[whitePointer], 0);
-//					whitePointer++;
-//					Point p = new Point();
-//					p.x = point.x;
-//					p.y = point.y;
-//					placedPieces.add(p);
-//					placedCounter++;
-					
-					PointGame newpt = new PointGame(point.x, point.y);
-					System.out.println("Player1 to place a man at point: ");
-					validMove = game.makeAnAction(null, newpt, 0);
-
-					// Check Mill condition here
-					// Check if the new point makes a mill.
-					if (validMove && game.hasMills(0, newpt)) {
-						System.out.println("Player1" + " has a MILL!");
-						System.out.println("Ask Player1" + ": to remove a man of Player2");
-						while (!validRemove) {
-							System.out.println("\nYou can remove one from: ");
-							for (PointGame pt : p2.getMenOnTheBoard()) {
-								System.out.print(pt);
-							}
-							System.out.println("\nSelect the man you want to remove: ");
-							
-//							Node removeNode = getNode(new Point(selectedPiece.getBounds().x,
-//									selectedPiece.getBounds().y));
-							// TODO: For mills ask the miller for an opponent's point to remove.
-														
-//							PointGame pt = new PointGame(x_remove, y_remove);
-//							if (p2.getMenOnTheBoard().contains(pt)) {
-//								game.removeAMan(1, pt);
-//								validRemove = true;
-//							} else {
-//								System.err.println("Invalid point to remove!");
-//							}
-						}
-					}
-					
-					
-					// deletePiece(referee.checkRules(nodes,whitesTurn));
-
-					whitesTurn = false;
-					blacksTurn = true;
-
-				}
-				// Black Player 2 starts here
-				else {
-
-					getNode(point).setIsBusy(2);
-
-//					blacks[blackPointer].setLocation(point);
-//					centerPanel.add(blacks[blackPointer], 0);
-//					blackPointer++;
-//					Point p = new Point();
-//					p.x = point.x;
-//					p.y = point.y;
-//					placedPieces.add(p);
-//					placedCounter++;
-					
-					PointGame newpt = new PointGame(point.x, point.y);
-					System.out.println("Player2 to place a man at point: ");
-					validMove = game.makeAnAction(null, newpt, 1);
-
-					// check mills condition here
-					// Check if the new point makes a mill.
-					if (validMove && game.hasMills(1, newpt)) {
-						System.out.println("Player2" + " has a MILL!");
-						System.out.println("Ask Player2" + ": to remove a man of Player1");
-						while (!validRemove) {
-							System.out.println("\nYou can remove one from: ");
-							for (PointGame pt : p1.getMenOnTheBoard()) {
-								System.out.print(pt);
-							}
-							System.out.println("\nSelect the man you want to remove: ");
-							
-//							Node removeNode = getNode(new Point(selectedPiece.getBounds().x,
-//									selectedPiece.getBounds().y));
-							// TODO: For mills ask the miller for an opponent's point to remove.
-														
-//							PointGame pt = new PointGame(x_remove, y_remove);
-//							if (p2.getMenOnTheBoard().contains(pt)) {
-//								game.removeAMan(1, pt);
-//								validRemove = true;
-//							} else {
-//								System.err.println("Invalid point to remove!");
-//							}
-						}
-					}
-					
-					// deletePiece(referee.checkRules(nodes,whitesTurn));
-
-					whitesTurn = true;
-					blacksTurn = false;
-				}
-				if (whitesTurn) {
-					txtLogArea.append("Whites turn!\n");
-				} else {
-					txtLogArea.append("Blacks turn!\n");
-				}
-				turnOfStarter = !turnOfStarter;
+		while (!game.endOfGame()) {
+			Player p = null;
+			int remove;
+			if (turnOfStarter) {
+				p = p2;
+				remove = 1;
+				getNode(point).setIsBusy(1);
+			} else {
+				p = p1;
+				remove = 0;
+				getNode(point).setIsBusy(2);
 			}
-		}
-		// No men's on hand then?
-		else {
-			if (selectedPiece != null) {
-				Node resetNode = getNode(new Point(selectedPiece.getBounds().x,
-						selectedPiece.getBounds().y));
-				int x = point.x;
-				int y = point.y;
-				Node n = getNode(new Point(x, y));
-				System.out.println("------Selected FROM Point was: ------");
-				System.out.println(resetNode.getId());
+			// Test line......................................
+			for (PointGame pt : p1.getMenOnTheBoard()) {
+				System.out.print(pt);
+			}
+			System.out.println("");
+			for (PointGame pt : p2.getMenOnTheBoard()) {
+				System.out.print(pt);
+			}
+			System.out.println("");
+			// --------------------------------------------------
+			System.out.println("Player" + getNode(point).getIsBusy()
+					+ "'s turn.");
 
-				ImageIcon icon = null;
-				if (whitesTurn) {
-					icon = createImageIcon("/resources/White_Stone.png");
-					selectedPiece.setIcon(icon);
-				} else {
-					icon = createImageIcon("/resources/Black_Stone.png");
-					selectedPiece.setIcon(icon);
-				}
+			// Players;
+			while (!validMove) {
+				if (p.getMenHoldInHand() > 0) {
+					System.out.println("Player " + getNode(point).getIsBusy()
+							+ " to place a man at point: ");
+					int x_coor = getNode(point).getPosition().x;
+					int y_coor = getNode(point).getPosition().y;
 
-				// boolean isNeighbour = false;
-				// ArrayList<Node> tmp =
-				// getNeighbours(selectedPiece.getBounds().x,selectedPiece.getBounds().y);
-				// for(Node tmpN : tmp){
-				// //System.out.println(tmpN.getId());
-				// if(tmpN.getId().equals(n.getId())){
-				// isNeighbour = true;
-				// }
-				// }
-				// Flying condition check
-				if (countPieces(whitesTurn) <= 3) {
-					System.out.println("FLYING ACTION");
-					if (n.getIsBusy() == 0) {
-						selectedPiece.setBounds(x, y, 50, 50);
-						n.setIsBusy(resetNode.getIsBusy());
-						resetNode.setIsBusy(0);
-						selectedPiece = null;
-
-						// check mills condition here
-						// deletePiece(referee.checkRules(nodes,whitesTurn));
-
-						whitesTurn = !whitesTurn;
-						blacksTurn = !blacksTurn;
-						if (whitesTurn) {
-							txtLogArea.append("Whites turn!\n");
-						} else {
-							txtLogArea.append("Blacks turn!\n");
+					PointGame newpt = new PointGame(x_coor, y_coor);
+					validMove = game.makeAnAction(null, newpt, getNode(point)
+							.getIsBusy() - 1);
+					txtLogArea.append(game.getAction());
+					
+					// Check if the new point makes a mill.
+					if (validMove
+							&& game.hasMills(getNode(point).getIsBusy() - 1,
+									newpt)) {
+						System.out.println("Player "
+								+ getNode(point).getIsBusy() + " has a MILL!");
+						System.out.println("Ask Player "
+								+ getNode(point).getIsBusy()
+								+ ": to remove a man of Player "
+								+ (getNode(point).getIsBusy() + 1));
+						while (!validRemove) {
+							System.out.println("\nYou can remove one from: ");
+							for (PointGame pt : p.getMenOnTheBoard()) {
+								System.out.print(pt);
+							}
+							System.out
+									.println("\nSelect the man you want to remove: ");
+							// int x_remove = in.nextInt();
+							// int y_remove = in.nextInt();
+							// PointGame pt = new PointGame(x_remove, y_remove);
+							// if (p.getMenOnTheBoard().contains(pt)) {
+							// game.removeAMan(remove, pt);
+							// validRemove = true;
+							// } else {
+							// System.err.println("Invalid point to remove!");
+							// }
 						}
 					}
+					// else nothing.
 				} else {
-					System.out.println("MOVE ACTION");
-					// TODO: Check isNeighbour here
-					boolean isNeighbour = true;
+					if (p.getMenHoldInHand() == 0) {
+						System.out.println("Player"
+								+ getNode(point).getIsBusy()
+								+ " to move a man: ");
+						System.out.println("Available points:");
+						for (PointGame pt : p.getMenOnTheBoard()) {
+							System.out.print(pt);
+						}
+						System.out.println("From:");
+						int x_1 = 0;
+						int y_1 = 0;
+						if (selectedPiece != null) {
+							Node resetNode = getNode(new Point(
+									selectedPiece.getBounds().x,
+									selectedPiece.getBounds().y));
+							int x = point.x;
+							int y = point.y;
+							Node n = getNode(new Point(x, y));
+							System.out
+									.println("------Selected FROM Point was: ------");
+							System.out.println(resetNode.getId());
 
-					if (n.getIsBusy() == 0 && isNeighbour) {
-						selectedPiece.setBounds(x, y, 50, 50);
-						n.setIsBusy(resetNode.getIsBusy());
-						resetNode.setIsBusy(0);
-						selectedPiece = null;
+							x_1 = resetNode.getPosition().x;
+							y_1 = resetNode.getPosition().y;
 
-						// check mills condition here
-						// deletePiece(referee.checkRules(nodes,whitesTurn));
+							ImageIcon icon = null;
+							if (whitesTurn) {
+								icon = createImageIcon("/resources/White_Stone.png");
+								selectedPiece.setIcon(icon);
+							} else {
+								icon = createImageIcon("/resources/Black_Stone.png");
+								selectedPiece.setIcon(icon);
+							}
+						}
 
-						whitesTurn = !whitesTurn;
-						blacksTurn = !blacksTurn;
-						if (whitesTurn) {
-							txtLogArea.append("Whites turn!\n");
-						} else {
-							txtLogArea.append("Blacks turn!\n");
+						System.out.println("To:");
+						int x_2 = getNode(point).getPosition().x;
+						int y_2 = getNode(point).getPosition().y;
+						PointGame newpt = new PointGame(x_2, y_2);
+						validMove = game.makeAnAction(new PointGame(x_1, y_1),
+								newpt, 0);
+						if (validMove
+								&& game.hasMills(
+										getNode(point).getIsBusy() - 1, newpt)) {
+							System.out.println("Player "
+									+ getNode(point).getIsBusy()
+									+ " has a MILL!");
+							System.out.println("Ask Player "
+									+ getNode(point).getIsBusy()
+									+ " : to remove a man of Player2");
+							while (!validRemove) {
+								System.out.println("You can remove one from: ");
+								for (PointGame pt : p.getMenOnTheBoard()) {
+									System.out.print(pt);
+								}
+								System.out
+										.println("\nSelect the man you want to remove: ");
+								// int x_remove = in.nextInt();
+								// int y_remove = in.nextInt();
+								// PointGame pt = new PointGame(x_remove,
+								// y_remove);
+								// if (p.getMenOnTheBoard().contains(pt)) {
+								// game.removeAMan(remove, pt);
+								// validRemove = true;
+								// } else {
+								// System.err.println("Invalid point to remove!");
+								// }
+							}
 						}
 					}
 				}
 			}
+			// reset.
+			validMove = false;
+			validRemove = false;
+
+			if (game.endOfGame())
+				break;
 		}
+		if (p1.lose())
+			System.out.println("Black Wins");
+		else
+			System.out.println("White Wins");
 	}
 
 	protected void deletePiece(boolean checkRules) {

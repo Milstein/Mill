@@ -12,6 +12,7 @@ public class Player {
 
 	/**
 	 * Constructor.
+	 * 
 	 * @param name
 	 * @param color
 	 */
@@ -24,18 +25,21 @@ public class Player {
 
 	/**
 	 * Place a man on the board. Assuming always place to a valid (empty) point.
+	 * 
 	 * @param pt
 	 */
 	public void placeAMan(PointGame pt) {
-		if (menHoldInHand>0) {
+		if (menHoldInHand > 0) {
 			menOnTheBoard.add(pt);
 			menHoldInHand--;
-			System.out.println("Player" + (color + 1) + " place a man on " + pt);
+			System.out
+					.println("Player" + (color + 1) + " place a man on " + pt);
 		}
 	}
 
 	/**
 	 * Move a Man. assuming menHoldInHand=0 and it's always a valid move.
+	 * 
 	 * @param pt1
 	 * @param pt2
 	 */
@@ -50,31 +54,34 @@ public class Player {
 
 	/**
 	 * Remove a man. message should be sent by the opponents' move.
+	 * 
 	 * @param pt
 	 */
 	public void removeAMan(PointGame pt) {
 		menOnTheBoard.remove(pt);
 		System.out.println("Player" + (color + 1) + " lose a man on " + pt);
 	}
-	
+
 	/**
 	 * Determine if a player is allowed to fly.
+	 * 
 	 * @return
 	 */
 	public boolean allowToFly() {
-		if (menHoldInHand==0 && menOnTheBoard.size()==3)
+		if (menHoldInHand == 0 && menOnTheBoard.size() == 3)
 			return true;
 		return false;
 	}
 
 	/**
 	 * Judge if the player loses.
+	 * 
 	 * @return
 	 */
 	public boolean lose() {
-		if (menOnTheBoard.size()==2 && menHoldInHand==0)
+		if (menOnTheBoard.size() == 2 && menHoldInHand == 0)
 			return true;
-		if (menHoldInHand==0 && !hasLegalMoves()) 
+		if (menHoldInHand == 0 && !hasLegalMoves())
 			return true;
 		return false;
 	}
@@ -82,13 +89,14 @@ public class Player {
 	// when menHoldInHand>0 we won't call this method.
 	/**
 	 * determine if the player has any legal moves.
+	 * 
 	 * @return
 	 */
 	private boolean hasLegalMoves() {
 		for (PointGame pt : menOnTheBoard) {
 			Set<PointGame> adj = pt.getAdjacentPoints();
-			for(PointGame p : adj) {
-				if(!Board.isOccupied(p))
+			for (PointGame p : adj) {
+				if (!Board.isOccupied(p))
 					return true;
 			}
 		}
@@ -98,6 +106,7 @@ public class Player {
 	// getters
 	/**
 	 * Get player's name.
+	 * 
 	 * @return
 	 */
 	public String getName() {
@@ -106,6 +115,7 @@ public class Player {
 
 	/**
 	 * Get color.
+	 * 
 	 * @return
 	 */
 	public int getColor() {
@@ -114,6 +124,7 @@ public class Player {
 
 	/**
 	 * Get a list of men on the board.
+	 * 
 	 * @return
 	 */
 	public ArrayList<PointGame> getMenOnTheBoard() {
@@ -122,6 +133,7 @@ public class Player {
 
 	/**
 	 * See how many marble hold in hand.
+	 * 
 	 * @return
 	 */
 	public int getMenHoldInHand() {
@@ -130,6 +142,7 @@ public class Player {
 
 	/**
 	 * Check whether a point is hold by this player or not.
+	 * 
 	 * @param pt
 	 * @return
 	 */
@@ -138,14 +151,16 @@ public class Player {
 	}
 
 	/**
-	 * Check if there is a NEW mill - related to the newpt.
-	 * 		check 6 possibilities: newpt, leftright(x+-), updown(y+-) to the left(x--), right(x++) or up(y--), down(y++).
+	 * Check if there is a NEW mill - related to the newpt. check 6
+	 * possibilities: newpt, leftright(x+-), updown(y+-) to the left(x--),
+	 * right(x++) or up(y--), down(y++).
+	 * 
 	 * @param newpt
 	 * @return
 	 */
 	public boolean hasMills(PointGame newpt) {
-//		int x0 = newpt.getX();
-//		int y0 = newpt.getY();
+		// int x0 = newpt.getX();
+		// int y0 = newpt.getY();
 		if (!menOnTheBoard.contains(newpt))
 			return false;
 		PointGame left = newpt.getLeftNeighbor();
@@ -153,51 +168,55 @@ public class Player {
 		PointGame up = newpt.getUpNeighbor();
 		PointGame down = newpt.getDownNeighbor();
 		// check left_right(x+-):
-		if(left!=null && right!=null)
-			if(menOnTheBoard.contains(left) && menOnTheBoard.contains(right))
+		if (left != null && right != null)
+			if (menOnTheBoard.contains(left) && menOnTheBoard.contains(right))
 				return true;
 		// check up_down(x+-):
-		if(up!=null && down!=null)
-			if(menOnTheBoard.contains(up) && menOnTheBoard.contains(down))
+		if (up != null && down != null)
+			if (menOnTheBoard.contains(up) && menOnTheBoard.contains(down))
 				return true;
 		// check left(x--):
-		if(left!=null) {
+		if (left != null) {
 			PointGame leftleft = left.getLeftNeighbor();
-			if (leftleft!=null) {
-				if (menOnTheBoard.contains(left) && menOnTheBoard.contains(leftleft)) {
+			if (leftleft != null) {
+				if (menOnTheBoard.contains(left)
+						&& menOnTheBoard.contains(leftleft)) {
 					return true;
 				}
 			}
 		}
 		// check right(x++):
-		if(right!=null) {
+		if (right != null) {
 			PointGame rightright = right.getRightNeighbor();
-			if (rightright!=null)
-				if (menOnTheBoard.contains(right) && menOnTheBoard.contains(rightright))
+			if (rightright != null)
+				if (menOnTheBoard.contains(right)
+						&& menOnTheBoard.contains(rightright))
 					return true;
 		}
 		// check up(y--):
-		if(up!=null) {
+		if (up != null) {
 			PointGame upup = up.getUpNeighbor();
-			if (upup!=null)
+			if (upup != null)
 				if (menOnTheBoard.contains(up) && menOnTheBoard.contains(upup))
 					return true;
 		}
 		// check down(y++):
-		if(down!=null) {
+		if (down != null) {
 			PointGame downdown = down.getDownNeighbor();
-			if (downdown!=null)
-				if (menOnTheBoard.contains(down) && menOnTheBoard.contains(downdown))
+			if (downdown != null)
+				if (menOnTheBoard.contains(down)
+						&& menOnTheBoard.contains(downdown))
 					return true;
 		}
 		return false;
 	}
-	
+
 	/**
 	 * return a string of the player.
 	 */
 	public String toString() {
-		String str = "Name: " + name + " Color: " + (color==0 ? "white\n" : "black ");
+		String str = "Name: " + name + " Color: "
+				+ (color == 0 ? "white\n" : "black ");
 		str += ("MenHoldInHand=" + menHoldInHand + " ");
 		str += ("MenOnTheBoard: " + menOnTheBoard);
 		return str;
