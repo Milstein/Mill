@@ -293,7 +293,7 @@ public class NMMPanel extends JPanel {
 	public void setPieces(Point point) {
 		if (!game.endOfGame()) {
 			Player player = null;
-			Player opponent = null;			
+			Player opponent = null;
 			int remove;
 			if (turnOfStarter) {
 				player = p1;
@@ -334,16 +334,14 @@ public class NMMPanel extends JPanel {
 
 				if (validMove) {
 					if (turnOfStarter) {
-						Point position = getNode(point).getPosition();
-
 						whites[whitePointer].setLocation(point);
 						centerPanel.add(whites[whitePointer], 0);
 						whitePointer++;
-						// Point p = new Point();
-						// p.x = point.x;
-						// p.y = point.y;
-						// placedPieces.add(p);
-						// placedCounter++;
+						Point p = new Point();
+						p.x = point.x;
+						p.y = point.y;
+						placedPieces.add(p);
+						placedCounter++;
 
 						whitesTurn = false;
 						blacksTurn = true;
@@ -351,11 +349,11 @@ public class NMMPanel extends JPanel {
 						blacks[blackPointer].setLocation(point);
 						centerPanel.add(blacks[blackPointer], 0);
 						blackPointer++;
-						// Point p = new Point();
-						// p.x = point.x;
-						// p.y = point.y;
-						// placedPieces.add(p);
-						// placedCounter++;
+						Point p = new Point();
+						p.x = point.x;
+						p.y = point.y;
+						placedPieces.add(p);
+						placedCounter++;
 
 						whitesTurn = true;
 						blacksTurn = false;
@@ -425,54 +423,100 @@ public class NMMPanel extends JPanel {
 							icon = createImageIcon("/resources/Black_Stone.png");
 							selectedPiece.setIcon(icon);
 						}
-					}
 
-					System.out.println("To:");
-					int x_2 = getNode(point).getPosition().x;
-					int y_2 = getNode(point).getPosition().y;
-					PointGame newpt = new PointGame(x_2, y_2);
-					validMove = game.makeAnAction(new PointGame(x_1, y_1),
-							newpt, 0);
-					if (validMove
-							&& game.hasMills(getNode(point).getIsBusy() - 1,
-									newpt)) {
-						System.out.println("Player "
-								+ getNode(point).getIsBusy() + " has a MILL!");
-						System.out.println("Ask Player "
-								+ getNode(point).getIsBusy()
-								+ " : to remove a man of Player2");
-						if (!validRemove) {
-							System.out.println("You can remove one from: ");
-							for (PointGame pt : opponent.getMenOnTheBoard()) {
-								System.out.print(pt);
+						System.out.println("To:");
+						int x_2 = getNode(point).getPosition().x;
+						int y_2 = getNode(point).getPosition().y;
+						PointGame newpt = new PointGame(x_2, y_2);
+						validMove = game.makeAnAction(new PointGame(x_1, y_1),
+								newpt, 0);
+						txtLogArea.append(game.getAction() + "\n");
+						switch (game.getAction()) {
+						case "FLY":
+							if (n.getIsBusy() == 0) {
+								selectedPiece.setBounds(x, y, 50, 50);
+								n.setIsBusy(resetNode.getIsBusy());
+								resetNode.setIsBusy(0);
+								selectedPiece = null;
+
+								// check mills condition here
+								// deletePiece(referee.checkRules(nodes,whitesTurn));
+
+								whitesTurn = !whitesTurn;
+								blacksTurn = !blacksTurn;
+								if (whitesTurn) {
+									txtLogArea.append("Whites turn!\n");
+								} else {
+									txtLogArea.append("Blacks turn!\n");
+								}
 							}
-							System.out
-									.println("\nSelect the man you want to remove: ");
-							// int x_remove = in.nextInt();
-							// int y_remove = in.nextInt();
-							// PointGame pt = new PointGame(x_remove,
-							// y_remove);
-							// if (p.getMenOnTheBoard().contains(pt)) {
-							// game.removeAMan(remove, pt);
-							// validRemove = true;
-							// } else {
-							// System.err.println("Invalid point to remove!");
-							// }
+							break;
+						case "MOVE":
+							if (n.getIsBusy() == 0) {
+								selectedPiece.setBounds(x, y, 50, 50);
+								n.setIsBusy(resetNode.getIsBusy());
+								resetNode.setIsBusy(0);
+								selectedPiece = null;
+
+								// check mills condition here
+								// deletePiece(referee.checkRules(nodes,whitesTurn));
+
+								whitesTurn = !whitesTurn;
+								blacksTurn = !blacksTurn;
+								if (whitesTurn) {
+									txtLogArea.append("Whites turn!\n");
+								} else {
+									txtLogArea.append("Blacks turn!\n");
+								}
+							}
+							break;
+						default:
+							break;
+						}
+
+						if (validMove
+								&& game.hasMills(
+										getNode(point).getIsBusy() - 1, newpt)) {
+							System.out.println("Player "
+									+ getNode(point).getIsBusy()
+									+ " has a MILL!");
+							System.out.println("Ask Player "
+									+ getNode(point).getIsBusy()
+									+ " : to remove a man of Player2");
+							if (!validRemove) {
+								System.out.println("You can remove one from: ");
+								for (PointGame pt : opponent.getMenOnTheBoard()) {
+									System.out.print(pt);
+								}
+								System.out
+										.println("\nSelect the man you want to remove: ");
+
+								deleteFlag = true;
+								// int x_remove = in.nextInt();
+								// int y_remove = in.nextInt();
+								// PointGame pt = new PointGame(x_remove,
+								// y_remove);
+								// if (p.getMenOnTheBoard().contains(pt)) {
+								// game.removeAMan(remove, pt);
+								// validRemove = true;
+								// } else {
+								// System.err.println("Invalid point to remove!");
+								// }
+							}
 						}
 					}
 				}
 			}
+			// }
+			// reset.
+			validMove = false;
+			validRemove = false;
 			if (whitesTurn) {
 				txtLogArea.append("Whites turn!\n");
 			} else {
 				txtLogArea.append("Blacks turn!\n");
 			}
 			turnOfStarter = !turnOfStarter;
-			// }
-			// reset.
-			validMove = false;
-			validRemove = false;
-
 			// if (game.endOfGame())
 			// break;
 		} else {
