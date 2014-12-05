@@ -212,6 +212,15 @@ public class Player {
 	}
 
 	/**
+	 * Make a move as an A.I.
+	 * @return an array of length 1 for place a man: [pointTo]
+	 * 			an array of length 2 for moving a man: [pointFrom, pointTo]
+	 */
+	public PointGame[] makeAIMove() {
+		return null;
+	}
+	
+	/**
 	 * return a string of the player.
 	 */
 	public String toString() {
