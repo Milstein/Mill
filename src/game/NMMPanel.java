@@ -317,7 +317,7 @@ public class NMMPanel extends JPanel {
 					+ "'s turn.");
 
 			// Players;
-//			while (!validMove) {
+			if (!validMove) {
 				if (p.getMenHoldInHand() > 0) {
 					System.out.println("Player " + getNode(point).getIsBusy()
 							+ " to place a man at point: ");
@@ -430,7 +430,8 @@ public class NMMPanel extends JPanel {
 						}
 					}
 				}
-//			}
+				turnOfStarter = !turnOfStarter;
+			}
 			// reset.
 			validMove = false;
 			validRemove = false;
