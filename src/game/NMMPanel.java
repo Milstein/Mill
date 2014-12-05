@@ -291,7 +291,7 @@ public class NMMPanel extends JPanel {
 	}
 
 	public void setPieces(Point point) {
-		while (!game.endOfGame()) {
+		if (!game.endOfGame()) {
 			Player p = null;
 			int remove;
 			if (turnOfStarter) {
@@ -317,7 +317,7 @@ public class NMMPanel extends JPanel {
 					+ "'s turn.");
 
 			// Players;
-			while (!validMove) {
+//			while (!validMove) {
 				if (p.getMenHoldInHand() > 0) {
 					System.out.println("Player " + getNode(point).getIsBusy()
 							+ " to place a man at point: ");
@@ -430,18 +430,20 @@ public class NMMPanel extends JPanel {
 						}
 					}
 				}
-			}
+//			}
 			// reset.
 			validMove = false;
 			validRemove = false;
 
-			if (game.endOfGame())
-				break;
+//			if (game.endOfGame())
+//				break;
+		} else {
+			if (p1.lose())
+				System.out.println("Black Wins");
+			else
+				System.out.println("White Wins");
 		}
-		if (p1.lose())
-			System.out.println("Black Wins");
-		else
-			System.out.println("White Wins");
+
 	}
 
 	protected void deletePiece(boolean checkRules) {
