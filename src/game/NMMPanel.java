@@ -219,8 +219,9 @@ public class NMMPanel extends JPanel {
 					while (automateAI && placedCounter < 18) {
 						if (!deleteFlag) {
 							if (setting.getPlayer1().contains("Computer")) {
-								// when player1 is computer
-								makeAIplace(0, 0);
+								// TODO: No Need to use this Not Possible to
+								// implement
+								// makeAIplace(0);
 							} else {
 								setPieces(interactionFields.getLocation());
 
@@ -232,7 +233,7 @@ public class NMMPanel extends JPanel {
 								&& setting.getPlayer2().contains("Computer")) {
 							// brain.setPiece(nodes, 1);
 							// A.I.place
-							makeAIplace(1, 0);
+							makeAIplace(1);
 						}
 					}
 
@@ -240,18 +241,18 @@ public class NMMPanel extends JPanel {
 						limitMoves++;
 						if (!deleteFlag) {
 							if (setting.getPlayer1().contains("Computer")) {
-								// when player2 is computer
 								if (countPieces(true) <= 3) {
 									System.out.println(countPieces(true));
+
 									// brain.jumpPiece(nodes, 0);
 									// A.I.fly
-									makeAIfly(0, 0);
+									makeAIfly(0);
 								} else {
 									System.out.println(countPieces(true));
 
 									// brain.movePiece(nodes, 0);
 									// A.I.move
-									makeAImove(0, 0);
+									makeAImove(0);
 								}
 							} else {
 								setPieces(interactionFields.getLocation());
@@ -266,13 +267,13 @@ public class NMMPanel extends JPanel {
 								System.out.println(countPieces(false));
 								// brain.jumpPiece(nodes, 1);
 								// A.I.fly
-								makeAIfly(1, 0);
+								makeAIfly(1);
 							} else {
 								System.out.println(countPieces(false));
 
 								// brain.movePiece(nodes, 1);
 								// A.I.move
-								makeAImove(1, 0);
+								makeAImove(1);
 							}
 						}
 					}
@@ -360,6 +361,7 @@ public class NMMPanel extends JPanel {
 									+ getNode(point).getIsBusy()
 									+ ": to remove a man of Player "
 									+ (remove + 1));
+							deleteFlag = true;
 							if (!validRemove) {
 								System.out
 										.println("\nYou can remove one from: ");
@@ -368,8 +370,6 @@ public class NMMPanel extends JPanel {
 								}
 								System.out
 										.println("\nSelect the Black Man you want to remove while some on hand: ");
-
-								deleteFlag = true;
 
 								// deletePiece(referee.checkRules(nodes,
 								// whitesTurn));
@@ -395,6 +395,7 @@ public class NMMPanel extends JPanel {
 									+ getNode(point).getIsBusy()
 									+ ": to remove a man of Player "
 									+ (remove + 1));
+							deleteFlag = true;
 							if (!validRemove) {
 								System.out
 										.println("\nYou can remove one from: ");
@@ -403,8 +404,6 @@ public class NMMPanel extends JPanel {
 								}
 								System.out
 										.println("\nSelect the White Man you want to remove while some on hand: ");
-
-								deleteFlag = true;
 
 								// deletePiece(referee.checkRules(nodes,
 								// whitesTurn));
@@ -502,6 +501,7 @@ public class NMMPanel extends JPanel {
 										+ getNode(point).getIsBusy()
 										+ ": to remove a man of Player "
 										+ (remove + 1));
+								deleteFlag = true;
 								if (!validRemove) {
 									System.out
 											.println("You can remove one from: ");
@@ -515,7 +515,6 @@ public class NMMPanel extends JPanel {
 															.getIsBusy()
 													+ "Man you want to remove while some NOthing on hand ");
 
-									deleteFlag = true;
 								}
 							}
 
@@ -569,11 +568,10 @@ public class NMMPanel extends JPanel {
 	 * mill and remove pt3 from Player1.
 	 * 
 	 * @param player
-	 * @param level - the level of computer brain. 0: stupid 1: normal 2: elite.
 	 * @return
 	 */
-	public PointGame[] makeAIplace(int playerX, int level) {
-		return game.makeAIplace(playerX, level);
+	public PointGame[] makeAIplace(int player) {
+		return game.makeAIplace(player);
 	}
 
 	/**
@@ -583,11 +581,10 @@ public class NMMPanel extends JPanel {
 	 * pt1 to pt2, form a mill and remove pt3 from Player1.
 	 * 
 	 * @param player
-	 * @param level - the level of computer brain. 0: stupid 1: normal 2: elite.
 	 * @return
 	 */
-	public PointGame[] makeAImove(int player, int level) {
-		return game.makeAImove(player, level);
+	public PointGame[] makeAImove(int player) {
+		return game.makeAImove(player);
 	}
 
 	/**
@@ -597,11 +594,10 @@ public class NMMPanel extends JPanel {
 	 * pt1 to pt2, form a mill and remove pt3 from Player1.
 	 * 
 	 * @param player
-	 * @param level - the level of computer brain. 0: stupid 1: normal 2: elite.
 	 * @return
 	 */
-	public PointGame[] makeAIfly(int player, int level) {
-		return game.makeAIfly(player, level);
+	public PointGame[] makeAIfly(int player) {
+		return game.makeAIfly(player);
 	}
 
 	/**
