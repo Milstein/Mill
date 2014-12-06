@@ -350,7 +350,7 @@ public class NMMPanel extends JPanel {
 							System.out.println("Ask Player "
 									+ getNode(point).getIsBusy()
 									+ ": to remove a man of Player "
-									+ (getNode(point).getIsBusy() + 1));
+									+ (remove + 1));
 							if (!validRemove) {
 								System.out
 										.println("\nYou can remove one from: ");
@@ -360,19 +360,10 @@ public class NMMPanel extends JPanel {
 								System.out
 										.println("\nSelect the man you want to remove: ");
 
+								deleteFlag = true;
+
 								// deletePiece(referee.checkRules(nodes,
 								// whitesTurn));
-
-								// int x_remove = in.nextInt();
-								// int y_remove = in.nextInt();
-								// PointGame pt = new PointGame(x_remove,
-								// y_remove);
-								// if (p.getMenOnTheBoard().contains(pt)) {
-								// game.removeAMan(remove, pt);
-								// validRemove = true;
-								// } else {
-								// System.err.println("Invalid point to remove!");
-								// }
 							}
 						}
 						whitesTurn = false;
@@ -394,7 +385,7 @@ public class NMMPanel extends JPanel {
 							System.out.println("Ask Player "
 									+ getNode(point).getIsBusy()
 									+ ": to remove a man of Player "
-									+ (getNode(point).getIsBusy() + 1));
+									+ (remove + 1));
 							if (!validRemove) {
 								System.out
 										.println("\nYou can remove one from: ");
@@ -404,19 +395,10 @@ public class NMMPanel extends JPanel {
 								System.out
 										.println("\nSelect the man you want to remove: ");
 
+								deleteFlag = true;
+
 								// deletePiece(referee.checkRules(nodes,
 								// whitesTurn));
-
-								// int x_remove = in.nextInt();
-								// int y_remove = in.nextInt();
-								// PointGame pt = new PointGame(x_remove,
-								// y_remove);
-								// if (p.getMenOnTheBoard().contains(pt)) {
-								// game.removeAMan(remove, pt);
-								// validRemove = true;
-								// } else {
-								// System.err.println("Invalid point to remove!");
-								// }
 							}
 						}
 						whitesTurn = true;
@@ -482,15 +464,6 @@ public class NMMPanel extends JPanel {
 
 									// check mills condition here
 									// deletePiece(referee.checkRules(nodes,whitesTurn));
-
-									whitesTurn = !whitesTurn;
-									blacksTurn = !blacksTurn;
-									if (whitesTurn) {
-										txtLogArea.append("Whites turn!\n");
-									} else {
-										txtLogArea.append("Blacks turn!\n");
-									}
-									turnOfStarter = !turnOfStarter;
 								}
 								break;
 							case "MOVE":
@@ -502,17 +475,11 @@ public class NMMPanel extends JPanel {
 
 								// check mills condition here
 								// deletePiece(referee.checkRules(nodes,whitesTurn));
-
-								whitesTurn = !whitesTurn;
-								blacksTurn = !blacksTurn;
-								if (whitesTurn) {
-									txtLogArea.append("Whites turn!\n");
-								} else {
-									txtLogArea.append("Blacks turn!\n");
-								}
-								turnOfStarter = !turnOfStarter;
 								// }
 								break;
+							case "REMOVE":
+								System.out.println("Remove me");
+
 							default:
 								break;
 							}
@@ -524,7 +491,8 @@ public class NMMPanel extends JPanel {
 										+ " has a MILL!");
 								System.out.println("Ask Player "
 										+ getNode(point).getIsBusy()
-										+ " : to remove a man of Player2");
+										+ ": to remove a man of Player "
+										+ (remove + 1));
 								if (!validRemove) {
 									System.out
 											.println("You can remove one from: ");
@@ -536,18 +504,18 @@ public class NMMPanel extends JPanel {
 											.println("\nSelect the man you want to remove: ");
 
 									deleteFlag = true;
-									// int x_remove = in.nextInt();
-									// int y_remove = in.nextInt();
-									// PointGame pt = new PointGame(x_remove,
-									// y_remove);
-									// if (p.getMenOnTheBoard().contains(pt)) {
-									// game.removeAMan(remove, pt);
-									// validRemove = true;
-									// } else {
-									// System.err.println("Invalid point to remove!");
-									// }
 								}
 							}
+
+							whitesTurn = !whitesTurn;
+							blacksTurn = !blacksTurn;
+							if (whitesTurn) {
+								txtLogArea.append("Whites turn!\n");
+							} else {
+								txtLogArea.append("Blacks turn!\n");
+							}
+							turnOfStarter = !turnOfStarter;
+							
 						}
 					}
 				}
@@ -821,11 +789,23 @@ public class NMMPanel extends JPanel {
 					getNode(lblWhite.getBounds().getLocation()).setIsBusy(0);
 
 					lblWhite.setVisible(false);
-					lblWhite.setLocation(0, 0);
 					for (Point p : placedPieces) {
 						if (p.x == lblWhite.getBounds().x
 								&& p.y == lblWhite.getBounds().y) {
 							placedPieces.remove(p);
+
+							int x_remove = getNode(lblWhite.getLocation())
+									.getPosition().x;
+							int y_remove = getNode(lblWhite.getLocation())
+									.getPosition().y;
+							PointGame pt = new PointGame(x_remove, y_remove);
+							if (p1.getMenOnTheBoard().contains(pt)) {
+								game.removeAMan(0, pt);
+								validRemove = true;
+							} else {
+								System.err.println("Invalid point to remove!");
+							}
+
 							break;
 						}
 					}
@@ -842,7 +822,7 @@ public class NMMPanel extends JPanel {
 					}
 				}
 			} else {
-				if (placedCounter == 18) {
+				if (p1.getMenHoldInHand() == 0) {
 					if (whitesTurn) {
 						if (selectedPiece != null) {
 							ImageIcon iconWhiteSelected = createImageIcon("/resources/White_Stone.png");
@@ -851,6 +831,8 @@ public class NMMPanel extends JPanel {
 						selectedPiece = lblWhite;
 						ImageIcon iconWhiteSelected = createImageIcon("/resources/White_Stone_Selected.png");
 						selectedPiece.setIcon(iconWhiteSelected);
+						selectedPiece.setCursor(Cursor
+								.getPredefinedCursor(Cursor.HAND_CURSOR));
 					}
 				}
 			}
@@ -867,6 +849,19 @@ public class NMMPanel extends JPanel {
 						if (p.x == lblBlack.getBounds().x
 								&& p.y == lblBlack.getBounds().y) {
 							placedPieces.remove(p);
+
+							int x_remove = getNode(lblBlack.getLocation())
+									.getPosition().x;
+							int y_remove = getNode(lblBlack.getLocation())
+									.getPosition().y;
+							PointGame pt = new PointGame(x_remove, y_remove);
+							if (p2.getMenOnTheBoard().contains(pt)) {
+								game.removeAMan(1, pt);
+								validRemove = true;
+							} else {
+								System.err.println("Invalid point to remove!");
+							}
+
 							break;
 						}
 					}
@@ -882,21 +877,21 @@ public class NMMPanel extends JPanel {
 				}
 
 			} else {
-				if (placedCounter <= 18) {
+				if (p2.getMenHoldInHand() == 0) {
 					if (blacksTurn) {
 						if (selectedPiece != null) {
-							ImageIcon iconWhiteSelected = createImageIcon("/resources/White_Stone.png");
-							selectedPiece.setIcon(iconWhiteSelected);
+							ImageIcon iconBlackSelected = createImageIcon("/resources/Black_Stone.png");
+							selectedPiece.setIcon(iconBlackSelected);
 						}
 						selectedPiece = lblBlack;
-						ImageIcon iconWhiteSelected = createImageIcon("/resources/Black_Stone_Selected.png");
-						selectedPiece.setIcon(iconWhiteSelected);
+						ImageIcon iconBlackSelected = createImageIcon("/resources/Black_Stone_Selected.png");
+						selectedPiece.setIcon(iconBlackSelected);
+						selectedPiece.setCursor(Cursor
+								.getPredefinedCursor(Cursor.HAND_CURSOR));
 					}
 				}
 			}
 		}
-
-		selectedPiece.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 	}
 
 	private JLabel getLabel(Point point) {
