@@ -557,7 +557,7 @@ public class NMMPanel extends JPanel {
 	 * @return
 	 */
 	public PointGame[] makeAIplace(int player) {
-		return game.makeAIplace(player);
+		return game.makeAIplace(player, 0);
 	}
 
 	/**
@@ -570,7 +570,7 @@ public class NMMPanel extends JPanel {
 	 * @return
 	 */
 	public PointGame[] makeAImove(int player) {
-		return game.makeAImove(player);
+		return game.makeAImove(player, 0);
 	}
 
 	/**
@@ -583,7 +583,7 @@ public class NMMPanel extends JPanel {
 	 * @return
 	 */
 	public PointGame[] makeAIfly(int player) {
-		return game.makeAIfly(player);
+		return game.makeAIfly(player, 0);
 	}
 
 	/**
