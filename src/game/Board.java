@@ -259,4 +259,45 @@ public class Board {
 		return false;
 	}
 
+	/**
+	 * 	// a.i. Return an array of points. 
+	// Return an array of 3 point: [null, pt2, null]: Player playerX placed a man on pt2, no mills formed.
+	// Return an array of 3 points: [null, pt2, pt3]: Player playerX placed a man on pt2, form a mill and remove pt3 from the other.
+	 * 
+	 * @param player
+	 * @return
+	 */
+	public PointGame[] makeAIplace(int playerX) {
+		// TODO Auto-generated method stub
+		PointGame[] pts = new PointGame[3];
+		
+		return null;
+	}
+
+	/**
+	 * 	// a.i. Return an array of points. 
+	// Return an array of 3 points: [pt1, pt2, null]: Player2 moved a man from pt1 to pt2, no mills formed. 
+	// Return an array of 3 points: [null, pt2, pt3]: Player2 moved a man from pt1 to pt2, form a mill and remove pt3 from Player1. 
+	 * 
+	 * @param player
+	 * @return
+	 */
+	public PointGame[] makeAImove(int player) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/**
+	 * 	// a.i. Return an array of points. 
+	// Return an array of 3 points: [pt1, pt2, null]: Player2 moved a man from pt1 to pt2, no mills formed. 
+	// Return an array of 3 points: [null, pt2, pt3]: Player2 moved a man from pt1 to pt2, form a mill and remove pt3 from Player1. 
+	 * 
+	 * @param player
+	 * @return
+	 */
+	public PointGame[] makeAIfly(int player) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

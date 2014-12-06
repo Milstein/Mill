@@ -221,7 +221,7 @@ public class NMMPanel extends JPanel {
 							if (setting.getPlayer1().contains("Computer")) {
 								// TODO: No Need to use this Not Possible to
 								// implement
-								// brain.setPiece(nodes, 1);
+								// makeAIplace(0);
 							} else {
 								setPieces(interactionFields.getLocation());
 
@@ -231,7 +231,9 @@ public class NMMPanel extends JPanel {
 
 						if (!deleteFlag
 								&& setting.getPlayer2().contains("Computer")) {
-							// brain.setPiece(nodes, 2);
+							//brain.setPiece(nodes, 1);
+							// A.I.place
+							makeAIplace(1);
 						}
 					}
 
@@ -242,11 +244,15 @@ public class NMMPanel extends JPanel {
 								if (countPieces(true) <= 3) {
 									System.out.println(countPieces(true));
 
-									// brain.jumpPiece(nodes, 1);
+									// brain.jumpPiece(nodes, 0);
+									// A.I.fly
+									makeAIfly(0);
 								} else {
 									System.out.println(countPieces(true));
 
-									// brain.movePiece(nodes, 1);
+									// brain.movePiece(nodes, 0);
+									// A.I.move
+									makeAImove(0);
 								}
 							} else {
 								setPieces(interactionFields.getLocation());
@@ -259,11 +265,15 @@ public class NMMPanel extends JPanel {
 								&& setting.getPlayer2().contains("Computer")) {
 							if (countPieces(false) <= 3) {
 								System.out.println(countPieces(false));
-								// brain.jumpPiece(nodes, 2);
+								// brain.jumpPiece(nodes, 1);
+								// A.I.fly
+								makeAIfly(1);
 							} else {
 								System.out.println(countPieces(false));
 
-								// brain.movePiece(nodes, 2);
+								// brain.movePiece(nodes, 1);
+								// A.I.move
+								makeAImove(1);
 							}
 						}
 					}
@@ -578,6 +588,39 @@ public class NMMPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * 	// a.i. Return an array of points. 
+	// Return an array of 3 point: [null, pt2, null]: Player2 placed a man on pt2, no mills formed.
+	// Return an array of 3 points: [null, pt2, pt3]: Player2 placed a man on pt2, form a mill and remove pt3 from Player1.
+	 * @param player
+	 * @return
+	 */
+	public PointGame[] makeAIplace(int player) {
+		return game.makeAIplace(player);	
+	}
+	
+	/**
+	 * 	// a.i. Return an array of points. 
+	// Return an array of 3 points: [pt1, pt2, null]: Player2 moved a man from pt1 to pt2, no mills formed. 
+	// Return an array of 3 points: [null, pt2, pt3]: Player2 moved a man from pt1 to pt2, form a mill and remove pt3 from Player1. 
+	 * @param player
+	 * @return
+	 */
+	public PointGame[] makeAImove(int player) {
+		return game.makeAImove(player);	
+	}
+	
+	/**
+	 * 	// a.i. Return an array of points. 
+	// Return an array of 3 points: [pt1, pt2, null]: Player2 moved a man from pt1 to pt2, no mills formed. 
+	// Return an array of 3 points: [null, pt2, pt3]: Player2 moved a man from pt1 to pt2, form a mill and remove pt3 from Player1. 
+	 * @param player
+	 * @return
+	 */
+	public PointGame[] makeAIfly(int player) {
+		return game.makeAIfly(player);	
+	}
+		
 	/**
 	 * Initialize the 24 main nodes with fixed co-ordinates
 	 */
