@@ -62,7 +62,6 @@ public class NMMPanel extends JPanel {
 	private int blackPointer = 0;
 
 	private boolean validMove = false;
-	private boolean validRemove = false;
 
 	private boolean blacksTurn = false;
 	private boolean whitesTurn = true;
@@ -362,18 +361,15 @@ public class NMMPanel extends JPanel {
 									+ ": to remove a man of Player "
 									+ (remove + 1));
 							deleteFlag = true;
-							if (!validRemove) {
-								System.out
-										.println("\nYou can remove one from: ");
-								for (PointGame pt : opponent.getMenOnTheBoard()) {
-									System.out.print(pt);
-								}
-								System.out
-										.println("\nSelect the Black Man you want to remove while some on hand: ");
-
-								// deletePiece(referee.checkRules(nodes,
-								// whitesTurn));
+							System.out.println("\nYou can remove one from: ");
+							for (PointGame pt : opponent.getMenOnTheBoard()) {
+								System.out.print(pt);
 							}
+							System.out
+									.println("\nSelect the Black Man you want to remove while some on hand: ");
+
+							// deletePiece(referee.checkRules(nodes,
+							// whitesTurn));
 						}
 						whitesTurn = false;
 						blacksTurn = true;
@@ -396,18 +392,15 @@ public class NMMPanel extends JPanel {
 									+ ": to remove a man of Player "
 									+ (remove + 1));
 							deleteFlag = true;
-							if (!validRemove) {
-								System.out
-										.println("\nYou can remove one from: ");
-								for (PointGame pt : opponent.getMenOnTheBoard()) {
-									System.out.print(pt);
-								}
-								System.out
-										.println("\nSelect the White Man you want to remove while some on hand: ");
-
-								// deletePiece(referee.checkRules(nodes,
-								// whitesTurn));
+							System.out.println("\nYou can remove one from: ");
+							for (PointGame pt : opponent.getMenOnTheBoard()) {
+								System.out.print(pt);
 							}
+							System.out
+									.println("\nSelect the White Man you want to remove while some on hand: ");
+
+							// deletePiece(referee.checkRules(nodes,
+							// whitesTurn));
 						}
 						whitesTurn = true;
 						blacksTurn = false;
@@ -502,20 +495,14 @@ public class NMMPanel extends JPanel {
 										+ ": to remove a man of Player "
 										+ (remove + 1));
 								deleteFlag = true;
-								if (!validRemove) {
-									System.out
-											.println("You can remove one from: ");
-									for (PointGame pt : opponent
-											.getMenOnTheBoard()) {
-										System.out.print(pt);
-									}
-									System.out
-											.println("\nSelect the "
-													+ getNode(point)
-															.getIsBusy()
-													+ "Man you want to remove while some NOthing on hand ");
-
+								System.out.println("You can remove one from: ");
+								for (PointGame pt : opponent.getMenOnTheBoard()) {
+									System.out.print(pt);
 								}
+								System.out
+										.println("\nSelect the "
+												+ getNode(point).getIsBusy()
+												+ "Man you want to remove while some NOthing on hand ");
 							}
 
 							whitesTurn = !whitesTurn;
@@ -534,7 +521,6 @@ public class NMMPanel extends JPanel {
 			// }
 			// reset.
 			validMove = false;
-			validRemove = false;
 			// if (game.endOfGame())
 			// break;
 		} else {
@@ -855,7 +841,6 @@ public class NMMPanel extends JPanel {
 							PointGame pt = new PointGame(x_remove, y_remove);
 							if (p1.getMenOnTheBoard().contains(pt)) {
 								game.removeAMan(0, pt);
-								validRemove = true;
 							} else {
 								System.err.println("Invalid point to remove!");
 							}
@@ -911,7 +896,6 @@ public class NMMPanel extends JPanel {
 							PointGame pt = new PointGame(x_remove, y_remove);
 							if (p2.getMenOnTheBoard().contains(pt)) {
 								game.removeAMan(1, pt);
-								validRemove = true;
 							} else {
 								System.err.println("Invalid point to remove!");
 							}
