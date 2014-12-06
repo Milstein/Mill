@@ -331,8 +331,8 @@ public class NMMPanel extends JPanel {
 			// Players;
 			// if (!validMove) {
 			if (player.getMenHoldInHand() > 0) {
-				System.out.println("Player " + getNode(point).getIsBusy()
-						+ " to place a man at point: ");
+//				System.out.println("Player " + getNode(point).getIsBusy()
+//						+ " to place a man at point: ");
 				int x_coor = getNode(point).getPosition().x;
 				int y_coor = getNode(point).getPosition().y;
 
@@ -539,10 +539,14 @@ public class NMMPanel extends JPanel {
 			// if (game.endOfGame())
 			// break;
 		} else {
-			if (p1.lose())
-				System.out.println("Black Wins");
-			else
-				System.out.println("White Wins");
+			// End of Game
+			if (p1.lose()) {
+				System.out.println("Black Wins!");
+				txtLogArea.append("Black Wins!");
+			} else {
+				System.out.println("White Wins!");
+				txtLogArea.append("White Wins!");
+			}
 		}
 
 	}
