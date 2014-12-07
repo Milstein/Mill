@@ -544,16 +544,30 @@ public class NMMPanel extends JPanel {
 	 * @return
 	 */
 	public void makeAIplace(int player) {	
-		Node nd = null;
-		for (Node node : nodes) {
-			if (node.getIsBusy()==0) {
-				nd = node;
-				break;
+		if (!game.endOfGame()) {
+			Player p = player==0 ? p1 : p2;
+			PointGame pointToPlace = null;
+			for (PointGame pt : game.validPoints) {
+				if(!game.isOccupied(pt)) {
+					pointToPlace = pt;
+					break;
+				}
+			}
+//			System.out.println(pointToPlace);
+			Node node = getNodeByIndex(pointToPlace);
+			
+			setPieces(node.location);
+			
+		} else {
+			// End Of Game
+			if (p1.lose()) {
+				System.out.println("Black Wins!");
+				txtLogArea.append("Black Wins!");
+			} else {
+				System.out.println("White Wins!");
+				txtLogArea.append("White Wins!");
 			}
 		}
-		
-		System.out.println(nd.location);
-		//setPieces();
 	}
 
 	/**
@@ -696,6 +710,21 @@ public class NMMPanel extends JPanel {
 		for (int i = 0; i < nodes.length; i++) {
 			if ((nodes[i].location.x == location.x)
 					&& (nodes[i].location.y == location.y)) {
+				return nodes[i];
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Get node by PointGame. E.g. (1,1)
+	 * @param gpt
+	 * @return
+	 */
+	protected Node getNodeByIndex(PointGame gpt) {
+		for (int i = 0; i < nodes.length; i++) {
+			if ((nodes[i].getPosition().x == gpt.getX())
+					&& (nodes[i].getPosition().y == gpt.getY())) {
 				return nodes[i];
 			}
 		}
