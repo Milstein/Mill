@@ -234,6 +234,7 @@ public class Board {
 	public void removeAMan(int player, PointGame pt) {
 		players[player].removeAMan(pt);
 		this.setAction("REMOVE");
+		System.out.println("Point " + pt + " removed**********");
 	}
 
 	/**
@@ -255,89 +256,6 @@ public class Board {
 		if (players[0].lose() || players[1].lose())
 			return true;
 		return false;
-	}
-
-	/**
-	 * 	// a.i. place a man on the board. 
-	// Return an array of 3 point: [null, pt2, null]: Player playerX placed a man on pt2, no mills formed.
-	// Return an array of 3 points: [null, pt2, pt3]: Player playerX placed a man on pt2, form a mill and remove pt3 from the other.
-	 * @param level 
-	 * 
-	 * @param player
-	 * @param level - the level of computer brain. 0: stupid 1: normal 2: elite.
-	 * @return
-	 */
-	public PointGame[] makeAIplace(int playerX, int level) {
-		// TODO Auto-generated method stub
-		PointGame[] pts = new PointGame[3];
-		switch (level) {
-			case 0:
-				// Move/Remove first available.
-//				for (PointGame vac : validPoints) {
-//					if(!isOccupied(vac)) {
-//						pts[1] = vac;
-//						players[playerX].placeAMan(vac);
-//						// Check Mill conditions here.
-//						if (hasMills(playerX, pts[2])) {
-//							System.out.println("Player " + playerX + " has a MILL!");
-//							System.out.println("Ask Player " + playerX + ": to remove a man of Player " + (playerX==0 ? 1 : 0));
-//							System.out.println("\nComputer can remove one from: ");
-//							for (PointGame pt : players[(playerX==0 ? 1 : 0)].getMenOnTheBoard()) {
-//								System.out.print(pt);
-//							}
-//
-//							//	deleteFlag = true;
-//
-//								// deletePiece(referee.checkRules(nodes,
-//								// whitesTurn));
-//						}
-//						break;
-//					}
-//				}
-				break;
-			case 1:
-				// TODO
-				System.err.println("Not implemented");
-				break;
-			case 2:
-				// TODO
-				System.err.println("Not implemented");
-				break;
-			default:
-				System.err.println("Invalid brain level: [0/1/2]");
-				break;
-		}
-			
-		
-		return null;
-	}
-
-	/**
-	 * 	// a.i. Return an array of points. 
-	// Return an array of 3 points: [pt1, pt2, null]: Player2 moved a man from pt1 to pt2, no mills formed. 
-	// Return an array of 3 points: [null, pt2, pt3]: Player2 moved a man from pt1 to pt2, form a mill and remove pt3 from Player1. 
-	 * 
-	 * @param player
-	 * @param level - the level of computer brain. 0: stupid 1: normal 2: elite.
-	 * @return
-	 */
-	public PointGame[] makeAImove(int player, int level) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
-	 * 	// a.i. Return an array of points. 
-	// Return an array of 3 points: [pt1, pt2, null]: Player2 moved a man from pt1 to pt2, no mills formed. 
-	// Return an array of 3 points: [null, pt2, pt3]: Player2 moved a man from pt1 to pt2, form a mill and remove pt3 from Player1. 
-	 * 
-	 * @param player
-	 * @param level - the level of computer brain. 0: stupid 1: normal 2: elite.
-	 * @return
-	 */
-	public PointGame[] makeAIfly(int player, int level) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

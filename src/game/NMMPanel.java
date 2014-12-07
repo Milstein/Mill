@@ -361,7 +361,7 @@ public class NMMPanel extends JPanel {
 									+ ": to remove a man of Player "
 									+ (remove + 1));
 							deleteFlag = true;
-							System.out.println("\nYou can remove one from: ");
+							System.out.println("You can remove one from: ");
 							for (PointGame pt : opponent.getMenOnTheBoard()) {
 								System.out.print(pt);
 							}
@@ -392,7 +392,7 @@ public class NMMPanel extends JPanel {
 									+ ": to remove a man of Player "
 									+ (remove + 1));
 							deleteFlag = true;
-							System.out.println("\nYou can remove one from: ");
+							System.out.println("You can remove one from: ");
 							for (PointGame pt : opponent.getMenOnTheBoard()) {
 								System.out.print(pt);
 							}
@@ -548,16 +548,21 @@ public class NMMPanel extends JPanel {
 	}
 
 	/**
-	 * // a.i. Return an array of points. // Return an array of 3 point: [null,
-	 * pt2, null]: Player2 placed a man on pt2, no mills formed. // Return an
-	 * array of 3 points: [null, pt2, pt3]: Player2 placed a man on pt2, form a
-	 * mill and remove pt3 from Player1.
-	 * 
+	 * Make an A.I. place by calling setPieces().
 	 * @param player
 	 * @return
 	 */
-	public PointGame[] makeAIplace(int player) {
-		return game.makeAIplace(player, 0);
+	public void makeAIplace(int player) {	
+		Node nd = null;
+		for (Node node : nodes) {
+			if (node.getIsBusy()==0) {
+				nd = node;
+				break;
+			}
+		}
+		
+		System.out.println(nd.location);
+		//setPieces();
 	}
 
 	/**
@@ -569,8 +574,8 @@ public class NMMPanel extends JPanel {
 	 * @param player
 	 * @return
 	 */
-	public PointGame[] makeAImove(int player) {
-		return game.makeAImove(player, 0);
+	public void makeAImove(int player) {
+		
 	}
 
 	/**
@@ -582,8 +587,8 @@ public class NMMPanel extends JPanel {
 	 * @param player
 	 * @return
 	 */
-	public PointGame[] makeAIfly(int player) {
-		return game.makeAIfly(player, 0);
+	public void makeAIfly(int player) {
+
 	}
 
 	/**
