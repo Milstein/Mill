@@ -15,21 +15,21 @@ public class Settings {
 		this.start = start;
 	}
 
-	public String getPlayer1() {
-		return player1;
+	public void setPlayer(String player, int i) {
+		if(i==1)
+			this.player1 = player;
+		if(i==2)
+			this.player2 = player;
 	}
 
-	public void setPlayer1(String player1) {
-		this.player1 = player1;
+	public String getPlayer(int i) {
+		if(i==1)
+			return player1;
+		if(i==2)
+			return player2;
+		return "";
 	}
 
-	public String getPlayer2() {
-		return player2;
-	}
-
-	public void setPlayer2(String player2) {
-		this.player2 = player2;
-	}
 
 	public void printProperties() {
 		System.out.println("Start: " + start);

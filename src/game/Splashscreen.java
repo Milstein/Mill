@@ -105,15 +105,15 @@ public class Splashscreen extends JDialog {
 						setting.setStart(true);
 
 						if (rbtn_player1_human.isSelected()) {
-							setting.setPlayer1(rbtn_player1_human.getName());
+							setting.setPlayer(rbtn_player1_human.getName(), 1);
 						}
 						// else {
 						// setting.setPlayer1(rbtn_player1_computer.getName());
 						// }
 						if (rbtn_player2_human.isSelected()) {
-							setting.setPlayer2(rbtn_player2_human.getName());
+							setting.setPlayer(rbtn_player2_human.getName(), 2);
 						} else {
-							setting.setPlayer2(rbtn_player2_computer.getName());
+							setting.setPlayer(rbtn_player2_computer.getName(), 2);
 						}
 
 						SwingUtilities.invokeLater(new Runnable() {
