@@ -214,7 +214,6 @@ public class NMMPanel extends JPanel {
 				public void mouseClicked(MouseEvent arg0) {
 					boolean automateAI = true;
 					int limitMoves = 0;
-
 					while (automateAI && placedCounter < 18) {
 						if (!deleteFlag) {
 							if (setting.getPlayer1().contains("Computer")) {
@@ -227,7 +226,6 @@ public class NMMPanel extends JPanel {
 								automateAI = false;
 							}
 						}
-
 						if (!deleteFlag
 								&& setting.getPlayer2().contains("Computer")) {
 							// brain.setPiece(nodes, 1);
@@ -242,7 +240,6 @@ public class NMMPanel extends JPanel {
 							if (setting.getPlayer1().contains("Computer")) {
 								if (countPieces(true) <= 3) {
 									System.out.println(countPieces(true));
-
 									// brain.jumpPiece(nodes, 0);
 									// A.I.fly
 									makeAIfly(0);
@@ -328,11 +325,9 @@ public class NMMPanel extends JPanel {
 			System.out.println("Player" + getNode(point).getIsBusy()
 					+ "'s turn.");
 
-			// Players;
-			// if (!validMove) {
 			if (player.getMenHoldInHand() > 0) {
-//				System.out.println("Player " + getNode(point).getIsBusy()
-//						+ " to place a man at point: ");
+				// System.out.println("Player " + getNode(point).getIsBusy()
+				// + " to place a man at point: ");
 				int x_coor = getNode(point).getPosition().x;
 				int y_coor = getNode(point).getPosition().y;
 
@@ -340,7 +335,6 @@ public class NMMPanel extends JPanel {
 				validMove = game.makeAnAction(null, newpt, getNode(point)
 						.getIsBusy() - 1);
 				txtLogArea.append(game.getAction() + "\n");
-
 				if (validMove) {
 					if (turnOfStarter) {
 						whites[whitePointer].setLocation(point);
@@ -424,6 +418,7 @@ public class NMMPanel extends JPanel {
 					System.out.println("From:");
 					int x_1 = 0;
 					int y_1 = 0;
+
 					if (selectedPiece != null) {
 						Node resetNode = getNode(new Point(
 								selectedPiece.getBounds().x,
@@ -446,18 +441,18 @@ public class NMMPanel extends JPanel {
 							icon = createImageIcon("/resources/Black_Stone.png");
 							selectedPiece.setIcon(icon);
 						}
-
 						System.out.println("To:");
 						int x_2 = getNode(point).getPosition().x;
 						int y_2 = getNode(point).getPosition().y;
 						PointGame newpt = new PointGame(x_2, y_2);
 						validMove = game.makeAnAction(new PointGame(x_1, y_1),
 								newpt, getNode(point).getIsBusy() - 1);
+
 						if (validMove) {
 							txtLogArea.append(game.getAction() + "\n");
 							switch (game.getAction()) {
 							case "FLY":
-								if (n.getIsBusy() == 0) {
+								//if (n.getIsBusy() == 0) {
 									selectedPiece.setBounds(x, y, 50, 50);
 									n.setIsBusy(resetNode.getIsBusy());
 									resetNode.setIsBusy(0);
@@ -465,7 +460,7 @@ public class NMMPanel extends JPanel {
 
 									// check mills condition here
 									// deletePiece(referee.checkRules(nodes,whitesTurn));
-								}
+								//}
 								break;
 							case "MOVE":
 								// if (n.getIsBusy() == 0) {
@@ -502,9 +497,8 @@ public class NMMPanel extends JPanel {
 								System.out
 										.println("\nSelect the "
 												+ getNode(point).getIsBusy()
-												+ "Man you want to remove while some NOthing on hand ");
+												+ " Man you want to remove while some NOthing on hand ");
 							}
-
 							whitesTurn = !whitesTurn;
 							blacksTurn = !blacksTurn;
 							if (whitesTurn) {
@@ -518,11 +512,9 @@ public class NMMPanel extends JPanel {
 					}
 				}
 			}
-			// }
 			// reset.
 			validMove = false;
-			// if (game.endOfGame())
-			// break;
+
 		} else {
 			// End of Game
 			if (p1.lose()) {
@@ -533,7 +525,6 @@ public class NMMPanel extends JPanel {
 				txtLogArea.append("White Wins!");
 			}
 		}
-
 	}
 
 	protected void deletePiece(boolean checkRules) {
@@ -820,10 +811,11 @@ public class NMMPanel extends JPanel {
 	}
 
 	public void doSomething(Point point) {
-		if (whitesTurn) {
-			JLabel lblWhite = getLabel(point);
-			if (deleteFlag && whitesTurn) {
-				if (getNode(point).getIsBusy() == 1) {
+		if (!game.endOfGame()) {
+			if (whitesTurn) {
+				JLabel lblWhite = getLabel(point);
+				if (deleteFlag && whitesTurn) {
+					// if (getNode(point).getIsBusy() == 1) {
 					System.out.println("delete Men");
 					deleteFlag = false;
 					getNode(lblWhite.getBounds().getLocation()).setIsBusy(0);
@@ -859,26 +851,26 @@ public class NMMPanel extends JPanel {
 							}
 						}
 					}
-				}
-			} else {
-				if (p1.getMenHoldInHand() == 0) {
-					if (whitesTurn) {
-						if (selectedPiece != null) {
-							ImageIcon iconWhiteSelected = createImageIcon("/resources/White_Stone.png");
+					// }
+				} else {
+					if (p1.getMenHoldInHand() == 0) {
+						if (whitesTurn && lblWhite != null) {
+							if (selectedPiece != null) {
+								ImageIcon iconWhiteSelected = createImageIcon("/resources/White_Stone.png");
+								selectedPiece.setIcon(iconWhiteSelected);
+							}
+							selectedPiece = lblWhite;
+							ImageIcon iconWhiteSelected = createImageIcon("/resources/White_Stone_Selected.png");
 							selectedPiece.setIcon(iconWhiteSelected);
+							selectedPiece.setCursor(Cursor
+									.getPredefinedCursor(Cursor.HAND_CURSOR));
 						}
-						selectedPiece = lblWhite;
-						ImageIcon iconWhiteSelected = createImageIcon("/resources/White_Stone_Selected.png");
-						selectedPiece.setIcon(iconWhiteSelected);
-						selectedPiece.setCursor(Cursor
-								.getPredefinedCursor(Cursor.HAND_CURSOR));
 					}
 				}
-			}
-		} else {
-			JLabel lblBlack = getLabel(point);
-			if (deleteFlag && blacksTurn) {
-				if (getNode(point).getIsBusy() == 2) {
+			} else {
+				JLabel lblBlack = getLabel(point);
+				if (deleteFlag && blacksTurn) {
+					// if (getNode(point).getIsBusy() == 2) {
 					System.out.println("delete Men");
 					deleteFlag = false;
 					getNode(lblBlack.getBounds().getLocation()).setIsBusy(0);
@@ -912,22 +904,32 @@ public class NMMPanel extends JPanel {
 							// brain.movePiece(nodes, 1);
 						}
 					}
-				}
+					// }
 
-			} else {
-				if (p2.getMenHoldInHand() == 0) {
-					if (blacksTurn) {
-						if (selectedPiece != null) {
-							ImageIcon iconBlackSelected = createImageIcon("/resources/Black_Stone.png");
+				} else {
+					if (p2.getMenHoldInHand() == 0) {
+						if (blacksTurn && lblBlack != null) {
+							if (selectedPiece != null) {
+								ImageIcon iconBlackSelected = createImageIcon("/resources/Black_Stone.png");
+								selectedPiece.setIcon(iconBlackSelected);
+							}
+							selectedPiece = lblBlack;
+							ImageIcon iconBlackSelected = createImageIcon("/resources/Black_Stone_Selected.png");
 							selectedPiece.setIcon(iconBlackSelected);
+							selectedPiece.setCursor(Cursor
+									.getPredefinedCursor(Cursor.HAND_CURSOR));
 						}
-						selectedPiece = lblBlack;
-						ImageIcon iconBlackSelected = createImageIcon("/resources/Black_Stone_Selected.png");
-						selectedPiece.setIcon(iconBlackSelected);
-						selectedPiece.setCursor(Cursor
-								.getPredefinedCursor(Cursor.HAND_CURSOR));
 					}
 				}
+			}
+		} else {
+			// End of Game
+			if (p1.lose()) {
+				System.out.println("Black Wins!");
+				txtLogArea.append("Black Wins!");
+			} else {
+				System.out.println("White Wins!");
+				txtLogArea.append("White Wins!");
 			}
 		}
 	}
