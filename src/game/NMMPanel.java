@@ -372,6 +372,10 @@ public class NMMPanel extends JPanel {
 								PointGame pointToRemove = p2.menOnTheBoard.get(0);
 								Node node = getNodeByPointGame(pointToRemove);
 								deleteFlag = true;
+								
+								whitesTurn = true;
+								blacksTurn = false;
+								
 								doSomething(node.location);
 								//--------------------------------------------------------
 							}
@@ -417,6 +421,10 @@ public class NMMPanel extends JPanel {
 								PointGame pointToRemove = p1.menOnTheBoard.get(0);
 								Node node = getNodeByPointGame(pointToRemove);
 								deleteFlag = true;
+								
+								whitesTurn = true;
+								blacksTurn = false;
+								
 								doSomething(node.location);
 								//--------------------------------------------------------
 							}
@@ -789,16 +797,16 @@ public class NMMPanel extends JPanel {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					doSomething(lblWhite.getLocation());
-					if (!deleteFlag) {
-						if (setting.getPlayer(1).contains("Computer")) {
-							if (placedCounter <= 18) {
-								// brain.setPiece(nodes, 1);
-							} else {
-								// brain.movePiece(nodes, 1);
-								System.out.println("seems to work");
-							}
-						}
-					}
+//					if (!deleteFlag) {
+//						if (setting.getPlayer(1).contains("Computer")) {
+//							if (placedCounter <= 18) {
+//								// brain.setPiece(nodes, 1);
+//							} else {
+//								// brain.movePiece(nodes, 1);
+//								System.out.println("seems to work");
+//							}
+//						}
+//					}
 				}
 			});
 			lblWhite.setBounds(space, 25, 50, 50);
@@ -820,17 +828,17 @@ public class NMMPanel extends JPanel {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					doSomething(lblBlack.getLocation());
-					if (!deleteFlag) {
-						if (setting.getPlayer(2).contains("Computer")) {
-							if (placedCounter <= 18) {
-								// brain.setPiece(nodes, 2);
-							} else {
-								// brain.movePiece(nodes, 2);
-								System.out.println("seems to work");
-							}
-
-						}
-					}
+//					if (!deleteFlag) {
+//						if (setting.getPlayer(2).contains("Computer")) {
+//							if (placedCounter <= 18) {
+//								// brain.setPiece(nodes, 2);
+//							} else {
+//								// brain.movePiece(nodes, 2);
+//								System.out.println("seems to work");
+//							}
+//
+//						}
+//					}
 
 				}
 			});
@@ -929,10 +937,12 @@ public class NMMPanel extends JPanel {
 				}
 			} else {
 				JLabel lblBlack = getLabel(point);
+					//System.err.println(point);
 				if (deleteFlag && blacksTurn) {
 					// if (getNode(point).getIsBusy() == 2) {
 					System.out.println("delete Men");
 					deleteFlag = false;
+					
 					getNode(lblBlack.getBounds().getLocation()).setIsBusy(0);
 
 					lblBlack.setVisible(false);
