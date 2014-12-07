@@ -348,15 +348,15 @@ public class NMMPanel extends JPanel {
 						// Check if the new point makes a mill.
 						if (game.hasMills(getNode(point).getIsBusy() - 1, newpt)) {
 							// Check if it is an A.I.
-							// if not: 
+							// if not:
 							if (!setting.getPlayer(1).contains("Computer")) {
 								System.out.println("Player "
 										+ getNode(point).getIsBusy()
 										+ " has a MILL!");
-//								System.out.println("Ask Player "
-//										+ getNode(point).getIsBusy()
-//										+ ": to remove a man of Player "
-//										+ (remove + 1));
+								// System.out.println("Ask Player "
+								// + getNode(point).getIsBusy()
+								// + ": to remove a man of Player "
+								// + (remove + 1));
 								deleteFlag = true;
 								System.out.println("You can remove one from: ");
 								for (PointGame pt : opponent.getMenOnTheBoard()) {
@@ -365,19 +365,21 @@ public class NMMPanel extends JPanel {
 								System.out
 										.println("\nSelect the Black Man you want to remove while some on hand: ");
 							} else {
-								// if it is an A.I.---------------------------------------
+								// if it is an
+								// A.I.---------------------------------------
 								System.out.println("Player "
 										+ getNode(point).getIsBusy()
 										+ " has a MILL!");
-								PointGame pointToRemove = p2.menOnTheBoard.get(0);
+								PointGame pointToRemove = p2.menOnTheBoard
+										.get(0);
 								Node node = getNodeByPointGame(pointToRemove);
 								deleteFlag = true;
-								
+
 								whitesTurn = true;
 								blacksTurn = false;
-								
+
 								doSomething(node.location);
-								//--------------------------------------------------------
+								// --------------------------------------------------------
 							}
 
 							// deletePiece(referee.checkRules(nodes,
@@ -397,15 +399,15 @@ public class NMMPanel extends JPanel {
 						// Check if the new point makes a mill.
 						if (game.hasMills(getNode(point).getIsBusy() - 1, newpt)) {
 							// Check if it is an A.I.
-							// if not: 
+							// if not:
 							if (!setting.getPlayer(2).contains("Computer")) {
 								System.out.println("Player "
 										+ getNode(point).getIsBusy()
 										+ " has a MILL!");
-//								System.out.println("Ask Player "
-//										+ getNode(point).getIsBusy()
-//										+ ": to remove a man of Player "
-//										+ (remove + 1));
+								// System.out.println("Ask Player "
+								// + getNode(point).getIsBusy()
+								// + ": to remove a man of Player "
+								// + (remove + 1));
 								deleteFlag = true;
 								System.out.println("You can remove one from: ");
 								for (PointGame pt : opponent.getMenOnTheBoard()) {
@@ -414,19 +416,21 @@ public class NMMPanel extends JPanel {
 								System.out
 										.println("\nSelect the Black Man you want to remove while some on hand: ");
 							} else {
-								// if it is an A.I.---------------------------------------
+								// if it is an
+								// A.I.---------------------------------------
 								System.out.println("Player "
 										+ getNode(point).getIsBusy()
 										+ " has a MILL!");
-								PointGame pointToRemove = p1.menOnTheBoard.get(0);
+								PointGame pointToRemove = p1.menOnTheBoard
+										.get(0);
 								Node node = getNodeByPointGame(pointToRemove);
 								deleteFlag = true;
-								
+
 								whitesTurn = true;
 								blacksTurn = false;
-								
+
 								doSomething(node.location);
-								//--------------------------------------------------------
+								// --------------------------------------------------------
 							}
 						}
 						whitesTurn = true;
@@ -485,15 +489,15 @@ public class NMMPanel extends JPanel {
 							txtLogArea.append(game.getAction() + "\n");
 							switch (game.getAction()) {
 							case "FLY":
-								//if (n.getIsBusy() == 0) {
-									selectedPiece.setBounds(x, y, 50, 50);
-									n.setIsBusy(resetNode.getIsBusy());
-									resetNode.setIsBusy(0);
-									selectedPiece = null;
+								// if (n.getIsBusy() == 0) {
+								selectedPiece.setBounds(x, y, 50, 50);
+								n.setIsBusy(resetNode.getIsBusy());
+								resetNode.setIsBusy(0);
+								selectedPiece = null;
 
-									// check mills condition here
-									// deletePiece(referee.checkRules(nodes,whitesTurn));
-								//}
+								// check mills condition here
+								// deletePiece(referee.checkRules(nodes,whitesTurn));
+								// }
 								break;
 							case "MOVE":
 								// if (n.getIsBusy() == 0) {
@@ -547,6 +551,15 @@ public class NMMPanel extends JPanel {
 			}
 			// reset.
 			validMove = false;
+			if (game.endOfGame()) {
+				if (p1.lose()) {
+					System.out.println("Black Wins!");
+					txtLogArea.append("Black Wins!");
+				} else {
+					System.out.println("White Wins!");
+					txtLogArea.append("White Wins!");
+				}
+			}
 
 		} else {
 			// End of Game
@@ -573,24 +586,25 @@ public class NMMPanel extends JPanel {
 
 	/**
 	 * Make an A.I. place by calling setPieces().
+	 * 
 	 * @param player
 	 * @return
 	 */
-	public void makeAIplace(int player) {	
+	public void makeAIplace(int player) {
 		if (!game.endOfGame()) {
-			Player p = player==0 ? p1 : p2;
+			Player p = player == 0 ? p1 : p2;
 			PointGame pointToPlace = null;
 			for (PointGame pt : Board.validPoints) {
-				if(!Board.isOccupied(pt)) {
+				if (!Board.isOccupied(pt)) {
 					pointToPlace = pt;
 					break;
 				}
 			}
-//			System.out.println(pointToPlace);
+			// System.out.println(pointToPlace);
 			Node node = getNodeByPointGame(pointToPlace);
-			
+
 			setPieces(node.location);
-			
+
 		} else {
 			// End Of Game
 			if (p1.lose()) {
@@ -613,7 +627,7 @@ public class NMMPanel extends JPanel {
 	 * @return
 	 */
 	public void makeAImove(int player) {
-		
+
 	}
 
 	/**
@@ -748,9 +762,10 @@ public class NMMPanel extends JPanel {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Get node by PointGame. E.g. (1,1)
+	 * 
 	 * @param gpt
 	 * @return
 	 */
@@ -797,16 +812,16 @@ public class NMMPanel extends JPanel {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					doSomething(lblWhite.getLocation());
-//					if (!deleteFlag) {
-//						if (setting.getPlayer(1).contains("Computer")) {
-//							if (placedCounter <= 18) {
-//								// brain.setPiece(nodes, 1);
-//							} else {
-//								// brain.movePiece(nodes, 1);
-//								System.out.println("seems to work");
-//							}
-//						}
-//					}
+					// if (!deleteFlag) {
+					// if (setting.getPlayer(1).contains("Computer")) {
+					// if (placedCounter <= 18) {
+					// // brain.setPiece(nodes, 1);
+					// } else {
+					// // brain.movePiece(nodes, 1);
+					// System.out.println("seems to work");
+					// }
+					// }
+					// }
 				}
 			});
 			lblWhite.setBounds(space, 25, 50, 50);
@@ -828,17 +843,17 @@ public class NMMPanel extends JPanel {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					doSomething(lblBlack.getLocation());
-//					if (!deleteFlag) {
-//						if (setting.getPlayer(2).contains("Computer")) {
-//							if (placedCounter <= 18) {
-//								// brain.setPiece(nodes, 2);
-//							} else {
-//								// brain.movePiece(nodes, 2);
-//								System.out.println("seems to work");
-//							}
-//
-//						}
-//					}
+					// if (!deleteFlag) {
+					// if (setting.getPlayer(2).contains("Computer")) {
+					// if (placedCounter <= 18) {
+					// // brain.setPiece(nodes, 2);
+					// } else {
+					// // brain.movePiece(nodes, 2);
+					// System.out.println("seems to work");
+					// }
+					//
+					// }
+					// }
 
 				}
 			});
@@ -937,12 +952,12 @@ public class NMMPanel extends JPanel {
 				}
 			} else {
 				JLabel lblBlack = getLabel(point);
-					//System.err.println(point);
+				// System.err.println(point);
 				if (deleteFlag && blacksTurn) {
 					// if (getNode(point).getIsBusy() == 2) {
 					System.out.println("delete Men");
 					deleteFlag = false;
-					
+
 					getNode(lblBlack.getBounds().getLocation()).setIsBusy(0);
 
 					lblBlack.setVisible(false);
@@ -990,6 +1005,15 @@ public class NMMPanel extends JPanel {
 									.getPredefinedCursor(Cursor.HAND_CURSOR));
 						}
 					}
+				}
+			}
+			if (game.endOfGame()) {
+				if (p1.lose()) {
+					System.out.println("Black Wins!");
+					txtLogArea.append("Black Wins!");
+				} else {
+					System.out.println("White Wins!");
+					txtLogArea.append("White Wins!");
 				}
 			}
 		} else {
