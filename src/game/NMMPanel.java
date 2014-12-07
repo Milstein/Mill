@@ -469,7 +469,6 @@ public class NMMPanel extends JPanel {
 								selectedPiece.getBounds().y));
 						int x = point.x;
 						int y = point.y;
-						Node n = getNode(new Point(x, y));
 						System.out
 								.println("------Selected FROM Point was: ------");
 						System.out.println(resetNode.getId());
@@ -498,7 +497,6 @@ public class NMMPanel extends JPanel {
 							case "FLY":
 								// if (n.getIsBusy() == 0) {
 								selectedPiece.setBounds(x, y, 50, 50);
-								n.setIsBusy(resetNode.getIsBusy());
 								resetNode.setIsBusy(0);
 								selectedPiece = null;
 
@@ -509,7 +507,6 @@ public class NMMPanel extends JPanel {
 							case "MOVE":
 								// if (n.getIsBusy() == 0) {
 								selectedPiece.setBounds(x, y, 50, 50);
-								n.setIsBusy(resetNode.getIsBusy());
 								resetNode.setIsBusy(0);
 								selectedPiece = null;
 
@@ -917,11 +914,7 @@ public class NMMPanel extends JPanel {
 				JLabel lblWhite = getLabel(point);
 				if (deleteFlag && whitesTurn && lblWhite != null) {
 					// if (getNode(point).getIsBusy() == 1) {
-					System.out.println("delete Men");
-					deleteFlag = false;
-					getNode(lblWhite.getBounds().getLocation()).setIsBusy(0);
 
-					lblWhite.setVisible(false);
 					// for (Point p : placedPieces) {
 					// if (p.x == lblWhite.getBounds().x
 					// && p.y == lblWhite.getBounds().y) {
@@ -934,6 +927,12 @@ public class NMMPanel extends JPanel {
 					PointGame pt = new PointGame(x_remove, y_remove);
 					if (p1.getMenOnTheBoard().contains(pt)) {
 						game.removeAMan(0, pt);
+						System.out.println("delete Men White");
+						deleteFlag = false;
+						getNode(lblWhite.getBounds().getLocation())
+								.setIsBusy(0);
+
+						lblWhite.setVisible(false);
 					} else {
 						System.err.println("Invalid point to remove!");
 					}
@@ -973,12 +972,6 @@ public class NMMPanel extends JPanel {
 				// System.err.println(point);
 				if (deleteFlag && blacksTurn && lblBlack != null) {
 					// if (getNode(point).getIsBusy() == 2) {
-					System.out.println("delete Men");
-					deleteFlag = false;
-
-					getNode(lblBlack.getBounds().getLocation()).setIsBusy(0);
-
-					lblBlack.setVisible(false);
 					// for (Point p : placedPieces) {
 					// if (p.x == lblBlack.getBounds().x
 					// && p.y == lblBlack.getBounds().y) {
@@ -991,6 +984,13 @@ public class NMMPanel extends JPanel {
 					PointGame pt = new PointGame(x_remove, y_remove);
 					if (p2.getMenOnTheBoard().contains(pt)) {
 						game.removeAMan(1, pt);
+						System.out.println("delete Men Black");
+						deleteFlag = false;
+
+						getNode(lblBlack.getBounds().getLocation())
+								.setIsBusy(0);
+
+						lblBlack.setVisible(false);
 					} else {
 						System.err.println("Invalid point to remove!");
 					}
