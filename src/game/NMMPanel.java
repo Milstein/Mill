@@ -633,14 +633,14 @@ public class NMMPanel extends JPanel {
 	}
 
 	/**
-	 * Make an A.I. place by calling setPieces().
+	 * Make an A.I. place by calling setPieces(). 0/1
 	 * 
 	 * @param player
 	 * @return
 	 */
 	public void makeAIplace(int player) {
 		if (!game.endOfGame()) {
-			Player p = player == 0 ? p1 : p2;
+			//Player p = player == 0 ? p1 : p2;
 			PointGame pointToPlace = null;
 			for (PointGame pt : Board.validPoints) {
 				if (!Board.isOccupied(pt)) {
@@ -976,15 +976,24 @@ public class NMMPanel extends JPanel {
 					// }
 					// }
 					if (setting.getPlayer(2).contains("Computer")) {
-						if (countPieces(false) <= 3 && placedCounter > 17) {
-							System.out.println(countPieces(false));
-							// brain.jumpPiece(nodes, 2);
-						} else {
-							if (placedCounter > 17) {
-								System.out.println(countPieces(false));
-								// brain.movePiece(nodes, 2);
-							}
-						}
+
+						// if (countPieces(false) <= 3 && placedCounter > 17) {
+						// System.out.println(countPieces(false));
+						// // brain.jumpPiece(nodes, 2);
+						// } else {
+						// if (placedCounter > 17) {
+						// System.out.println(countPieces(false));
+						// // brain.movePiece(nodes, 2);
+						// }
+						// }
+							// Place
+//						if (p2.getMenHoldInHand()>0) {
+//							makeAIplace(1);
+////	
+////							doSomething(node.location);
+//						} else {
+//							// Move
+//						}
 					}
 					// }
 				} else {
@@ -1036,13 +1045,20 @@ public class NMMPanel extends JPanel {
 					// break;
 					// }
 					// }
-					if (setting.getPlayer(1).contains("Computer")) {
-						if (countPieces(false) <= 3 && placedCounter > 17) {
-							System.out.println(countPieces(false));
-							// brain.jumpPiece(nodes, 1);
+					if (setting.getPlayer(2).contains("Computer")) {
+//						if (countPieces(false) <= 3 && placedCounter > 17) {
+//							System.out.println(countPieces(false));
+//							// brain.jumpPiece(nodes, 1);
+//						} else {
+//							System.out.println(countPieces(false));
+//							// brain.movePiece(nodes, 1);
+//						}
+						if (p2.getMenHoldInHand()>0) {
+							makeAIplace(1);
+	//
+	//						doSomething(node.location);
 						} else {
-							System.out.println(countPieces(false));
-							// brain.movePiece(nodes, 1);
+							// TODO: Move
 						}
 					}
 					// }
