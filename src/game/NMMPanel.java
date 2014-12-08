@@ -641,11 +641,7 @@ public class NMMPanel extends JPanel {
 	 */
 	public void makeAIplace(int player) {
 		if (!game.endOfGame()) {
-<<<<<<< .mine
 			Player p = player == 0 ? p1 : p2;
-=======
-			// Player p = player == 0 ? p1 : p2;
->>>>>>> .theirs
 			PointGame pointToPlace = null;
 			pointToPlace = p.findAStupidPlace();
 			// System.out.println(pointToPlace);
