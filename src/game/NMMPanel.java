@@ -184,9 +184,9 @@ public class NMMPanel extends JPanel {
 		scrollPane.setViewportView(txtLogArea);
 
 		if (turnOfStarter) {
-			txtLogArea.append("Whites turn!\n");
+			txtLogArea.append("Whites turn!");
 		} else {
-			txtLogArea.append("Blacks turn!\n");
+			txtLogArea.append("Blacks turn!");
 		}
 		frame.setVisible(true);
 	}
@@ -229,8 +229,10 @@ public class NMMPanel extends JPanel {
 								automateAI = false;
 							}
 						} else {
-							System.out
-									.println("Select the Man to delete not click on Board!");
+							// System.out
+							// .println("Select the Man to delete not click on Board!");
+							txtLogArea
+									.append("\nSelect the Man to delete not click on Board!");
 
 							automateAI = false;
 						}
@@ -263,6 +265,13 @@ public class NMMPanel extends JPanel {
 
 								automateAI = false;
 							}
+						} else {
+							// System.out
+							// .println("Select the Man to delete not click on Board!");
+							txtLogArea
+									.append("\nSelect the Man to delete not click on Board!");
+
+							automateAI = false;
 						}
 
 						if (!deleteFlag
@@ -359,7 +368,10 @@ public class NMMPanel extends JPanel {
 							// Check if it is an A.I.
 							// if not:
 							if (!setting.getPlayer(1).contains("Computer")) {
-								System.out.println("Player "
+								// System.out.println("Player "
+								// + getNode(point).getIsBusy()
+								// + " has a MILL!");
+								txtLogArea.append("Player "
 										+ getNode(point).getIsBusy()
 										+ " has a MILL!");
 								// System.out.println("Ask Player "
@@ -367,12 +379,17 @@ public class NMMPanel extends JPanel {
 								// + ": to remove a man of Player "
 								// + (remove + 1));
 								deleteFlag = true;
-								System.out.println("You can remove one from: ");
+								// System.out.println("You can remove one from: ");
+								txtLogArea
+										.append("\nYou can remove one from: ");
 								for (PointGame pt : opponent.getMenOnTheBoard()) {
-									System.out.print(pt);
+									// System.out.print(pt);
+									txtLogArea.append(pt.toString());
 								}
-								System.out
-										.println("\nSelect the player2 Man you want to remove while some on hand: ");
+								// System.out
+								// .println("\nSelect the player2 Man you want to remove while some on hand: ");
+								// txtLogArea
+								// .append("\nSelect the player2 Man you want to remove while some on hand: ");
 							} else {
 								// if it is an
 								// A.I.---------------------------------------
@@ -383,9 +400,6 @@ public class NMMPanel extends JPanel {
 										.get(0);
 								Node node = getNodeByPointGame(pointToRemove);
 								deleteFlag = true;
-
-								whitesTurn = true;
-								blacksTurn = false;
 
 								doSomething(node.location);
 								// --------------------------------------------------------
@@ -410,20 +424,29 @@ public class NMMPanel extends JPanel {
 							// Check if it is an A.I.
 							// if not:
 							if (!setting.getPlayer(2).contains("Computer")) {
-								System.out.println("Player "
+								// System.out.println("Player "+
+								// getNode(point).getIsBusy()+ " has a MILL!");
+
+								txtLogArea.append("Player "
 										+ getNode(point).getIsBusy()
 										+ " has a MILL!");
-								// System.out.println("Ask Player "
+								// System.out.println("Ask Player "+
+								// getNode(point).getIsBusy()+
+								// ": to remove a man of Player "+ (remove +
+								// 1));
+								// txtLogArea.append("Ask Player "
 								// + getNode(point).getIsBusy()
 								// + ": to remove a man of Player "
 								// + (remove + 1));
+
 								deleteFlag = true;
-								System.out.println("You can remove one from: ");
+								// System.out.println("You can remove one from: ");
+								txtLogArea
+										.append("\nYou can remove one from: ");
 								for (PointGame pt : opponent.getMenOnTheBoard()) {
-									System.out.print(pt);
+									// System.out.print(pt);
+									txtLogArea.append(pt.toString());
 								}
-								System.out
-										.println("\nSelect the player1 Man you want to remove while some on hand: ");
 							} else {
 								// if it is an
 								// A.I.---------------------------------------
@@ -446,10 +469,10 @@ public class NMMPanel extends JPanel {
 						blacksTurn = false;
 					}
 
-					if (whitesTurn) {
-						txtLogArea.append("Whites turn!\n");
-					} else {
-						txtLogArea.append("Blacks turn!\n");
+					if (whitesTurn && !deleteFlag) {
+						txtLogArea.append("Whites turn!");
+					} else if (blacksTurn && !deleteFlag) {
+						txtLogArea.append("Blacks turn!");
 					}
 					turnOfStarter = !turnOfStarter;
 				}
@@ -487,6 +510,7 @@ public class NMMPanel extends JPanel {
 						validMove = game.makeAnAction(new PointGame(x_1, y_1),
 								newpt, getNode(point).getIsBusy() - 1);
 
+						txtLogArea.append(game.getAction());
 						if (validMove) {
 							ImageIcon icon = null;
 							if (whitesTurn) {
@@ -496,7 +520,6 @@ public class NMMPanel extends JPanel {
 								icon = createImageIcon("/resources/Black_Stone.png");
 								selectedPiece.setIcon(icon);
 							}
-							txtLogArea.append(game.getAction() + "\n");
 							switch (game.getAction()) {
 							case "FLY":
 								// if (n.getIsBusy() == 0) {
@@ -518,8 +541,6 @@ public class NMMPanel extends JPanel {
 								// deletePiece(referee.checkRules(nodes,whitesTurn));
 								// }
 								break;
-							case "REMOVE":
-								System.out.println("Remove me");
 
 							default:
 								break;
@@ -527,29 +548,39 @@ public class NMMPanel extends JPanel {
 
 							if (game.hasMills(getNode(point).getIsBusy() - 1,
 									newpt)) {
-								System.out.println("Player "
+								// System.out.println("Player "+
+								// getNode(point).getIsBusy()+ " has a MILL!");
+								txtLogArea.append("\nPlayer "
 										+ getNode(point).getIsBusy()
 										+ " has a MILL!");
-								System.out.println("Ask Player "
-										+ getNode(point).getIsBusy()
-										+ ": to remove a man of Player "
-										+ (remove + 1));
+								// System.out.println("Ask Player "+
+								// getNode(point).getIsBusy()+
+								// ": to remove a man of Player "+ (remove +
+								// 1));
+								// txtLogArea.append("Ask Player "
+								// + getNode(point).getIsBusy()
+								// + ": to remove a man of Player "
+								// + (remove + 1));
 								deleteFlag = true;
-								System.out.println("You can remove one from: ");
+								// System.out.println("You can remove one from: ");
+								txtLogArea
+										.append("\nYou can remove one from: ");
 								for (PointGame pt : opponent.getMenOnTheBoard()) {
-									System.out.print(pt);
+									// System.out.print(pt);
+									txtLogArea.append(pt.toString());
 								}
-								System.out
-										.println("\nSelect the "
-												+ getNode(point).getIsBusy()
-												+ " Man you want to remove while some NOthing on hand ");
+								// System.out
+								// .println("\nSelect the "
+								// + getNode(point).getIsBusy()
+								// +
+								// " Man you want to remove while some NOthing on hand ");
 							}
 							whitesTurn = !whitesTurn;
 							blacksTurn = !blacksTurn;
-							if (whitesTurn) {
-								txtLogArea.append("Whites turn!\n");
-							} else {
-								txtLogArea.append("Blacks turn!\n");
+							if (whitesTurn && !deleteFlag) {
+								txtLogArea.append("\nWhites turn!");
+							} else if (blacksTurn && !deleteFlag) {
+								txtLogArea.append("\nBlacks turn!");
 							}
 							turnOfStarter = !turnOfStarter;
 
@@ -566,12 +597,12 @@ public class NMMPanel extends JPanel {
 						JOptionPane.showMessageDialog(null,
 								"End of game: Black wins the game!");
 						System.out.println("Black Wins!");
-						txtLogArea.append("Black Wins!");
+						txtLogArea.append("\nBlack Wins!");
 					} else {
 						JOptionPane.showMessageDialog(null,
 								"End of game: White wins the game!");
 						System.out.println("White Wins!");
-						txtLogArea.append("White Wins!");
+						txtLogArea.append("\nWhite Wins!");
 					}
 				}
 			}
@@ -582,12 +613,12 @@ public class NMMPanel extends JPanel {
 				JOptionPane.showMessageDialog(null,
 						"End of game: Black wins the game!");
 				System.out.println("Black Wins!");
-				txtLogArea.append("Black Wins!");
+				txtLogArea.append("\nBlack Wins!");
 			} else {
 				JOptionPane.showMessageDialog(null,
 						"End of game: White wins the game!");
 				System.out.println("White Wins!");
-				txtLogArea.append("White Wins!");
+				txtLogArea.append("\nWhite Wins!");
 			}
 		}
 	}
@@ -623,10 +654,10 @@ public class NMMPanel extends JPanel {
 			// End Of Game
 			if (p1.lose()) {
 				System.out.println("Black Wins!");
-				txtLogArea.append("Black Wins!");
+				txtLogArea.append("\nBlack Wins!");
 			} else {
 				System.out.println("White Wins!");
-				txtLogArea.append("White Wins!");
+				txtLogArea.append("\nWhite Wins!");
 			}
 		}
 	}
@@ -1040,7 +1071,7 @@ public class NMMPanel extends JPanel {
 					PointGame pt = new PointGame(x_remove, y_remove);
 					if (p1.getMenOnTheBoard().contains(pt)) {
 						game.removeAMan(0, pt);
-						System.out.println("delete Men White");
+						txtLogArea.append("\nDeleted White Man @ " + pt);
 						deleteFlag = false;
 						getNode(lblWhite.getBounds().getLocation())
 								.setIsBusy(0);
@@ -1048,7 +1079,8 @@ public class NMMPanel extends JPanel {
 						lblWhite.setVisible(false);
 						lblWhite.setLocation(0, 0);
 					} else {
-						System.err.println("Invalid point to remove!");
+						// System.err.println("Invalid point to remove!");
+						txtLogArea.append("Invalid point to remove!");
 					}
 
 					// break;
@@ -1107,7 +1139,8 @@ public class NMMPanel extends JPanel {
 					PointGame pt = new PointGame(x_remove, y_remove);
 					if (p2.getMenOnTheBoard().contains(pt)) {
 						game.removeAMan(1, pt);
-						System.out.println("delete Men Black");
+						// System.out.println("delete Men Black");
+						txtLogArea.append("\nDeleted Black Man @ " + pt);
 						deleteFlag = false;
 
 						getNode(lblBlack.getBounds().getLocation())
@@ -1116,7 +1149,8 @@ public class NMMPanel extends JPanel {
 						lblBlack.setVisible(false);
 						lblBlack.setLocation(0, 0);
 					} else {
-						System.err.println("Invalid point to remove!");
+						// System.err.println("Invalid point to remove!");
+						txtLogArea.append("Invalid point to remove!");
 					}
 
 					// break;
@@ -1160,13 +1194,13 @@ public class NMMPanel extends JPanel {
 				if (p1.lose()) {
 					JOptionPane.showMessageDialog(null,
 							"End of game: Black wins the game!");
-					System.out.println("Black Wins!");
-					txtLogArea.append("Black Wins!");
+					// System.out.println("Black Wins!");
+					txtLogArea.append("\nBlack Wins!");
 				} else {
 					JOptionPane.showMessageDialog(null,
 							"End of game: White wins the game!");
-					System.out.println("White Wins!");
-					txtLogArea.append("White Wins!");
+					// System.out.println("White Wins!");
+					txtLogArea.append("\nWhite Wins!");
 				}
 			}
 		} else {
@@ -1175,13 +1209,13 @@ public class NMMPanel extends JPanel {
 				if (p1.lose()) {
 					JOptionPane.showMessageDialog(null,
 							"End of game: Black wins the game!");
-					System.out.println("Black Wins!");
-					txtLogArea.append("Black Wins!");
+					// System.out.println("Black Wins!");
+					txtLogArea.append("\nBlack Wins!");
 				} else {
 					JOptionPane.showMessageDialog(null,
 							"End of game: White wins the game!");
-					System.out.println("White Wins!");
-					txtLogArea.append("White Wins!");
+					// System.out.println("White Wins!");
+					txtLogArea.append("\nWhite Wins!");
 				}
 			}
 		}
