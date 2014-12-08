@@ -663,11 +663,7 @@ public class NMMPanel extends JPanel {
 	}
 
 	/**
-	 * // a.i. Return an array of points. // Return an array of 3 points: [pt1,
-	 * pt2, null]: Player2 moved a man from pt1 to pt2, no mills formed. //
-	 * Return an array of 3 points: [null, pt2, pt3]: Player2 moved a man from
-	 * pt1 to pt2, form a mill and remove pt3 from Player1.
-	 * 
+	 * Make an A.I. move.
 	 * @param player
 	 * @return
 	 */
@@ -693,13 +689,10 @@ public class NMMPanel extends JPanel {
 			int x_1 = 0;
 			int y_1 = 0;
 
-			Node resetNode = getNode(new Point(
-					selectedPiece.getBounds().x,
-					selectedPiece.getBounds().y));
 			int x = nodeTo.location.x;
 			int y = nodeTo.location.y;
 			System.out.println("------Selected FROM Point was: ------");
-			System.out.println(resetNode.getId());
+			System.out.println(nodeFrom.getId());
 
 //					x_1 = resetNode.getPosition().x;
 //					y_1 = resetNode.getPosition().y;
