@@ -350,7 +350,7 @@ public class NMMPanel extends JPanel {
 				PointGame newpt = new PointGame(x_coor, y_coor);
 				validMove = game.makeAnAction(null, newpt, getNode(point)
 						.getIsBusy() - 1);
-				txtLogArea.append(game.getAction() + "\n");
+				txtLogArea.append("\t" + game.getAction() + "\n");
 				if (validMove) {
 					if (turnOfStarter) {
 						whites[whitePointer].setLocation(point);
@@ -499,16 +499,17 @@ public class NMMPanel extends JPanel {
 						x_1 = resetNode.getPosition().x;
 						y_1 = resetNode.getPosition().y;
 
-						System.out.println("To:");
+						System.out
+								.println("------Selected TO Point was: ------");
 						int x_2 = getNode(point).getPosition().x;
 						int y_2 = getNode(point).getPosition().y;
 						PointGame newpt = new PointGame(x_2, y_2);
-						System.out.println(x_2 + ", " + y_2);
+						System.out.println(x_2 + "," + y_2);
 
 						validMove = game.makeAnAction(new PointGame(x_1, y_1),
 								newpt, getNode(point).getIsBusy() - 1);
 
-						txtLogArea.append(game.getAction());
+						txtLogArea.append("\t" + game.getAction());
 						if (validMove) {
 							ImageIcon icon = null;
 							if (whitesTurn) {
@@ -640,7 +641,7 @@ public class NMMPanel extends JPanel {
 	 */
 	public void makeAIplace(int player) {
 		if (!game.endOfGame()) {
-			//Player p = player == 0 ? p1 : p2;
+			// Player p = player == 0 ? p1 : p2;
 			PointGame pointToPlace = null;
 			for (PointGame pt : Board.validPoints) {
 				if (!Board.isOccupied(pt)) {
@@ -986,14 +987,14 @@ public class NMMPanel extends JPanel {
 						// // brain.movePiece(nodes, 2);
 						// }
 						// }
-							// Place
-//						if (p2.getMenHoldInHand()>0) {
-//							makeAIplace(1);
-////	
-////							doSomething(node.location);
-//						} else {
-//							// Move
-//						}
+						// Place
+						// if (p2.getMenHoldInHand()>0) {
+						// makeAIplace(1);
+						// //
+						// // doSomething(node.location);
+						// } else {
+						// // Move
+						// }
 					}
 					// }
 				} else {
@@ -1046,17 +1047,17 @@ public class NMMPanel extends JPanel {
 					// }
 					// }
 					if (setting.getPlayer(2).contains("Computer")) {
-//						if (countPieces(false) <= 3 && placedCounter > 17) {
-//							System.out.println(countPieces(false));
-//							// brain.jumpPiece(nodes, 1);
-//						} else {
-//							System.out.println(countPieces(false));
-//							// brain.movePiece(nodes, 1);
-//						}
-						if (p2.getMenHoldInHand()>0) {
+						// if (countPieces(false) <= 3 && placedCounter > 17) {
+						// System.out.println(countPieces(false));
+						// // brain.jumpPiece(nodes, 1);
+						// } else {
+						// System.out.println(countPieces(false));
+						// // brain.movePiece(nodes, 1);
+						// }
+						if (p2.getMenHoldInHand() > 0) {
 							makeAIplace(1);
-	//
-	//						doSomething(node.location);
+							//
+							// doSomething(node.location);
 						} else {
 							// TODO: Move
 						}
