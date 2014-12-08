@@ -49,16 +49,13 @@ public class NMMPanel extends JPanel {
 
 	private Node[] nodes = new Node[24];
 
-	private NMMPanel parentBoard;
-
 	private boolean turnOfStarter = true;
-	private ArrayList<Point> placedPieces = new ArrayList<Point>();
+
 	private int placedCounter = 0;
-	// private static Splashscreen splash;
 	private JLabel selectedPiece;
 	private boolean deleteFlag = false;
 
-	private static Settings setting;
+	private Settings setting;
 
 	private int whitePointer = 0;
 	private int blackPointer = 0;
@@ -71,6 +68,7 @@ public class NMMPanel extends JPanel {
 
 	private ArrayList<Node> whiteMills = new ArrayList<Node>();
 	private ArrayList<Node> blackMills = new ArrayList<Node>();
+	private ArrayList<Point> placedPieces = new ArrayList<Point>();
 
 	private Board game = null;
 	private Player p1 = null;
