@@ -34,7 +34,7 @@ public class NMMPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JFrame frame;
+	public JFrame frame;
 	private int appWidth = 735;
 	private int appHeigth = 835;
 
@@ -1173,6 +1173,7 @@ public class NMMPanel extends JPanel {
 	 * To show on popup for new game options
 	 */
 	private void startNewGame() {
+		frame.setVisible(false);
 		splash = new Splashscreen();
 		splash.setVisible(true);
 
