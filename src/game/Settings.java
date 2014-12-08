@@ -21,7 +21,7 @@ public class Settings {
 		if(i==2)
 			this.player2 = player;
 	}
-
+	
 	public String getPlayer(int i) {
 		if(i==1)
 			return player1;

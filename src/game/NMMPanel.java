@@ -246,17 +246,17 @@ public class NMMPanel extends JPanel {
 						limitMoves++;
 						if (!deleteFlag) {
 							if (setting.getPlayer(1).contains("Computer")) {
-								if (countPieces(true) <= 3) {
+								if (p1.menOnTheBoard.size() <= 3) {
 									System.out.println(countPieces(true));
 									// brain.jumpPiece(nodes, 0);
 									// A.I.fly // TODO
-									makeAIfly(0);
+									makeAImove(0, true);
 								} else {
 									System.out.println(countPieces(true));
 
 									// brain.movePiece(nodes, 0);
 									// A.I.move // TODO
-									makeAImove(0);
+									makeAImove(0, false);
 								}
 							} else {
 								setPieces(interactionFields.getLocation());
@@ -274,17 +274,17 @@ public class NMMPanel extends JPanel {
 
 						if (!deleteFlag
 								&& setting.getPlayer(2).contains("Computer")) {
-							if (countPieces(false) <= 3) {
+							if (p2.menOnTheBoard.size() <= 3) {
 								System.out.println(countPieces(false));
 								// brain.jumpPiece(nodes, 1);
 								// A.I.fly
-								makeAIfly(1);
+								makeAImove(1, true);
 							} else {
 								System.out.println(countPieces(false));
 
 								// brain.movePiece(nodes, 1);
 								// A.I.move
-								makeAImove(1);
+								makeAImove(1, false);
 							}
 						}
 					}
@@ -389,15 +389,18 @@ public class NMMPanel extends JPanel {
 								// txtLogArea
 								// .append("\nSelect the player2 Man you want to remove while some on hand: ");
 							} else {
-								// if it is an
-								// A.I.---------------------------------------
+								// if player 1 it is an
+								// A.I.---------------------------
 								System.out.println("Player "
 										+ getNode(point).getIsBusy()
 										+ " has a MILL!");
 								PointGame pointToRemove = p2.makeStupidRemove();
 								Node node = getNodeByPointGame(pointToRemove);
-								
+
 								deleteFlag = true;
+
+								whitesTurn = false;
+								blacksTurn = true;
 
 								doSomething(node.location);
 								// --------------------------------------------------------
@@ -547,32 +550,54 @@ public class NMMPanel extends JPanel {
 
 							if (game.hasMills(getNode(point).getIsBusy() - 1,
 									newpt)) {
-								// System.out.println("Player "+
-								// getNode(point).getIsBusy()+ " has a MILL!");
-								txtLogArea.append("\nPlayer "
-										+ getNode(point).getIsBusy()
-										+ " has a MILL!");
-								// System.out.println("Ask Player "+
-								// getNode(point).getIsBusy()+
-								// ": to remove a man of Player "+ (remove +
-								// 1));
-								// txtLogArea.append("Ask Player "
-								// + getNode(point).getIsBusy()
-								// + ": to remove a man of Player "
-								// + (remove + 1));
-								deleteFlag = true;
-								// System.out.println("You can remove one from: ");
-								txtLogArea
-										.append("\nYou can remove one from: ");
-								for (PointGame pt : opponent.getMenOnTheBoard()) {
-									// System.out.print(pt);
-									txtLogArea.append(pt.toString());
+								if (!setting.getPlayer(remove + 1).contains(
+										"Computer")) {
+									// System.out.println("Player "+
+									// getNode(point).getIsBusy()+
+									// " has a MILL!");
+									txtLogArea.append("\nPlayer "
+											+ getNode(point).getIsBusy()
+											+ " has a MILL!");
+									// System.out.println("Ask Player "+
+									// getNode(point).getIsBusy()+
+									// ": to remove a man of Player "+ (remove +
+									// 1));
+									// txtLogArea.append("Ask Player "
+									// + getNode(point).getIsBusy()
+									// + ": to remove a man of Player "
+									// + (remove + 1));
+									deleteFlag = true;
+
+									// System.out.println("You can remove one from: ");
+									txtLogArea
+											.append("\nYou can remove one from: ");
+									for (PointGame pt : opponent
+											.getMenOnTheBoard()) {
+										// System.out.print(pt);
+										txtLogArea.append(pt.toString());
+									}
+									// System.out
+									// .println("\nSelect the "
+									// + getNode(point).getIsBusy()
+									// +
+									// " Man you want to remove while some NOthing on hand ");
+								} else {
+									// if it is an
+									// A.I.---------------------------------------
+									System.out.println("Player "
+											+ getNode(point).getIsBusy()
+											+ " has a MILL!");
+									PointGame pointToRemove = opponent.menOnTheBoard
+											.get(0);
+									Node node = getNodeByPointGame(pointToRemove);
+									deleteFlag = true;
+
+									whitesTurn = true;
+									blacksTurn = false;
+
+									doSomething(node.location);
+									// --------------------------------------------------------
 								}
-								// System.out
-								// .println("\nSelect the "
-								// + getNode(point).getIsBusy()
-								// +
-								// " Man you want to remove while some NOthing on hand ");
 							}
 							whitesTurn = !whitesTurn;
 							blacksTurn = !blacksTurn;
@@ -662,126 +687,132 @@ public class NMMPanel extends JPanel {
 	}
 
 	/**
-	 * Make an A.I. move.
-	 * @param player
+	 * Make an A.I. move, or flying
+	 * 
+	 * @param player: 0/1 	flying = true --> flying.
 	 * @return
 	 */
-	public void makeAImove(int player) {
-//		PointGame pointFrom = null;
-//		PointGame pointTo = null;
-//		if (!game.endOfGame()) {
-//			Player p = (player == 0 ? p1 : p2);
-//			Player opponent = (player == 0 ? p2 : p1);
-//			
-//			PointGame[] points = p.findAStupidMove();
-//			pointFrom = points[0];
-//			pointTo = points[1];
-//			
-//			Node nodeFrom = getNodeByPointGame(pointFrom);
-//			Node nodeTo = getNodeByPointGame(pointTo);
-//			
-//			System.out.println("Player" + player + " to move a man: ");
-//			System.out.println("Available points:");
-//			for (PointGame pt : p.getMenOnTheBoard()) {
-//				System.out.print(pt);
-//			}
-//			
-//			selectedPiece = getLabel(nodeFrom.location);
-//			if (selectedPiece != null) {
-//			
-//				int x = nodeTo.location.x;
-//				int y = nodeTo.location.y;
-//				System.out.println("------Selected FROM Point was: ------");
-//				System.out.println(nodeFrom.getId());
-//	
-//				System.out.println("To:");
-//				System.out.println(pointTo);
-//	
-//				validMove = game.makeAnAction(pointFrom, pointTo, player);
-//				
-//				if (validMove) {
-//					ImageIcon icon = null;
-//					if (whitesTurn) {
-//						icon = createImageIcon("/resources/White_Stone.png");
-//						selectedPiece.setIcon(icon);
-//					} else {
-//						icon = createImageIcon("/resources/Black_Stone.png");
-//						selectedPiece.setIcon(icon);
-//					}
-//					txtLogArea.append(game.getAction() + "\n");
-//					switch (game.getAction()) {
-//						case "FLY":
-//							selectedPiece.setBounds(x, y, 50, 50);
-//							nodeFrom.setIsBusy(0);
-//							selectedPiece = null;
-//							break;
-//						case "MOVE":
-//							selectedPiece.setBounds(x, y, 50, 50);
-//							nodeFrom.setIsBusy(0);
-//							selectedPiece = null;
-//							break;
-//						case "REMOVE":
-//							System.out.println("Remove me");
-//						default:
-//							break;
-//					}
-//					
-//					// TODO: fix
-//					if (game.hasMills(player, pointTo)) {
-//						System.out.println("Player " + player + " has a MILL!");
-//						System.out.println("Ask Player " + player + ": to remove a man of Player "
-//									+ (player==0 ? 1 : 0));
-//						deleteFlag = true;
-//						System.out.println("Computer can remove one from: ");
-//						for (PointGame pt : (opponent.getMenOnTheBoard())) {
-//							System.out.print(pt);
-//						}
-//						System.out.println("\nSelect the "
-//										+ (player==0 ? 1 : 0)
-//										+ " Man you want to remove while some NOthing on hand ");
-//							}
-//					whitesTurn = !whitesTurn;
-//					blacksTurn = !blacksTurn;
-//					// Get one of opponents' man.
-//					// Stupid remove----------------
-//					PointGame pointRemove = opponent.makeStupidRemove();
-//					// remove it.
-//					Node nodeRemove = getNodeByPointGame(pointRemove);
-//					doSomething(nodeRemove.location);
-//					
-//					if (whitesTurn) {
-//						txtLogArea.append("Whites turn!\n");
-//					} else {
-//						txtLogArea.append("Blacks turn!\n");
-//					}
-//					turnOfStarter = !turnOfStarter;
-//	
-//				}
-//			}
-//		} else {
-//			// End Of Game
-//			if (p1.lose()) {
-//				System.out.println("Black Wins!");
-//				txtLogArea.append("Black Wins!");
-//			} else {
-//				System.out.println("White Wins!");
-//				txtLogArea.append("White Wins!");
-//			}
-//		}
-		
+	public void makeAImove(int player, boolean flying) {
+		PointGame pointFrom = null;
+		PointGame pointTo = null;
+		if (!game.endOfGame()) {
+			Player p = (player == 0 ? p1 : p2);
+			Player opponent = (player == 0 ? p2 : p1);
+			
+			PointGame[] points;
+			// Move or fly. --------------------
+			if (flying)
+				points = p.findAStupidFly();
+			else
+				points = p.findAStupidMove();
+			//----------------------------------
+			pointFrom = points[0];
+			pointTo = points[1];
+
+			Node nodeFrom = getNodeByPointGame(pointFrom);
+			Node nodeTo = getNodeByPointGame(pointTo);
+
+			System.out.println("Player" + player + " to move a man: ");
+			System.out.println("Available points:");
+			for (PointGame pt : p.getMenOnTheBoard()) {
+				System.out.print(pt);
+			}
+
+			selectedPiece = getLabel(nodeFrom.location);
+			if (selectedPiece != null) {
+
+				int x = nodeTo.location.x;
+				int y = nodeTo.location.y;
+				System.out.println("------Selected FROM Point was: ------");
+				System.out.println(nodeFrom.getId());
+
+				System.out.println("To:");
+				System.out.println(pointTo);
+
+				validMove = game.makeAnAction(pointFrom, pointTo, player);
+
+				if (validMove) {
+					ImageIcon icon = null;
+					if (whitesTurn) {
+						icon = createImageIcon("/resources/White_Stone.png");
+						selectedPiece.setIcon(icon);
+					} else {
+						icon = createImageIcon("/resources/Black_Stone.png");
+						selectedPiece.setIcon(icon);
+					}
+					txtLogArea.append(game.getAction() + "\n");
+					switch (game.getAction()) {
+					case "FLY":
+						selectedPiece.setBounds(x, y, 50, 50);
+						nodeFrom.setIsBusy(0);
+						selectedPiece = null;
+						break;
+					case "MOVE":
+						selectedPiece.setBounds(x, y, 50, 50);
+						nodeFrom.setIsBusy(0);
+						selectedPiece = null;
+						break;
+					case "REMOVE":
+						System.out.println("Remove me");
+					default:
+						break;
+					}
+
+					// TODO: fix
+					if (game.hasMills(player, pointTo)) {
+						System.out.println("Player " + player + " has a MILL!");
+						System.out.println("Ask Player " + player
+								+ ": to remove a man of Player "
+								+ (player == 0 ? 1 : 0));
+						deleteFlag = true;
+						System.out.println("Computer can remove one from: ");
+						for (PointGame pt : (opponent.getMenOnTheBoard())) {
+							System.out.print(pt);
+						}
+						System.out
+								.println("\nSelect the "
+										+ (player == 0 ? 1 : 0)
+										+ " Man you want to remove while some NOthing on hand ");
+					}
+					whitesTurn = !whitesTurn;
+					blacksTurn = !blacksTurn;
+					// Get one of opponents' man.
+					// Stupid remove----------------
+					PointGame pointRemove = opponent.makeStupidRemove();
+					// remove it.
+					Node nodeRemove = getNodeByPointGame(pointRemove);
+					doSomething(nodeRemove.location);
+
+					if (whitesTurn) {
+						txtLogArea.append("Whites turn!\n");
+					} else {
+						txtLogArea.append("Blacks turn!\n");
+					}
+					turnOfStarter = !turnOfStarter;
+
+				}
+			}
+		} else {
+			// End Of Game
+			if (p1.lose()) {
+				System.out.println("Black Wins!");
+				txtLogArea.append("Black Wins!");
+			} else {
+				System.out.println("White Wins!");
+				txtLogArea.append("White Wins!");
+			}
+		}
+
 	}
 
 	/**
-	 * // a.i. Return an array of points. // Return an array of 3 points: [pt1,
-	 * pt2, null]: Player2 moved a man from pt1 to pt2, no mills formed. //
-	 * Return an array of 3 points: [null, pt2, pt3]: Player2 moved a man from
-	 * pt1 to pt2, form a mill and remove pt3 from Player1.
+	 * Make an AI fly.
 	 * 
 	 * @param player
 	 * @return
 	 */
 	public void makeAIfly(int player) {
-		// TODO
+		
 	}
 
 	/**
@@ -1152,7 +1183,7 @@ public class NMMPanel extends JPanel {
 							// doSomething(node.location);
 						} else {
 							// TODO: Move
-							makeAImove(1);
+							makeAImove(1, false);
 						}
 					}
 					// }
@@ -1239,7 +1270,7 @@ public class NMMPanel extends JPanel {
 	 * Do add the drag and drop mouse event listener
 	 * 
 	 * @author milsonmunakami
-	 *
+	 * 
 	 */
 	class DragMouseAdapter extends MouseAdapter {
 		public void mousePressed(MouseEvent e) {

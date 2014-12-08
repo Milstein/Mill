@@ -245,6 +245,22 @@ public class Player {
 	}
 
 	/**
+	 * Make a stupid fly as an A.I.
+	 * @return
+	 */
+	public PointGame[] findAStupidFly() {
+		PointGame[] moveSeq = new PointGame[2];
+		moveSeq[0] = menOnTheBoard.get(0);
+		for(PointGame pt : Board.validPoints){
+			if (!Board.isOccupied(pt)) {
+				moveSeq[1] = pt;
+				return moveSeq;
+			}
+		}
+		return null;
+	}
+	
+	/**
 	 * Stupid remove method. IQ = 20.
 	 * @return
 	 */
