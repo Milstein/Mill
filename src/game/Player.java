@@ -212,11 +212,35 @@ public class Player {
 	}
 
 	/**
-	 * Make a move as an A.I.
-	 * @return an array of length 1 for place a man: [pointTo]
-	 * 			an array of length 2 for moving a man: [pointFrom, pointTo]
+	 * Make a move as an a.i.
+	 * @return
 	 */
-	public PointGame[] makeAIMove() {
+	public PointGame findAStupidPlace() {
+		PointGame pointToPlace = null;
+		for (PointGame pt : Board.validPoints) {
+			if (!Board.isOccupied(pt)) {
+				pointToPlace = pt;
+				return pointToPlace;
+			}
+		}
+		return pointToPlace;
+	}
+	/**
+	 * Make a move as an A.I.
+	 * @return - an array of length 2 for moving a man: [pointFrom, pointTo]
+	 */
+	public PointGame[] findAStupidMove() {
+		PointGame[] moveSeq = new PointGame[2];
+		for (PointGame pt1 : getMenOnTheBoard()) {
+			Set<PointGame> adj = pt1.getAdjacentPoints();
+			for (PointGame pt2 : adj) {
+				if (!Board.isOccupied(pt2)) {
+					moveSeq[0] = pt1;
+					moveSeq[1] = pt2;
+					return moveSeq;
+				}
+			}
+		}
 		return null;
 	}
 	
