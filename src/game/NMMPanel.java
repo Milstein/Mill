@@ -201,9 +201,8 @@ public class NMMPanel extends JPanel {
 		for (int i = 0; i < counter; i++) {
 			final JLabel interactionFields = new JLabel();
 
-			interactionFields.setText(nodes[i].location.x + ", "
-					+ nodes[i].location.y);
-			interactionFields.setBackground(Color.ORANGE);
+			// interactionFields.setText(nodes[i].location.x + ", "
+			// + nodes[i].location.y);
 
 			interactionFields.setHorizontalAlignment(SwingConstants.CENTER);
 			interactionFields.setBounds(nodes[i].location.x,
@@ -487,16 +486,14 @@ public class NMMPanel extends JPanel {
 								newpt, getNode(point).getIsBusy() - 1);
 
 						if (validMove) {
-							// ImageIcon icon = null;
-							// if (whitesTurn) {
-							// icon =
-							// createImageIcon("/resources/White_Stone.png");
-							// selectedPiece.setIcon(icon);
-							// } else {
-							// icon =
-							// createImageIcon("/resources/Black_Stone.png");
-							// selectedPiece.setIcon(icon);
-							// }
+							ImageIcon icon = null;
+							if (whitesTurn) {
+								icon = createImageIcon("/resources/White_Stone.png");
+								selectedPiece.setIcon(icon);
+							} else {
+								icon = createImageIcon("/resources/Black_Stone.png");
+								selectedPiece.setIcon(icon);
+							}
 							txtLogArea.append(game.getAction() + "\n");
 							switch (game.getAction()) {
 							case "FLY":
@@ -936,8 +933,9 @@ public class NMMPanel extends JPanel {
 						deleteFlag = false;
 						getNode(lblWhite.getBounds().getLocation())
 								.setIsBusy(0);
-						// lblWhite.remove(lblWhite);
+
 						lblWhite.setVisible(false);
+						lblWhite.setLocation(0, 0);
 					} else {
 						System.err.println("Invalid point to remove!");
 					}
@@ -995,9 +993,8 @@ public class NMMPanel extends JPanel {
 						getNode(lblBlack.getBounds().getLocation())
 								.setIsBusy(0);
 
-						// lblBlack.remove(lblBlack);
-
 						lblBlack.setVisible(false);
+						lblBlack.setLocation(0, 0);
 					} else {
 						System.err.println("Invalid point to remove!");
 					}
