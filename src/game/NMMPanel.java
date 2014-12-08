@@ -36,7 +36,7 @@ public class NMMPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JFrame frame;
 	private int appWidth = 735;
-	private int appHeigth = 700;
+	private int appHeigth = 835;
 
 	private JPanel topButtonPanel, topLeftPanel, topRightPanel; // main
 	private JLayeredPane centerPanel;
@@ -201,8 +201,9 @@ public class NMMPanel extends JPanel {
 		for (int i = 0; i < counter; i++) {
 			final JLabel interactionFields = new JLabel();
 
-			// interactionFields.setText(nodes[i].location.x + ", " +
-			// nodes[i].location.y);
+			interactionFields.setText(nodes[i].location.x + ", "
+					+ nodes[i].location.y);
+			interactionFields.setBackground(Color.ORANGE);
 
 			interactionFields.setHorizontalAlignment(SwingConstants.CENTER);
 			interactionFields.setBounds(nodes[i].location.x,
@@ -476,22 +477,26 @@ public class NMMPanel extends JPanel {
 						x_1 = resetNode.getPosition().x;
 						y_1 = resetNode.getPosition().y;
 
-						ImageIcon icon = null;
-						if (whitesTurn) {
-							icon = createImageIcon("/resources/White_Stone.png");
-							selectedPiece.setIcon(icon);
-						} else {
-							icon = createImageIcon("/resources/Black_Stone.png");
-							selectedPiece.setIcon(icon);
-						}
 						System.out.println("To:");
 						int x_2 = getNode(point).getPosition().x;
 						int y_2 = getNode(point).getPosition().y;
 						PointGame newpt = new PointGame(x_2, y_2);
+						System.out.println(x_2 + ", " + y_2);
+
 						validMove = game.makeAnAction(new PointGame(x_1, y_1),
 								newpt, getNode(point).getIsBusy() - 1);
 
 						if (validMove) {
+							// ImageIcon icon = null;
+							// if (whitesTurn) {
+							// icon =
+							// createImageIcon("/resources/White_Stone.png");
+							// selectedPiece.setIcon(icon);
+							// } else {
+							// icon =
+							// createImageIcon("/resources/Black_Stone.png");
+							// selectedPiece.setIcon(icon);
+							// }
 							txtLogArea.append(game.getAction() + "\n");
 							switch (game.getAction()) {
 							case "FLY":
@@ -931,7 +936,7 @@ public class NMMPanel extends JPanel {
 						deleteFlag = false;
 						getNode(lblWhite.getBounds().getLocation())
 								.setIsBusy(0);
-
+						// lblWhite.remove(lblWhite);
 						lblWhite.setVisible(false);
 					} else {
 						System.err.println("Invalid point to remove!");
@@ -989,6 +994,8 @@ public class NMMPanel extends JPanel {
 
 						getNode(lblBlack.getBounds().getLocation())
 								.setIsBusy(0);
+
+						// lblBlack.remove(lblBlack);
 
 						lblBlack.setVisible(false);
 					} else {
