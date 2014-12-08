@@ -243,6 +243,14 @@ public class Player {
 		}
 		return null;
 	}
+
+	/**
+	 * Stupid remove method. IQ = 20.
+	 * @return
+	 */
+	public PointGame makeStupidRemove() {
+		return menOnTheBoard.get(0);
+	}
 	
 	/**
 	 * return a string of the player.
@@ -254,5 +262,6 @@ public class Player {
 		str += ("MenOnTheBoard: " + menOnTheBoard);
 		return str;
 	}
+
 
 }
