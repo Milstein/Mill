@@ -1093,7 +1093,7 @@ public class NMMPanel extends JPanel {
 					PointGame pt = new PointGame(x_remove, y_remove);
 					if (p1.getMenOnTheBoard().contains(pt)) {
 						game.removeAMan(0, pt);
-						txtLogArea.append("\nDeleted White Man @ " + pt + "\n");
+						txtLogArea.append("\nDeleted White Man @ " + pt);
 						deleteFlag = false;
 						getNode(lblWhite.getBounds().getLocation())
 								.setIsBusy(0);
