@@ -172,7 +172,7 @@ public class NMMPanel extends JPanel {
 
 		JScrollPane scrollPane = new JScrollPane();
 		// scrollPane.setBounds(6, 0, 710, 140);
-		scrollPane.setBounds(6, 645, 710, 49);	//149
+		scrollPane.setBounds(6, 645, 710, 149);	//49
 		frame.getContentPane().add(scrollPane);
 
 		txtLogArea = new JTextArea();
