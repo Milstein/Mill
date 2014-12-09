@@ -247,12 +247,12 @@ public class NMMPanel extends JPanel {
 						if (!deleteFlag) {
 							if (setting.getPlayer(1).contains("Computer")) {
 								if (p1.menOnTheBoard.size() <= 3) {
-									System.out.println(countPieces(true));
+									// System.out.println(countPieces(true));
 									// brain.jumpPiece(nodes, 0);
 									// A.I.fly // TODO
 									makeAImove(0, true);
 								} else {
-									System.out.println(countPieces(true));
+									// System.out.println(countPieces(true));
 
 									// brain.movePiece(nodes, 0);
 									// A.I.move // TODO
@@ -275,12 +275,12 @@ public class NMMPanel extends JPanel {
 						if (!deleteFlag
 								&& setting.getPlayer(2).contains("Computer")) {
 							if (p2.menOnTheBoard.size() <= 3) {
-								System.out.println(countPieces(false));
+								// System.out.println(countPieces(false));
 								// brain.jumpPiece(nodes, 1);
 								// A.I.fly
 								makeAImove(1, true);
 							} else {
-								System.out.println(countPieces(false));
+								// System.out.println(countPieces(false));
 
 								// brain.movePiece(nodes, 1);
 								// A.I.move
@@ -477,7 +477,7 @@ public class NMMPanel extends JPanel {
 					}
 					turnOfStarter = !turnOfStarter;
 				}
-				
+
 			} else {
 				if (player.getMenHoldInHand() == 0) {
 					System.out.println("Player" + getNode(point).getIsBusy()
@@ -609,20 +609,23 @@ public class NMMPanel extends JPanel {
 							}
 							turnOfStarter = !turnOfStarter;
 
-						}
-						 else {
-								if (turnOfStarter) {
-									if (selectedPiece != null) {
-										ImageIcon iconWhiteSelected = createImageIcon("/resources/White_Stone.png");
-										selectedPiece.setIcon(iconWhiteSelected);
-									}
-								} else {
-									if (selectedPiece != null) {
-										ImageIcon iconBlackSelected = createImageIcon("/resources/Black_Stone.png");
-										selectedPiece.setIcon(iconBlackSelected);
-									}
+						} else {
+							// To reset the men when Invalid click
+							txtLogArea.append("\nInvalid move from point "
+									+ "(" + resetNode.getId() + ")" + " to "
+									+ newpt);
+							if (turnOfStarter) {
+								if (selectedPiece != null) {
+									ImageIcon iconWhiteSelected = createImageIcon("/resources/White_Stone.png");
+									selectedPiece.setIcon(iconWhiteSelected);
+								}
+							} else {
+								if (selectedPiece != null) {
+									ImageIcon iconBlackSelected = createImageIcon("/resources/Black_Stone.png");
+									selectedPiece.setIcon(iconBlackSelected);
 								}
 							}
+						}
 					}
 				}
 			}
