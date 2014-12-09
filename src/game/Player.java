@@ -265,7 +265,25 @@ public class Player {
 	 * @return
 	 */
 	public PointGame makeStupidRemove() {
-		return menOnTheBoard.get(0);
+		// Adding mill check 12/9
+		// If every man is in a mill, don't care.
+		PointGame freePoint = null;
+		for (PointGame p : menOnTheBoard) {
+			if (!hasMills(p)) {
+				freePoint = p;
+				break;
+			}					
+		}
+		// If we have a man not on a mill.
+		if (freePoint != null) {
+			System.out.println("First free point: " + freePoint);
+			return freePoint;
+		} else {
+			// Else we don't need to check the point.
+			System.out.println("First avaliable point: " + menOnTheBoard.get(0));
+			return menOnTheBoard.get(0);
+		}
+
 	}
 	
 	/**
