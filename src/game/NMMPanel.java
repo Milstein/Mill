@@ -477,6 +477,7 @@ public class NMMPanel extends JPanel {
 					}
 					turnOfStarter = !turnOfStarter;
 				}
+				
 			} else {
 				if (player.getMenHoldInHand() == 0) {
 					System.out.println("Player" + getNode(point).getIsBusy()
