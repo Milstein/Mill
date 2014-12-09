@@ -689,7 +689,8 @@ public class NMMPanel extends JPanel {
 	/**
 	 * Make an A.I. move, or flying
 	 * 
-	 * @param player: 0/1 	flying = true --> flying.
+	 * @param player
+	 *            : 0/1 flying = true --> flying.
 	 * @return
 	 */
 	public void makeAImove(int player, boolean flying) {
@@ -698,14 +699,14 @@ public class NMMPanel extends JPanel {
 		if (!game.endOfGame()) {
 			Player p = (player == 0 ? p1 : p2);
 			Player opponent = (player == 0 ? p2 : p1);
-			
+
 			PointGame[] points;
 			// Move or fly. --------------------
 			if (flying)
 				points = p.findAStupidFly();
 			else
 				points = p.findAStupidMove();
-			//----------------------------------
+			// ----------------------------------
 			pointFrom = points[0];
 			pointTo = points[1];
 
@@ -773,15 +774,20 @@ public class NMMPanel extends JPanel {
 								.println("\nSelect the "
 										+ (player == 0 ? 1 : 0)
 										+ " Man you want to remove while some NOthing on hand ");
+
+						whitesTurn = !whitesTurn;
+						blacksTurn = !blacksTurn;
+						// Get one of opponents' man.
+						// Stupid remove----------------
+						PointGame pointRemove = opponent.makeStupidRemove();
+						// remove it.
+						Node nodeRemove = getNodeByPointGame(pointRemove);
+
+						doSomething(nodeRemove.location);
+					} else {
+						whitesTurn = !whitesTurn;
+						blacksTurn = !blacksTurn;
 					}
-					whitesTurn = !whitesTurn;
-					blacksTurn = !blacksTurn;
-					// Get one of opponents' man.
-					// Stupid remove----------------
-					PointGame pointRemove = opponent.makeStupidRemove();
-					// remove it.
-					Node nodeRemove = getNodeByPointGame(pointRemove);
-					doSomething(nodeRemove.location);
 
 					if (whitesTurn) {
 						txtLogArea.append("Whites turn!\n");
@@ -791,7 +797,10 @@ public class NMMPanel extends JPanel {
 					turnOfStarter = !turnOfStarter;
 
 				}
+				// reset.
+				validMove = false;
 			}
+
 		} else {
 			// End Of Game
 			if (p1.lose()) {
@@ -812,7 +821,7 @@ public class NMMPanel extends JPanel {
 	 * @return
 	 */
 	public void makeAIfly(int player) {
-		
+
 	}
 
 	/**
@@ -1084,7 +1093,7 @@ public class NMMPanel extends JPanel {
 					PointGame pt = new PointGame(x_remove, y_remove);
 					if (p1.getMenOnTheBoard().contains(pt)) {
 						game.removeAMan(0, pt);
-						txtLogArea.append("\nDeleted White Man @ " + pt);
+						txtLogArea.append("\nDeleted White Man @ " + pt + "\n");
 						deleteFlag = false;
 						getNode(lblWhite.getBounds().getLocation())
 								.setIsBusy(0);
@@ -1100,7 +1109,6 @@ public class NMMPanel extends JPanel {
 					// }
 					// }
 					if (setting.getPlayer(2).contains("Computer")) {
-
 						// if (countPieces(false) <= 3 && placedCounter > 17) {
 						// System.out.println(countPieces(false));
 						// // brain.jumpPiece(nodes, 2);
@@ -1183,7 +1191,9 @@ public class NMMPanel extends JPanel {
 							// doSomething(node.location);
 						} else {
 							// TODO: Move
+							// if (validMove) {
 							makeAImove(1, false);
+							// }
 						}
 					}
 					// }

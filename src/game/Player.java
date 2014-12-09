@@ -81,7 +81,7 @@ public class Player {
 	public boolean lose() {
 		if (menOnTheBoard.size() == 2 && menHoldInHand == 0)
 			return true;
-		if (menHoldInHand == 0 && !hasLegalMoves())
+		if (menHoldInHand == 0 && !hasLegalMoves() && menOnTheBoard.size()!=3)
 			return true;
 		return false;
 	}
