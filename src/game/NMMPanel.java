@@ -610,6 +610,19 @@ public class NMMPanel extends JPanel {
 							turnOfStarter = !turnOfStarter;
 
 						}
+						 else {
+								if (turnOfStarter) {
+									if (selectedPiece != null) {
+										ImageIcon iconWhiteSelected = createImageIcon("/resources/White_Stone.png");
+										selectedPiece.setIcon(iconWhiteSelected);
+									}
+								} else {
+									if (selectedPiece != null) {
+										ImageIcon iconBlackSelected = createImageIcon("/resources/Black_Stone.png");
+										selectedPiece.setIcon(iconBlackSelected);
+									}
+								}
+							}
 					}
 				}
 			}
