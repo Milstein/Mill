@@ -10,8 +10,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Set;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -174,7 +172,7 @@ public class NMMPanel extends JPanel {
 
 		JScrollPane scrollPane = new JScrollPane();
 		// scrollPane.setBounds(6, 0, 710, 140);
-		scrollPane.setBounds(6, 645, 710, 149);
+		scrollPane.setBounds(6, 645, 710, 49);	//149
 		frame.getContentPane().add(scrollPane);
 
 		txtLogArea = new JTextArea();
@@ -820,13 +818,13 @@ public class NMMPanel extends JPanel {
 
 		} else {
 			// End Of Game
-			if (p1.lose()) {
-				System.out.println("Black Wins!");
-				txtLogArea.append("Black Wins!");
-			} else {
-				System.out.println("White Wins!");
-				txtLogArea.append("White Wins!");
-			}
+//			if (p1.lose()) {
+//				System.out.println("Black Wins!");
+//				txtLogArea.append("Black Wins!");
+//			} else {
+//				System.out.println("White Wins!");
+//				txtLogArea.append("White Wins!");
+//			}
 		}
 
 	}
