@@ -214,6 +214,7 @@ public class Player {
 	/**
 	 * Make a move as an a.i.
 	 * @return
+	 * @throws InterruptedException 
 	 */
 	public PointGame findAStupidPlace() {
 		PointGame pointToPlace = null;
