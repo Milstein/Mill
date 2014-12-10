@@ -1094,6 +1094,7 @@ public class NMMPanel extends JPanel {
 	public void doSomething(Point point) {
 		if (!game.endOfGame()) {
 			if (whitesTurn) {
+				boolean noGoodPoint = true; // Indicate a good move or not.
 				JLabel lblWhite = getLabel(point);
 				if (deleteFlag && whitesTurn && lblWhite != null) {
 					// if (getNode(point).getIsBusy() == 1) {
@@ -1111,36 +1112,21 @@ public class NMMPanel extends JPanel {
 
 					// Adding remove ~ mill check. 12/9/
 					if (p1.getMenOnTheBoard().contains(pt)) {
-						boolean noGoodPoint = true;
-						while (noGoodPoint) {
-							// If every man is in a mill, don't care.
-							boolean hasManNotOnAMill = false;
-							for (PointGame p : p1.getMenOnTheBoard()) {
-								if (!p1.hasMills(p)) {
-									hasManNotOnAMill = true;
-									break;
-								}
-
+						// If every man is in a mill, don't care.
+						boolean hasManNotOnAMill = false;
+						for (PointGame p : p1.getMenOnTheBoard()) {
+							if (!p1.hasMills(p)) {
+								hasManNotOnAMill = true;
+								break;
 							}
-							// If we have a man not on a mill.
-							if (hasManNotOnAMill) {
-								if (!p1.hasMills(pt)) {
-									game.removeAMan(0, pt);
-									txtLogArea.append("\nDeleted White Man @ "
-											+ pt);
-									deleteFlag = false;
-									getNode(lblWhite.getBounds().getLocation())
-											.setIsBusy(0);
 
-									lblWhite.setVisible(false);
-									lblWhite.setLocation(0, 0);
-								}
-								noGoodPoint = false;
-							} else {
-								// Else we don't need to check the point.
+						}
+						// If we have a man not on a mill.
+						if (hasManNotOnAMill) {
+							if (!p1.hasMills(pt)) {
 								game.removeAMan(0, pt);
-								txtLogArea
-										.append("\nDeleted White Man @ " + pt);
+								txtLogArea.append("\nDeleted White Man @ "
+										+ pt);
 								deleteFlag = false;
 								getNode(lblWhite.getBounds().getLocation())
 										.setIsBusy(0);
@@ -1149,7 +1135,20 @@ public class NMMPanel extends JPanel {
 								lblWhite.setLocation(0, 0);
 								noGoodPoint = false;
 							}
+						} else {
+							// Else we don't need to check the point.
+							game.removeAMan(0, pt);
+							txtLogArea
+									.append("\nDeleted White Man @ " + pt);
+							deleteFlag = false;
+							getNode(lblWhite.getBounds().getLocation())
+									.setIsBusy(0);
+
+							lblWhite.setVisible(false);
+							lblWhite.setLocation(0, 0);
+							noGoodPoint = false;
 						}
+							
 					} else {
 						// System.err.println("Invalid point to remove!");
 						txtLogArea.append("Invalid point to remove!");
@@ -1159,18 +1158,22 @@ public class NMMPanel extends JPanel {
 					// }
 					// }
 					if (setting.getPlayer(1).contains("Computer")) {
-						if (p1.getMenHoldInHand() > 0) {
-							makeAIplace(0);
-							//
-							// doSomething(node.location);
+						if (noGoodPoint) {
+							// Do not fire AI.
 						} else {
-							// TODO: Move
-							// if (validMove) {
-							if(p1.getMenOnTheBoard().size()==3)
-								makeAImove(0, true);
-							else
-								makeAImove(0, false);
-							// }
+							if (p1.getMenHoldInHand() > 0) {
+								makeAIplace(0);
+								//
+								// doSomething(node.location);
+							} else {
+								// TODO: Move
+								// if (validMove) {
+								if(p1.getMenOnTheBoard().size()==3)
+									makeAImove(0, true);
+								else
+									makeAImove(0, false);
+								// }
+							}
 						}
 					}
 					// }
@@ -1191,6 +1194,7 @@ public class NMMPanel extends JPanel {
 				}
 			} else {
 				JLabel lblBlack = getLabel(point);
+				boolean noGoodPoint = true;
 				// System.err.println(point);
 				if (deleteFlag && blacksTurn && lblBlack != null) {
 					// if (getNode(point).getIsBusy() == 2) {
@@ -1208,44 +1212,41 @@ public class NMMPanel extends JPanel {
 					// Add remove ~ mill check.
 					// Adding remove ~ mill check. 12/9/
 					if (p2.getMenOnTheBoard().contains(pt)) {
-						boolean noGoodPoint = true;
-						while (noGoodPoint) {
-							// If every man is in a mill, don't care.
-							boolean hasManNotOnAMill = false;
-							for (PointGame p : p2.getMenOnTheBoard()) {
-								if (!p2.hasMills(p)) {
-									hasManNotOnAMill = true;
-									break;
-								}
+						// If every man is in a mill, don't care.
+						boolean hasManNotOnAMill = false;
+						for (PointGame p : p2.getMenOnTheBoard()) {
+							if (!p2.hasMills(p)) {
+								hasManNotOnAMill = true;
+								break;
 							}
-							// If we have a man not on a mill.
-							if (hasManNotOnAMill) {
-								if (!p2.hasMills(pt)) {
-									game.removeAMan(1, pt);
-									txtLogArea.append("\nDeleted Black Man @ "
-											+ pt);
-									deleteFlag = false;
-									getNode(lblBlack.getBounds().getLocation())
-											.setIsBusy(0);
-
-									lblBlack.setVisible(false);
-									lblBlack.setLocation(0, 0);
-								}
-								noGoodPoint = false;
-							} else {
-								// Else we don't need to check the point.
+						}
+						// If we have a man not on a mill.
+						if (hasManNotOnAMill) {
+							if (!p2.hasMills(pt)) {
 								game.removeAMan(1, pt);
-								txtLogArea
-										.append("\nDeleted Black Man @ " + pt);
+								txtLogArea.append("\nDeleted Black Man @ "
+										+ pt);
 								deleteFlag = false;
 								getNode(lblBlack.getBounds().getLocation())
 										.setIsBusy(0);
-
 								lblBlack.setVisible(false);
 								lblBlack.setLocation(0, 0);
 								noGoodPoint = false;
 							}
+
+						} else {
+							// Else we don't need to check the point.
+							game.removeAMan(1, pt);
+							txtLogArea
+									.append("\nDeleted Black Man @ " + pt);
+							deleteFlag = false;
+							getNode(lblBlack.getBounds().getLocation())
+									.setIsBusy(0);
+							lblBlack.setVisible(false);
+							lblBlack.setLocation(0, 0);
+							noGoodPoint = false;
 						}
+						
 					} else {
 						// System.err.println("Invalid point to remove!");
 						txtLogArea.append("Invalid point to remove!");
@@ -1262,18 +1263,22 @@ public class NMMPanel extends JPanel {
 						// System.out.println(countPieces(false));
 						// // brain.movePiece(nodes, 1);
 						// }
-						if (p2.getMenHoldInHand() > 0) {
-							makeAIplace(1);
-							//
-							// doSomething(node.location);
+						if (noGoodPoint) {
+							// Do not fire AI.
 						} else {
-							// TODO: Move
-							// if (validMove) {
-							if(p2.getMenOnTheBoard().size()==3)
-								makeAImove(1, true);
-							else
-								makeAImove(1, false);
-							// }
+							if (p2.getMenHoldInHand() > 0) {
+								makeAIplace(1);
+								//
+								// doSomething(node.location);
+							} else {
+								// TODO: Move
+								// if (validMove) {
+								if(p2.getMenOnTheBoard().size()==3)
+									makeAImove(1, true);
+								else
+									makeAImove(1, false);
+								// }
+							}
 						}
 					}
 					// }
