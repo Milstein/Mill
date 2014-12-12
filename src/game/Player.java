@@ -161,8 +161,8 @@ public class Player {
 	public boolean hasMills(PointGame newpt) {
 		// int x0 = newpt.getX();
 		// int y0 = newpt.getY();
-		if (!menOnTheBoard.contains(newpt))
-			return false;
+//		if (!menOnTheBoard.contains(newpt))
+//			return false;
 		PointGame left = newpt.getLeftNeighbor();
 		PointGame right = newpt.getRightNeighbor();
 		PointGame up = newpt.getUpNeighbor();
@@ -218,8 +218,18 @@ public class Player {
 	 */
 	public PointGame findAStupidPlace() {
 		PointGame pointToPlace = null;
+		// High Priority: form a mill.
+		for (PointGame pt : Board.validPoints) {
+			if (!Board.isOccupied(pt) && hasMills(pt)) {
+				pointToPlace = pt;
+				//System.out.println(pointToPlace);
+				return pointToPlace;
+			}
+		}
 		for (PointGame pt : Board.validPoints) {
 			if (!Board.isOccupied(pt)) {
+				System.out.println(pt);
+				System.out.println(hasMills(pt));
 				pointToPlace = pt;
 				return pointToPlace;
 			}
