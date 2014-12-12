@@ -836,7 +836,7 @@ public class NMMPanel extends JPanel {
 	 * @return
 	 */
 	public void makeAIfly(int player) {
-
+		// Implemented in makeAImove.
 	}
 
 	/**
