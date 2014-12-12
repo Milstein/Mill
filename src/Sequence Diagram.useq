@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.1.7" icons="true">  
+  <object id="1" language="java" name="game.Player" project="Mills" file="/Mills/src/game/Player.java" binary="false" 
+    label="player1" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="308" y="0"/>    
+    <execution id="2">      
+      <position height="204" width="59" x="5" y="108"/>    
+    </execution>    
+    <execution id="5">      
+      <position height="21" width="7" x="31" y="228"/>    
+    </execution>    
+    <execution id="6">      
+      <position height="568" width="59" x="5" y="431"/>    
+    </execution>    
+    <execution id="9">      
+      <position height="21" width="59" x="5" y="1472"/>    
+    </execution>  
+  </object>  
+  <object id="10" language="java" name="game.Splashscreen" project="Mills" file="/Mills/src/game/Splashscreen.java" 
+    binary="false" label="splashscreen" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="89" y="0"/>    
+    <execution id="4">      
+      <position height="162" width="102" x="68" y="129"/>    
+    </execution>    
+    <execution id="8">      
+      <position height="526" width="102" x="68" y="452"/>    
+    </execution>  
+  </object>  
+  <object id="15" language="java" name="game.NMMPanel" project="Mills" file="/Mills/src/game/NMMPanel.java" 
+    binary="false" label="nmmPanel" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="98" y="0"/>    
+    <execution id="12">      
+      <position height="120" width="83" x="174" y="150"/>    
+    </execution>    
+    <execution id="17">      
+      <position height="21" width="7" x="212" y="192"/>    
+    </execution>    
+    <execution id="14">      
+      <position height="484" width="83" x="174" y="473"/>    
+    </execution>    
+    <execution id="21">      
+      <position height="63" width="83" x="174" y="1451"/>    
+    </execution>  
+  </object>  
+  <object id="23" language="java" name="game.Board" project="Mills" file="/Mills/src/game/Board.java" binary="false" 
+    label="board" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="235" y="0"/>    
+    <execution id="20">      
+      <position height="442" width="57" x="261" y="494"/>    
+    </execution>  
+  </object>  
+  <object id="26" language="java" name="game.Player" project="Mills" file="/Mills/src/game/Player.java" binary="false" 
+    label="player" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="246" y="0"/>    
+    <execution id="25">      
+      <position height="400" width="59" x="322" y="515"/>    
+    </execution>    
+    <execution id="28">      
+      <position height="21" width="7" x="348" y="573"/>    
+    </execution>    
+    <execution id="35">      
+      <position height="21" width="7" x="348" y="763"/>    
+    </execution>    
+    <execution id="34">      
+      <position height="21" width="7" x="348" y="873"/>    
+    </execution>    
+    <execution id="36">      
+      <position height="364" width="59" x="322" y="967"/>    
+    </execution>    
+    <execution id="38">      
+      <position height="21" width="59" x="322" y="1009"/>    
+    </execution>    
+    <execution id="45">      
+      <position height="21" width="7" x="348" y="1141"/>    
+    </execution>    
+    <execution id="42">      
+      <position height="21" width="7" x="348" y="1204"/>    
+    </execution>    
+    <execution id="44">      
+      <position height="21" width="7" x="348" y="1289"/>    
+    </execution>    
+    <execution id="46">      
+      <position height="156" width="59" x="322" y="1379"/>    
+    </execution>    
+    <execution id="48">      
+      <position height="21" width="59" x="322" y="1421"/>    
+    </execution>    
+    <execution id="32">      
+      <position height="21" width="7" x="348" y="821"/>    
+    </execution>  
+  </object>  
+  <object id="50" language="java" name="game.PointGame" project="Mills" file="/Mills/src/game/PointGame.java" 
+    binary="false" label="pointGame" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="343" y="0"/>    
+    <execution id="30">      
+      <position height="137" width="85" x="385" y="668"/>    
+    </execution>    
+    <execution id="52">      
+      <position height="21" width="7" x="424" y="710"/>    
+    </execution>    
+    <execution id="40">      
+      <position height="112" width="85" x="385" y="1071"/>    
+    </execution>    
+    <execution id="55">      
+      <position height="21" width="7" x="424" y="1113"/>    
+    </execution>  
+  </object>  
+  <note id="57">    
+    <position height="39" width="72" x="41" y="388"/>    
+    <text><![CDATA[1.  player 
+run game]]>
+    </text>  
+  </note>  
+  <note id="58">    
+    <position height="40" width="84" x="126" y="407"/>    
+    <text><![CDATA[2. Select human or AI]]>
+    </text>  
+  </note>  
+  <note id="59">    
+    <position height="42" width="115" x="226" y="202"/>    
+    <text><![CDATA[3. Quit the game
+ on game board]]>
+    </text>  
+  </note>  
+  <note id="60">    
+    <position height="27" width="153" x="52" y="236"/>    
+    <text><![CDATA[4. Player quit the game]]>
+    </text>  
+  </note>  
+  <note id="61">    
+    <position height="57" width="106" x="233" y="414"/>    
+    <text><![CDATA[3. Place a man on one of the 24 possible point]]>
+    </text>  
+  </note>  
+  <note id="62">    
+    <position height="44" width="127" x="359" y="450"/>    
+    <text><![CDATA[4. Check the placed point to meet rule]]>
+    </text>  
+  </note>  
+  <note id="63">    
+    <position height="37" width="140" x="433" y="549"/>    
+    <text><![CDATA[5. Place man by turns and meet rule]]>
+    </text>  
+  </note>  
+  <note id="64">    
+    <position height="25" width="190" x="364" y="1026"/>    
+    <text><![CDATA[2. Check the point to form mill]]>
+    </text>  
+  </note>  
+  <note id="65">    
+    <position height="43" width="141" x="477" y="1070"/>    
+    <text><![CDATA[3. Check the adjacent point to count mill]]>
+    </text>  
+  </note>  
+  <note id="66">    
+    <position height="41" width="162" x="438" y="1160"/>    
+    <text><![CDATA[4. Remove one man from another player]]>
+    </text>  
+  </note>  
+  <note id="67">    
+    <position height="37" width="156" x="365" y="896"/>    
+    <text><![CDATA[10. Start to move man if 9 men have been placed]]>
+    </text>  
+  </note>  
+  <note id="68">    
+    <position height="24" width="149" x="406" y="974"/>    
+    <text><![CDATA[1. Move man by turns]]>
+    </text>  
+  </note>  
+  <note id="69">    
+    <position height="27" width="182" x="369" y="1229"/>    
+    <text><![CDATA[5. Allow to fly by last three men]]>
+    </text>  
+  </note>  
+  <note id="70">    
+    <position height="26" width="147" x="364" y="1427"/>    
+    <text><![CDATA[1.Check who is winner]]>
+    </text>  
+  </note>  
+  <note id="71">    
+    <position height="41" width="121" x="224" y="1461"/>    
+    <text><![CDATA[2. Show message diagram]]>
+    </text>  
+  </note>  
+  <note id="72">    
+    <position height="42" width="159" x="47" y="1481"/>    
+    <text><![CDATA[3. Player know who is winner from message ]]>
+    </text>  
+  </note>  
+  <note id="73">    
+    <position height="27" width="187" x="360" y="616"/>    
+    <text><![CDATA[6. Check the point to form mill]]>
+    </text>  
+  </note>  
+  <note id="74">    
+    <position height="39" width="139" x="483" y="668"/>    
+    <text><![CDATA[7. Check the adjacent point to count mill]]>
+    </text>  
+  </note>  
+  <note id="75">    
+    <position height="25" width="251" x="359" y="732"/>    
+    <text><![CDATA[8. Remove one man from opponent player]]>
+    </text>  
+  </note>  
+  <note id="76">    
+    <position height="28" width="153" x="403" y="798"/>    
+    <text><![CDATA[9. Check who is winner]]>
+    </text>  
+  </note>  
+  <message id="3" operation="Splashscreen()">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="7" operation="Splashscreen()">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="8"/>  
+  </message>  
+  <message id="11" operation="NMMPanel(game.Settings)">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="12"/>  
+  </message>  
+  <message id="13" operation="NMMPanel(game.Settings)">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="14"/>  
+  </message>  
+  <message id="16" operation="doSomething(java.awt.Point):void">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="17"/>  
+  </message>  
+  <message id="18" operation="Player(java.lang.String,int)">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="5"/>  
+  </message>  
+  <message id="19" operation="Board(java.lang.String,java.lang.String)">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="20"/>  
+  </message>  
+  <message id="22" operation="lose():boolean" x="37" y="1340">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="9"/>  
+  </message>  
+  <message id="24" operation="getMenOnTheBoard():java.util.ArrayList&lt;PointGame&gt;">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="25"/>  
+  </message>  
+  <message id="27" operation="placeAMan(game.PointGame):void" x="362" y="530">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="28"/>  
+  </message>  
+  <message id="29" operation="PointGame(int,int)" x="358" y="647">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="30"/>  
+  </message>  
+  <message id="31" operation="lose():boolean" x="372" y="826">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="32"/>  
+  </message>  
+  <message id="33" operation="moveAMan(game.PointGame,game.PointGame):void" x="368" y="878">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="34"/>  
+  </message>  
+  <message id="37" operation="moveAMan(game.PointGame,game.PointGame):void" x="404" y="1000">    
+    <end type="SOURCE" refId="36"/>    
+    <end type="TARGET" refId="38"/>  
+  </message>  
+  <message id="39" operation="PointGame(int,int)">    
+    <end type="SOURCE" refId="36"/>    
+    <end type="TARGET" refId="40"/>  
+  </message>  
+  <message id="41" operation="allowToFly():boolean" x="370" y="1211">    
+    <end type="SOURCE" refId="36"/>    
+    <end type="TARGET" refId="42"/>  
+  </message>  
+  <message id="43" operation="lose():boolean" x="363" y="1295">    
+    <end type="SOURCE" refId="36"/>    
+    <end type="TARGET" refId="44"/>  
+  </message>  
+  <message id="47" operation="lose():boolean">    
+    <end type="SOURCE" refId="46"/>    
+    <end type="TARGET" refId="48"/>  
+  </message>  
+  <message id="49" operation="doSomething(java.awt.Point):void">    
+    <end type="SOURCE" refId="46"/>    
+    <end type="TARGET" refId="21"/>  
+  </message>  
+  <message id="51" operation="getAdjacentPoints():java.util.Set&lt;PointGame&gt;" x="440" y="714">    
+    <end type="SOURCE" refId="30"/>    
+    <end type="TARGET" refId="52"/>  
+  </message>  
+  <message id="53" operation="removeAMan(game.PointGame):void" x="375" y="764">    
+    <end type="SOURCE" refId="30"/>    
+    <end type="TARGET" refId="35"/>  
+  </message>  
+  <message id="54" operation="getAdjacentPoints():java.util.Set&lt;PointGame&gt;" x="440" y="1118">    
+    <end type="SOURCE" refId="40"/>    
+    <end type="TARGET" refId="55"/>  
+  </message>  
+  <message id="56" operation="removeAMan(game.PointGame):void" x="373" y="1143">    
+    <end type="SOURCE" refId="40"/>    
+    <end type="TARGET" refId="45"/>  
+  </message>
+</sequence-diagram>
